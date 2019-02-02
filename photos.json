@@ -1,0 +1,20 @@
+[
+  { "id": "29570394020", "secret": "a50f9be15b", "server": "8389", "width": [8] },
+  { "id": "29750125002", "secret": "0120bbc7f0", "server": "5641", "width": [4] },
+  { "id": "24744987805", "secret": "42223dabdc", "server": "1710", "width": [12] },
+  { "id": "27503104934", "secret": "1824e74bbd", "server": "7326", "width": [4] },
+  { "id": "28116178841", "secret": "fedd841ee7", "server": "8700", "width": [8] },
+  { "id": "29570398080", "secret": "d757d18eb0", "server": "5718", "width": [5] },
+  { "id": "26908723540", "secret": "5e99cb8bcf", "server": "7561", "width": [7] },
+  { "id": "26447419426", "secret": "07591691fe", "server": "1569", "width": [6] },
+  { "id": "25576813036", "secret": "58ba279588", "server": "1618", "width": [6] },
+  { "id": "24258928724", "secret": "d6d1fedff2", "server": "1638", "width": [6] },
+  { "id": "24563956126", "secret": "04f18fcf11", "server": "1488", "width": [6] },
+  { "id": "24348000285", "secret": "f1d3f32609", "server": "1649", "width": [6] },
+  { "id": "23390067634", "secret": "6bcda5fe9e", "server": "1570", "width": [6] },
+  { "id": "23391211893", "secret": "93076c6106", "server": "1624", "width": [6] },
+  { "id": "24018013085", "secret": "cbf8b2f2ed", "server": "5835", "width": [6] },
+  { "id": "24018013875", "secret": "dcb08102b8", "server": "5735", "width": [6] },
+  { "id": "23722243090", "secret": "cf2d4bf749", "server": "5626", "width": [6] },
+  { "id": "23935485501", "secret": "f3dceece76", "server": "5775", "width": [6] }
+]
