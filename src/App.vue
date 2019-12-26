@@ -1,32 +1,36 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+	<div class="nb-app" id="app">
+		<div class="nb-app__nav">
+			<nav-bar />
+		</div>
+		<div class="nb-app__page">
+			<router-view />
+		</div>
+	</div>
 </template>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import NavBar from '@/views/NavBar'
 
-#nav {
-  padding: 30px;
+export default {
+	name: 'app',
+	components: { NavBar },
 }
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+<style lang="scss" scoped>
+.nb-app {
+	display: flex;
+	min-height: 100vh;
+	padding-top: var(--space);
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+	&__nav {
+		flex: 0 0 300px;
+		border-right: solid thin var(--c-border);
+	}
+	&__page {
+		flex: 0 1 100%;
+		padding: 2rem 0 2rem var(--space);
+	}
 }
 </style>
