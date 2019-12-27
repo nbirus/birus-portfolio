@@ -103,3 +103,12 @@ button {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
+
+.page {
+	padding: 3rem 2rem;
+}
+@media only screen and (max-width: 768px) {
+	.page {
+		padding: 1.5rem 1.5rem 2rem;
+	}
+}

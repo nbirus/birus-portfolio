@@ -24,9 +24,10 @@ export default {
 	&__fixed {
 		position: fixed;
 		width: var(--nav-width);
+		padding-top: 3rem;
 	}
 	&__contain {
-		padding: 0 2rem;
+		padding: 0 1.5rem;
 	}
 	&__link {
 		color: var(--c-text-light);
@@ -38,9 +39,19 @@ export default {
 		border-radius: var(--br);
 		font-size: 1rem;
 
+		transition: background-color 0.1s ease;
+
 		&.router-link-exact-active {
 			color: var(--c-text);
 			background-color: var(--c-light);
+		}
+		&:hover {
+			background-color: var(--c-grey1);
+		}
+		&:focus,
+		&:active {
+			color: var(--c-text);
+			background-color: var(--c-grey2);
 		}
 	}
 }
@@ -50,8 +61,8 @@ export default {
 		&__fixed {
 			position: absolute;
 			width: 100vw;
-			height: calc(100vh - 70px);
-			margin-top: 70px;
+			height: 100vh;
+			padding-top: 2rem;
 			background-color: white;
 		}
 		&__link {

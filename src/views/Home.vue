@@ -1,5 +1,5 @@
 <template>
-	<div class="home">
+	<div class="home page">
 		<div class="identity-container mb-6">
 			<h4 class="thin mb-1">Hello I'm</h4>
 			<h1 class="mb-4">Nathan Birus</h1>
@@ -8,7 +8,7 @@
 		</div>
 		<hr class="mb-5" />
 		<div class="about-container max-char">
-			<h5 class="italic mb-2">About</h5>
+			<h6 class="italic mb-2">About me</h6>
 			<!-- eslint-disable-next-line -->
 			<p>I am a passionate website designer/engineer with 3+ years of experience building enterprise level applications. I involve myself in all areas of front-end development including mockups, designs, selecting technologies, CI, implementation, and engineering the final product.</p>
 		</div>

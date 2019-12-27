@@ -12,7 +12,7 @@
 
 	--c-text: var(--c-grey9);
 	--c-text-light: var(--c-grey6);
-	--c-border: var(--c-grey4);
+	--c-border: var(--c-grey3);
 	--c-border-light: var(--c-grey2);
 	--c-light: var(--c-grey1);
 
@@ -24,9 +24,10 @@
 	--thin: 400;
 	--bold: 600;
 	--max-char: 80ch;
-	--line-height: 1.75;
+	--line-height: 1.9;
 
 	// other
 	--br: 3px;
 	--nav-width: 275px;
+	--transition: 0.3s;
 }

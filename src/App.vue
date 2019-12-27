@@ -6,7 +6,7 @@
 		<div class="nb-app__nav" :class="{ open }">
 			<nav-bar />
 		</div>
-		<div class="nb-app__page">
+		<div class="nb-app__page" :class="{ open }">
 			<router-view />
 		</div>
 	</div>
@@ -42,45 +42,60 @@ export default {
 .nb-app {
 	display: flex;
 	min-height: 100vh;
-	padding-top: var(--space);
 
+	&__nav-btn {
+		display: none;
+		width: auto;
+		height: 60px;
+
+		button {
+			position: absolute;
+			right: 0;
+			font-size: 1.75rem;
+			width: 60px;
+			height: 60px;
+
+			&:focus {
+				outline: none;
+			}
+		}
+	}
 	&__nav {
 		flex: 0 0 var(--nav-width);
 		border-right: solid thin var(--c-border);
 	}
-	&__nav-btn {
-		display: none;
-		width: 100%;
-		padding: 1rem 0;
-		text-align: right;
-
-		button {
-			font-size: 1.5rem;
-			margin-right: 1.5rem;
-		}
-	}
 	&__page {
 		flex: 0 1 100%;
-		padding: 2rem 0 2rem var(--space);
 	}
 }
 
 @media only screen and (max-width: 768px) {
 	.nb-app {
-		flex-direction: column;
-		padding-top: 0;
+		display: block;
 
 		&__nav-btn {
 			display: block;
-		}
-		&__nav:not(.open) {
-			display: none;
+			width: 100vw;
 		}
 		&__nav {
 			position: absolute;
+			left: -100vw;
+			pointer-events: none;
+		}
+		&__nav.open {
+			position: absolute;
+			left: 0;
+			pointer-events: auto;
+			transition: left var(--transition) ease;
 		}
 		&__page {
-			padding: 0 var(--space-sm) 2rem;
+			flex: unset;
+			transition: all var(--transition) ease;
+			width: 100vw;
+		}
+		&__page.open {
+			margin-left: 100vw;
+			position: absolute;
 		}
 	}
 }
