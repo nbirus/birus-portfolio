@@ -1,7 +1,18 @@
 <template>
 	<div class="nb-app" id="app">
 		<div class="nb-app__nav-btn">
-			<button type="button" @click="open=!open">&#9776;</button>
+			<button
+				@click="open = !open"
+				class="hamburger hamburger--collapse"
+				:class="{ 'is-active': open }"
+				type="button"
+			>
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</button>
+
+			<!-- <button type="button" @click="open=!open">&#9776;</button> -->
 		</div>
 		<div class="nb-app__nav" :class="{ open }">
 			<nav-bar />
@@ -38,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .nb-app {
 	display: flex;
 	min-height: 100vh;
@@ -46,14 +57,19 @@ export default {
 	&__nav-btn {
 		display: none;
 		width: auto;
-		height: 60px;
+		height: 50px;
+		padding: 1.5rem 0 0;
 
 		button {
+			width: 42px;
+			height: 42px;
+			padding: 0;
 			position: absolute;
-			right: 0;
-			font-size: 1.75rem;
-			width: 60px;
-			height: 60px;
+			right: 2rem;
+
+			.hamburger-box {
+				transform: scale(0.8);
+			}
 
 			&:focus {
 				outline: none;
