@@ -1,24 +1,24 @@
 <template>
 	<div class="nb-app" id="app">
-		<div class="nb-app__nav-btn">
-			<button
-				@click="open = !open"
-				class="hamburger hamburger--collapse"
-				:class="{ 'is-active': open }"
-				type="button"
-			>
-				<span class="hamburger-box">
-					<span class="hamburger-inner"></span>
-				</span>
-			</button>
-
-			<!-- <button type="button" @click="open=!open">&#9776;</button> -->
+		<div class="nb-app__actions">
+			<div class="nb-app__actions-container">
+				<button
+					@click="open = !open"
+					class="nb-app__actions-btn hamburger hamburger--collapse"
+					:class="{ 'is-active': open }"
+					type="button"
+				>
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</button>
+			</div>
 		</div>
 		<div class="nb-app__nav" :class="{ open }">
 			<nav-bar />
 		</div>
 		<div class="nb-app__page" :class="{ open }">
-			<router-view />
+			<router-view v-if="!open" />
 		</div>
 	</div>
 </template>
@@ -49,31 +49,31 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .nb-app {
 	display: flex;
 	min-height: 100vh;
 
-	&__nav-btn {
+	&__actions {
 		display: none;
-		width: auto;
-		height: 50px;
-		padding: 1.5rem 0 0;
+		justify-content: flex-end;
+		padding: 1.5rem 1.5rem 0 0;
+	}
+	&__actions-btn {
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
 
-		button {
-			width: 42px;
-			height: 42px;
-			padding: 0;
-			position: absolute;
-			right: 2rem;
-
-			.hamburger-box {
-				transform: scale(0.8);
-			}
-
-			&:focus {
-				outline: none;
-			}
+		&:hover {
+			background-color: var(--c-grey1);
+		}
+		&:focus,
+		&:active {
+			outline: none;
+			background-color: var(--c-grey3);
+		}
+		.hamburger-box {
+			transform: scale(0.8);
 		}
 	}
 	&__nav {
@@ -88,10 +88,10 @@ export default {
 @media only screen and (max-width: 768px) {
 	.nb-app {
 		display: block;
+		overflow-x: hidden;
 
-		&__nav-btn {
-			display: block;
-			width: 100vw;
+		&__actions {
+			display: flex;
 		}
 		&__nav {
 			position: absolute;
@@ -101,17 +101,16 @@ export default {
 		&__nav.open {
 			position: absolute;
 			left: 0;
+			right: 0;
+			width: 100vw;
+			height: 100vh;
+
 			pointer-events: auto;
 			transition: left var(--transition) ease;
 		}
 		&__page {
-			flex: unset;
-			transition: all var(--transition) ease;
 			width: 100vw;
-		}
-		&__page.open {
-			margin-left: 100vw;
-			position: absolute;
+			flex: unset;
 		}
 	}
 }

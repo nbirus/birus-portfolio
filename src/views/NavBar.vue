@@ -25,6 +25,7 @@ export default {
 		position: fixed;
 		width: var(--nav-width);
 		padding-top: 3rem;
+		width: 100%;
 	}
 	&__contain {
 		padding: 0 1.5rem;
@@ -59,9 +60,6 @@ export default {
 @media only screen and (max-width: 768px) {
 	.nb-nav {
 		&__fixed {
-			position: absolute;
-			width: 100vw;
-			height: 100vh;
 			padding-top: 2rem;
 			background-color: white;
 		}
