@@ -13,17 +13,20 @@
 	--c-text: var(--c-grey9);
 	--c-text-light: var(--c-grey6);
 	--c-border: var(--c-grey4);
+	--c-border-light: var(--c-grey2);
 	--c-light: var(--c-grey1);
 
 	// spacing
 	--space: 3rem;
+	--space-sm: 1.5rem;
 
 	// font
 	--thin: 400;
 	--bold: 600;
 	--max-char: 80ch;
-	--line-height: 1.5;
+	--line-height: 1.75;
 
 	// other
 	--br: 3px;
+	--nav-width: 275px;
 }

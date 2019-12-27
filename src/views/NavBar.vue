@@ -23,7 +23,7 @@ export default {
 
 	&__fixed {
 		position: fixed;
-		width: 300px;
+		width: var(--nav-width);
 	}
 	&__contain {
 		padding: 0 2rem;
@@ -36,10 +36,28 @@ export default {
 		padding: 0.75rem 1rem;
 		margin-bottom: 0.5rem;
 		border-radius: var(--br);
+		font-size: 1rem;
 
 		&.router-link-exact-active {
 			color: var(--c-text);
 			background-color: var(--c-light);
+		}
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.nb-nav {
+		&__fixed {
+			position: absolute;
+			width: 100vw;
+			height: calc(100vh - 70px);
+			margin-top: 70px;
+			background-color: white;
+		}
+		&__link {
+			padding: 1rem 1.25rem;
+			margin-bottom: 0.75rem;
+			font-size: 1.15rem;
 		}
 	}
 }
