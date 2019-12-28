@@ -20,12 +20,12 @@ export default {
 <style lang="scss" scoped>
 .nb-nav {
 	position: relative;
+	width: 100%;
 
 	&__fixed {
 		position: fixed;
 		width: var(--nav-width);
 		padding-top: 3rem;
-		width: 100%;
 	}
 	&__contain {
 		padding: 0 1.5rem;
@@ -62,6 +62,7 @@ export default {
 		&__fixed {
 			padding-top: 2rem;
 			background-color: white;
+			width: 100%;
 		}
 		&__link {
 			padding: 1rem 1.25rem;
