@@ -18,7 +18,7 @@
 			<nav-bar />
 		</div>
 		<div class="nb-app__page" :class="{ open }">
-			<router-view v-if="!open" />
+			<router-view v-if="!open" :key="$route.params.id" />
 		</div>
 	</div>
 </template>

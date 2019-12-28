@@ -4,21 +4,23 @@
 		<div class="photo__img-wrapper">
 			<!-- next/previous buttons -->
 			<div class="photo__img-actions">
-				<button type="button" class="photo__img-actions-side left">
-					<button type="button">
+				<button type="button" class="photo__img-actions-side left" @click.stop="goToPrevious">
+					<button type="button" @click="goToPrevious">
 						<img class="left" src="/left.svg" alt="Previous photo" />
 					</button>
 				</button>
 				<div class="photo__img-actions-center"></div>
-				<button class="photo__img-actions-side right">
-					<button type="button">
+				<button class="photo__img-actions-side right" @click.stop="goToNext">
+					<button type="button" @click="goToNext">
 						<img class="right" src="/right.svg" alt="Next photo" />
 					</button>
 				</button>
 			</div>
 
 			<!-- image container -->
-			<div class="photo__img-container"></div>
+			<div class="photo__img-container">
+				<img :src="photo.url" class="photo__img" alt="Image 1" />
+			</div>
 
 			<!-- close button -->
 			<button class="photo__img-close" type="button" @click="$router.push('/photography')">
@@ -37,8 +39,44 @@
 </template>
 
 <script>
+import photos from '@/assets/photos'
+
 export default {
 	name: 'photo',
+	data() {
+		return {
+			photo: {},
+			photoIndex: 0,
+		}
+	},
+	mounted() {
+		this.getImageById(this.$route.params.id)
+	},
+	methods: {
+		goToPrevious() {
+			if (this.photoIndex > 0) {
+				this.photoIndex--
+			} else {
+				this.photoIndex = photos.length - 1
+			}
+		},
+		goToNext() {
+			if (this.photoIndex < photos.length - 1) {
+				this.photoIndex++
+			} else {
+				this.photoIndex = 0
+			}
+		},
+		getImageById(id) {
+			this.photoIndex = photos.findIndex(p => p.id === id)
+			this.photo = photos[this.photoIndex]
+		},
+	},
+	watch: {
+		photoIndex(index) {
+			this.$router.push(`/photography/${photos[index].id}`)
+		},
+	},
 }
 </script>
 
@@ -54,7 +92,7 @@ export default {
 	&__img-wrapper {
 		display: flex;
 		background-color: var(--c-grey9);
-		min-height: 70vh;
+		min-height: 90vh;
 		position: relative;
 	}
 	&__img-actions {
@@ -77,19 +115,37 @@ export default {
 		&.right {
 			justify-content: flex-end;
 		}
+
+		button {
+			opacity: 0.25;
+		}
+		&:hover button {
+			opacity: 1;
+		}
 	}
 	&__img-actions-center {
 		flex: 1;
 	}
 	&__img-close {
 		position: absolute;
-		left: 1.5rem;
-		top: 1.5rem;
+		left: 0;
+		top: 0;
+		width: 100px;
+		height: 100px;
 	}
 	&__img-expand {
 		position: absolute;
 		right: 1.5rem;
 		top: 1.5rem;
+	}
+	&__img-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100vw;
+	}
+	&__img {
+		box-shadow: 0 0 3rem fade-out(black, 0.95);
 	}
 
 	// information
@@ -114,5 +170,8 @@ img {
 	&.right {
 		transform: scale(1.75);
 	}
+}
+button {
+	outline: none !important;
 }
 </style>
