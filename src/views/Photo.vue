@@ -19,7 +19,13 @@
 
 			<!-- image container -->
 			<div class="photo__img-container">
-				<img :src="photo.url" class="photo__img" alt="Image 1" />
+				<img
+					ref="img"
+					v-progressive="photo.url_org"
+					:src="photo.url_big"
+					class="photo__img"
+					:alt="photo.name"
+				/>
 			</div>
 
 			<!-- close button -->
@@ -28,7 +34,7 @@
 			</button>
 
 			<!-- epxand button -->
-			<button class="photo__img-expand" type="button">
+			<button class="photo__img-expand" type="button" @click="expand">
 				<img class="expand" src="/expand.svg" alt="Expand to fullscreen" />
 			</button>
 		</div>
@@ -51,6 +57,7 @@ export default {
 	},
 	mounted() {
 		this.getImageById(this.$route.params.id)
+		this.setEscKey()
 	},
 	methods: {
 		goToPrevious() {
@@ -71,12 +78,38 @@ export default {
 			this.photoIndex = photos.findIndex(p => p.id === id)
 			this.photo = photos[this.photoIndex]
 		},
+		expand() {
+			openFullscreen(this.$refs.img)
+		},
+		setEscKey() {
+			let that = this
+			document.addEventListener('keyup', function(evt) {
+				if (evt.keyCode === 27) {
+					that.$router.push(`/photography`)
+				}
+			})
+		},
 	},
 	watch: {
 		photoIndex(index) {
 			this.$router.push(`/photography/${photos[index].id}`)
 		},
 	},
+}
+
+function openFullscreen(elem) {
+	if (elem.requestFullscreen) {
+		elem.requestFullscreen()
+	} else if (elem.mozRequestFullScreen) {
+		/* Firefox */
+		elem.mozRequestFullScreen()
+	} else if (elem.webkitRequestFullscreen) {
+		/* Chrome, Safari and Opera */
+		elem.webkitRequestFullscreen()
+	} else if (elem.msRequestFullscreen) {
+		/* IE/Edge */
+		elem.msRequestFullscreen()
+	}
 }
 </script>
 
@@ -135,8 +168,10 @@ export default {
 	}
 	&__img-expand {
 		position: absolute;
-		right: 1.5rem;
-		top: 1.5rem;
+		right: 0;
+		top: 0;
+		width: 100px;
+		height: 100px;
 	}
 	&__img-container {
 		display: flex;
@@ -145,7 +180,7 @@ export default {
 		width: 100vw;
 	}
 	&__img {
-		box-shadow: 0 0 3rem fade-out(black, 0.95);
+		box-shadow: 0 0 0.75rem fade-out(black, 0.9);
 	}
 
 	// information

@@ -3,7 +3,14 @@
 		<li class="photo-gallery__box" v-for="(photo, i) in photos" :key="i">
 			<figure class="photo-gallery__figure">
 				<router-link :to="`/photography/${photo.id}`" class="photo-gallery__link">
-					<img :src="photo.url" class="gallery__img" alt="Image 1" />
+					<div class="photo-gallery__img-container">
+						<img
+							class="photo-gallery__img"
+							v-progressive="photo.url_big"
+							:src="photo.url_med"
+							alt="Image 1"
+						/>
+					</div>
 				</router-link>
 				<div class="photo-gallery__info">
 					<span class="photo-gallery__caption" v-text="photo.name"></span>
@@ -29,13 +36,15 @@ export default {
 <style lang="scss" scoped>
 .photo-gallery {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(8, 20vw);
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-auto-rows: 300px;
+	grid-gap: 1em;
 	grid-gap: 0.5rem;
 
 	&__box {
 		width: 100%;
 		height: 100%;
+		position: relative;
 	}
 	&__figure {
 		width: 100%;
@@ -44,6 +53,10 @@ export default {
 		cursor: pointer;
 		position: relative;
 		overflow: hidden;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		&:after {
 			content: '';
@@ -68,6 +81,15 @@ export default {
 		&:hover .photo-gallery__info {
 			margin-bottom: 0;
 		}
+	}
+	&__img-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	&__img {
+		height: 100%;
+		width: 100%;
 	}
 	&__link {
 		position: absolute;
