@@ -45,6 +45,7 @@ export default {
 		&.router-link-exact-active {
 			color: var(--c-text);
 			background-color: var(--c-light);
+			position: relative;
 		}
 		&:hover {
 			background-color: var(--c-grey1);
@@ -68,6 +69,18 @@ export default {
 			padding: 1rem 1.25rem;
 			margin-bottom: 0.75rem;
 			font-size: 1.15rem;
+			letter-spacing: 1px;
+
+			&.router-link-exact-active:after {
+				content: '';
+				background-color: var(--c-grey3);
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				position: absolute;
+				right: 1.25rem;
+				margin-top: 0.25rem;
+			}
 		}
 	}
 }
