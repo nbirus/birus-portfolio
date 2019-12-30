@@ -20,7 +20,13 @@
 
 				<!-- image container -->
 				<div class="photo__img-container">
-					<img ref="img" :src="photo.url_big" class="photo__img" :alt="photo.name" />
+					<img ref="img" :src="photo.url_lg" class="photo__img" :alt="photo.name" />
+					<!-- <lazy-img
+						class="photo__img"
+						:lazy-src="photo.url_lg"
+						:lazy-srcset="photo.url_og"
+						:alt="photo.name"
+					/> -->
 				</div>
 
 				<!-- close button -->
@@ -37,7 +43,9 @@
 			<!-- below information -->
 			<div class="photo__info-container">
 				<div class="max-width-container">
-					<h3 class="photo__info-title" v-text="photo.name"></h3>
+					<h3 class="photo__info-title mb-1" v-text="photo.name"></h3>
+					<p class="photo__info-title" v-text="photo.description"></p>
+					<span class="photo__info-title">Taken on {{ photo.date | formatDate }}</span>
 				</div>
 			</div>
 		</div>
@@ -47,6 +55,7 @@
 <script>
 import photos from '@/assets/photos'
 import expand from '@/utils/Expand'
+import formatDate from '@/utils/FormatDate'
 import swipeDetect from 'swipe-detect'
 
 export default {
@@ -68,6 +77,7 @@ export default {
 			}
 		})
 	},
+	filters: { formatDate },
 	methods: {
 		goToPrevious() {
 			if (this.photoIndex > 0) {

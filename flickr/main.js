@@ -3,7 +3,7 @@ require('dotenv').config()
 const key = process.env.VUE_APP_KEY
 const secret = process.env.VUE_APP_SECRET
 const user = '138936915@N05'
-const album = '72157660844106223'
+const album = '72157705881479424'
 
 // imports
 const Flickr = require('flickr-sdk')
@@ -15,8 +15,9 @@ main()
 async function main() {
 	// get photos from album and write them to json
 	try {
-		const response = await getPhotos()
-		writeJSON(response)
+		const photos = await getPhotos()
+		const formattedPhotos = await formatPhotos(photos)
+		writeJSON(formattedPhotos)
 	} catch (error) {
 		console.log(`Failed to get photos: ${error}`)
 	}
@@ -32,9 +33,7 @@ function getPhotos() {
 					user_id: user,
 					photoset_id: album,
 				})
-				.then(res => {
-					resolve(res.body.photoset.photo.map(processPhoto))
-				})
+				.then(res => resolve(res.body.photoset.photo))
 				.catch(err => reject(err))
 		} catch (error) {
 			console.log(error)
@@ -49,13 +48,49 @@ function writeJSON(json) {
 	})
 }
 
+async function formatPhotos(photos) {
+	return Promise.all(photos.map(photo => processPhoto(photo)))
+}
+
 // take in response and produce array of photo objets
-function processPhoto(photo) {
+async function processPhoto(photo) {
+	let photoInfo = await getPhotoInfo(photo.id)
+	let photoSize = await getPhotoSize(photo.id)
 	return {
 		id: photo.id,
 		name: photo.title,
-		url_med: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`,
-		url_big: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
-		url_org: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_o.jpg`,
+		date: photoInfo.dates.taken,
+		description: photoInfo.description._content,
+		width: photoSize.width,
+		height: photoSize.height,
+		url_md: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`,
+		url_lg: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
+		url_og: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_o.jpg`,
 	}
+}
+
+async function getPhotoInfo(photoId) {
+	return new Promise((resolve, reject) => {
+		flickrAPI.photos
+			.getInfo({
+				api_key: key,
+				photo_id: photoId,
+			})
+			.then(res => resolve(res.body.photo))
+			.catch(err => reject(err))
+	})
+}
+
+async function getPhotoSize(photoId) {
+	return new Promise((resolve, reject) => {
+		flickrAPI.photos
+			.getSizes({
+				api_key: key,
+				photo_id: photoId,
+			})
+			.then(res => {
+				resolve(res.body.sizes.size.find(size => size.label === 'Large'))
+			})
+			.catch(err => reject(err))
+	})
 }

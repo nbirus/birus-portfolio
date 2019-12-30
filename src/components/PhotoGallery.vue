@@ -6,8 +6,8 @@
 					<div class="photo-gallery__img-container">
 						<lazy-img
 							class="photo-gallery__img"
-							:lazy-src="photo.url_med"
-							:lazy-srcset="photo.url_big"
+							:lazy-src="photo.url_md"
+							:lazy-srcset="photo.url_lg"
 							:alt="photo.name"
 						/>
 					</div>
