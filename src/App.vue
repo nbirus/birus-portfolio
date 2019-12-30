@@ -1,5 +1,5 @@
 <template>
-	<div class="nb-app" id="app">
+	<div class="nb-app" id="app" ref="scroll">
 		<div class="nb-app__actions" :class="{ hideNav }">
 			<div class="nb-app__actions-container">
 				<button
@@ -20,10 +20,19 @@
 		<div class="nb-app__page" :class="{ open }">
 			<router-view :key="$route.params.id" />
 		</div>
+
+		<transition name="fade" mode="out-in">
+			<div class="nb-app__back-to-top" v-if="showBackToTop">
+				<button type="button" @click="backToTop">
+					<img src="/arrow.svg" alt="Go to top" />
+				</button>
+			</div>
+		</transition>
 	</div>
 </template>
 
 <script>
+import scrollDetect from '@/utils/ScrollDetect'
 import NavBar from '@/views/NavBar'
 
 export default {
@@ -32,11 +41,32 @@ export default {
 	data() {
 		return {
 			open: false,
+			showBackToTop: false,
+			backToTopTimeout: undefined,
 		}
+	},
+	mounted() {
+		scrollDetect(this.onScrollUp)
 	},
 	computed: {
 		hideNav() {
 			return this.$route.params.id
+		},
+	},
+	methods: {
+		onScrollUp() {
+			this.showBackToTop = true
+
+			if (this.backToTopTimeout) {
+				clearInterval(this.backToTopTimeout)
+			}
+
+			this.backToTopTimeout = setTimeout(() => {
+				this.showBackToTop = false
+			}, 3000)
+		},
+		backToTop() {
+			window.scrollTo({ top: 0, behavior: 'smooth' })
 		},
 	},
 	watch: {
@@ -56,6 +86,7 @@ export default {
 
 <style lang="scss" scoped>
 $trans: cubic-bezier(0.63, 0, 0.2, 0.99);
+$blue: #2296f3;
 
 .nb-app {
 	display: flex;
@@ -89,6 +120,31 @@ $trans: cubic-bezier(0.63, 0, 0.2, 0.99);
 	}
 	&__page {
 		flex: 0 1 100%;
+	}
+	&__back-to-top {
+		position: fixed;
+		right: 1.5rem;
+		bottom: 1.5rem;
+		z-index: 99;
+
+		button {
+			background-color: fade-out(black, 0.25);
+			border-radius: 50%;
+			width: 60px;
+			height: 60px;
+			color: white;
+
+			transition: box-shadow 0.2s ease;
+
+			&:hover {
+				background-color: fade-out(black, 0.15);
+			}
+			&:active,
+			&:focus {
+				outline: none;
+				box-shadow: 0 0 0 0.3rem fade-out($blue, 0.25);
+			}
+		}
 	}
 }
 

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import PhotoGallery from '@/components/photography/PhotoGallery'
+import PhotoGallery from '@/components/PhotoGallery'
 export default {
 	name: 'photography',
 	components: { PhotoGallery },
@@ -18,9 +18,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.photography {
-	// padding-top: 4rem;
-}
+// .photography {
+// padding-top: 4rem;
+// }
 @media only screen and (max-width: 600px) {
 	.page {
 		padding: 0.5rem 0 2rem;

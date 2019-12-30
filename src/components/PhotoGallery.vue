@@ -4,7 +4,12 @@
 			<figure class="photo-gallery__figure">
 				<router-link :to="`/photography/${photo.id}`" class="photo-gallery__link">
 					<div class="photo-gallery__img-container">
-						<img class="photo-gallery__img" :src="photo.url_big" alt="Image 1" />
+						<lazy-img
+							class="photo-gallery__img"
+							:lazy-src="photo.url_med"
+							:lazy-srcset="photo.url_big"
+							:alt="photo.name"
+						/>
 					</div>
 				</router-link>
 				<div class="photo-gallery__info">
@@ -17,9 +22,11 @@
 
 <script>
 import photos from '@/assets/photos'
+import LazyImg from '@/components/LazyImg'
 
 export default {
 	name: 'photo-gallery',
+	components: { LazyImg },
 	data() {
 		return {
 			photos,

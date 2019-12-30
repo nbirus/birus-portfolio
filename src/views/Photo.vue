@@ -46,6 +46,7 @@
 
 <script>
 import photos from '@/assets/photos'
+import expand from '@/utils/Expand'
 import swipeDetect from 'swipe-detect'
 
 export default {
@@ -87,7 +88,7 @@ export default {
 			this.photo = photos[this.photoIndex]
 		},
 		expand() {
-			openFullscreen(this.$refs.img)
+			expand(this.$refs.img)
 		},
 		setEscKey() {
 			let that = this
@@ -107,21 +108,6 @@ export default {
 			this.$router.push(`/photography/${photos[index].id}`)
 		},
 	},
-}
-
-function openFullscreen(elem) {
-	if (elem.requestFullscreen) {
-		elem.requestFullscreen()
-	} else if (elem.mozRequestFullScreen) {
-		/* Firefox */
-		elem.mozRequestFullScreen()
-	} else if (elem.webkitRequestFullscreen) {
-		/* Chrome, Safari and Opera */
-		elem.webkitRequestFullscreen()
-	} else if (elem.msRequestFullscreen) {
-		/* IE/Edge */
-		elem.msRequestFullscreen()
-	}
 }
 </script>
 
@@ -239,8 +225,6 @@ function openFullscreen(elem) {
 		min-height: 50vh;
 		background-color: white;
 		padding: 2rem 1.5rem;
-	}
-	&__info-title {
 	}
 }
 
