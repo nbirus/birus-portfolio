@@ -1,6 +1,6 @@
 <template>
 	<div class="nb-app" id="app">
-		<div class="nb-app__actions">
+		<div class="nb-app__actions" :class="{ hideNav }">
 			<div class="nb-app__actions-container">
 				<button
 					@click="open = !open"
@@ -18,7 +18,7 @@
 			<nav-bar />
 		</div>
 		<div class="nb-app__page" :class="{ open }">
-			<router-view v-if="!open" :key="$route.params.id" />
+			<router-view :key="$route.params.id" />
 		</div>
 	</div>
 </template>
@@ -33,6 +33,11 @@ export default {
 		return {
 			open: false,
 		}
+	},
+	computed: {
+		hideNav() {
+			return this.$route.params.id
+		},
 	},
 	watch: {
 		$route() {
@@ -50,6 +55,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$trans: cubic-bezier(0.63, 0, 0.2, 0.99);
+
 .nb-app {
 	display: flex;
 	min-height: 100vh;
@@ -93,10 +100,15 @@ export default {
 		&__actions {
 			display: flex;
 		}
+		&__actions.hideNav {
+			display: none;
+		}
 		&__nav {
 			position: absolute;
 			left: -100vw;
 			pointer-events: none;
+			opacity: 0;
+			transition: all var(--transition) $trans;
 		}
 		&__nav.open {
 			position: absolute;
@@ -104,13 +116,20 @@ export default {
 			right: 0;
 			width: 100vw;
 			height: 100vh;
-
+			opacity: 1;
 			pointer-events: auto;
-			transition: left var(--transition) ease;
 		}
 		&__page {
 			width: 100vw;
 			flex: unset;
+			transform: translateX(0);
+			transition: all var(--transition) $trans;
+			opacity: 1;
+		}
+		&__page.open {
+			position: static;
+			transform: translateX(100vw);
+			opacity: 0;
 		}
 	}
 }

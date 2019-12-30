@@ -4,12 +4,7 @@
 			<figure class="photo-gallery__figure">
 				<router-link :to="`/photography/${photo.id}`" class="photo-gallery__link">
 					<div class="photo-gallery__img-container">
-						<img
-							class="photo-gallery__img"
-							v-progressive="photo.url_big"
-							:src="photo.url_med"
-							alt="Image 1"
-						/>
+						<img class="photo-gallery__img" :src="photo.url_big" alt="Image 1" />
 					</div>
 				</router-link>
 				<div class="photo-gallery__info">
@@ -39,7 +34,7 @@ export default {
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	grid-auto-rows: 300px;
 	grid-gap: 1em;
-	grid-gap: 0.5rem;
+	grid-gap: 0.45rem;
 
 	&__box {
 		width: 100%;
@@ -129,7 +124,7 @@ export default {
 	.photo-gallery {
 		grid-template-columns: repeat(1, 1fr);
 		grid-template-rows: repeat(8, 50vw);
-		grid-gap: 1rem;
+		grid-gap: 0.45rem;
 	}
 }
 </style>

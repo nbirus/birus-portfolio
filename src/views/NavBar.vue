@@ -60,7 +60,7 @@ export default {
 @media only screen and (max-width: 768px) {
 	.nb-nav {
 		&__fixed {
-			padding-top: 2rem;
+			padding-top: 1rem;
 			background-color: white;
 			width: 100%;
 		}
