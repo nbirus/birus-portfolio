@@ -6,6 +6,7 @@ const user = '138936915@N05'
 const album = '72157705881479424'
 
 // imports
+const calculateAspectRatios = require('calculate-aspect-ratio').default
 const Flickr = require('flickr-sdk')
 const flickrAPI = new Flickr(key, secret)
 const fs = require('fs')
@@ -16,6 +17,8 @@ async function main() {
 	// get photos from album and write them to json
 	try {
 		const photos = await getPhotos()
+		// const photos = JSON.parse(fs.readFileSync('src/assets/photos.json', 'utf-8'))
+
 		const formattedPhotos = await formatPhotos(photos)
 		writeJSON(formattedPhotos)
 	} catch (error) {
@@ -63,10 +66,21 @@ async function processPhoto(photo) {
 		description: photoInfo.description._content,
 		width: photoSize.width,
 		height: photoSize.height,
+		aspect: getAspectRatio(photoSize.width, photoSize.height),
 		url_md: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`,
 		url_lg: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
 		url_og: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_o.jpg`,
 	}
+}
+function getAspectRatio(w, h) {
+	// let ratio = calculateAspectRatios(w, h)
+	if (h > w) {
+		return 'vertical'
+	}
+	if (w - h > 500) {
+		return 'panorama'
+	}
+	return 'normal'
 }
 
 async function getPhotoInfo(photoId) {

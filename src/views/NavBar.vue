@@ -2,10 +2,22 @@
 	<nav class="nb-nav">
 		<div class="nb-nav__fixed">
 			<div class="nb-nav__contain flex column">
-				<router-link class="nb-nav__link" to="/">Home</router-link>
-				<router-link class="nb-nav__link" to="photography">Photography</router-link>
-				<router-link class="nb-nav__link" to="design">Web Design</router-link>
-				<router-link class="nb-nav__link" to="contact">Contact me</router-link>
+				<router-link class="nb-nav__link" to="/">
+					<img src="/home.svg" alt="Home" />
+					<span>Home</span>
+				</router-link>
+				<router-link class="nb-nav__link" to="photography">
+					<img src="/camera.svg" alt="Home" />
+					<span>Photography</span>
+				</router-link>
+				<router-link class="nb-nav__link" to="design">
+					<img src="/work.svg" alt="Home" />
+					<span>Web Design</span>
+				</router-link>
+				<router-link class="nb-nav__link" to="contact">
+					<img src="/contact.svg" alt="Home" />
+					<span>Contact me</span>
+				</router-link>
 			</div>
 		</div>
 	</nav>
@@ -40,12 +52,19 @@ export default {
 		border-radius: var(--br);
 		font-size: 1rem;
 
+		display: flex;
+		align-items: center;
+
 		transition: background-color 0.1s ease;
 
 		&.router-link-exact-active {
 			color: var(--c-text);
 			background-color: var(--c-light);
 			position: relative;
+
+			img {
+				opacity: 1;
+			}
 		}
 		&:hover {
 			background-color: var(--c-grey1);
@@ -54,6 +73,12 @@ export default {
 		&:active {
 			color: var(--c-text);
 			background-color: var(--c-grey2);
+		}
+
+		img {
+			margin-right: 0.75rem;
+			transform: scale(0.9);
+			opacity: 0.65;
 		}
 	}
 }
@@ -71,16 +96,16 @@ export default {
 			font-size: 1.15rem;
 			letter-spacing: 1px;
 
-			&.router-link-exact-active:after {
-				content: '';
-				background-color: var(--c-grey3);
-				width: 10px;
-				height: 10px;
-				border-radius: 50%;
-				position: absolute;
-				right: 1.25rem;
-				margin-top: 0.25rem;
-			}
+			// &.router-link-exact-active:after {
+			// 	content: '';
+			// 	background-color: var(--c-grey3);
+			// 	width: 10px;
+			// 	height: 10px;
+			// 	border-radius: 50%;
+			// 	position: absolute;
+			// 	right: 1.25rem;
+			// 	margin-top: 0.25rem;
+			// }
 		}
 	}
 }

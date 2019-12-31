@@ -137,7 +137,7 @@ export default {
 	&__img-wrapper {
 		display: flex;
 		background-color: var(--c-grey9);
-		min-height: 20vh;
+		min-height: 75vh;
 		position: relative;
 	}
 	&__img-actions {
@@ -154,16 +154,16 @@ export default {
 		align-items: center;
 		padding: 0 1.5rem;
 
-		&:before {
-			content: '';
-			border-radius: 50%;
-			width: 50px;
-			height: 50px;
-			background-color: fade-out(black, 0.5);
-			position: absolute;
-			opacity: 0;
-			transition: opacity 0.15s ease;
-		}
+		// &:before {
+		// 	content: '';
+		// 	border-radius: 50%;
+		// 	width: 50px;
+		// 	height: 50px;
+		// 	background-color: fade-out(black, 0.75);
+		// 	position: absolute;
+		// 	opacity: 0;
+		// 	transition: opacity 0.15s ease;
+		// }
 
 		&.left {
 			justify-content: flex-start;
@@ -223,7 +223,7 @@ export default {
 		align-items: center;
 		justify-content: center;
 		width: 100vw;
-		padding: 100px 10vw 75px;
+		padding: 2rem 10vw;
 	}
 	&__img {
 		max-width: 80vw;
@@ -237,7 +237,6 @@ export default {
 		padding: 2rem 1.5rem;
 	}
 }
-
 img {
 	color: white;
 
@@ -256,5 +255,19 @@ img {
 }
 button {
 	outline: none !important;
+}
+
+@media only screen and (max-width: 600px) {
+	.photo {
+		&__img-container {
+			padding: 1rem 2vw 1rem;
+		}
+		&__img {
+			max-width: 95vw;
+		}
+		&__img-wrapper {
+			min-height: 50vh;
+		}
+	}
 }
 </style>

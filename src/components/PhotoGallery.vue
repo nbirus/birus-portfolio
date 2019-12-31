@@ -6,6 +6,7 @@
 					<div class="photo-gallery__img-container">
 						<lazy-img
 							class="photo-gallery__img"
+							:class="photo.aspect"
 							:lazy-src="photo.url_md"
 							:lazy-srcset="photo.url_lg"
 							:alt="photo.name"
@@ -37,20 +38,7 @@ export default {
 
 <style lang="scss" scoped>
 .photo-gallery {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	grid-auto-rows: 300px;
-	grid-gap: 1em;
-	grid-gap: 0.45rem;
-
-	&__box {
-		width: 100%;
-		height: 100%;
-		position: relative;
-	}
 	&__figure {
-		width: 100%;
-		height: 100%;
 		background-color: var(--c-grey1);
 		cursor: pointer;
 		position: relative;
@@ -65,7 +53,6 @@ export default {
 			opacity: 0;
 			transition: opacity 0.35s ease;
 		}
-
 		&:hover {
 			&:after {
 				content: '';
@@ -83,26 +70,6 @@ export default {
 		&:hover .photo-gallery__info {
 			margin-bottom: 0;
 		}
-	}
-	&__img-container {
-		position: relative;
-		width: 100%;
-		height: 100%;
-	}
-	&__img {
-		height: 100%;
-		width: 100%;
-	}
-	&__link {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
 	}
 	&__info {
 		position: absolute;
@@ -127,11 +94,84 @@ export default {
 	}
 }
 
+@media only screen and (min-width: 768px) {
+	.photo-gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+		grid-auto-rows: minmax(10px, 300px);
+		grid-gap: 2em;
+
+		&__box {
+			position: relative;
+		}
+		&__link {
+			width: 100%;
+			height: 100%;
+		}
+		&__figure {
+			width: 100%;
+			height: 100%;
+			background-color: var(--c-grey1);
+			cursor: pointer;
+			position: relative;
+			overflow: hidden;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			&:after {
+				content: '';
+				opacity: 0;
+				transition: opacity 0.35s ease;
+			}
+			&:hover {
+				&:after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					min-height: 50px;
+					opacity: 1;
+					pointer-events: none;
+					background: rgb(0, 0, 0);
+					background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+				}
+			}
+			&:hover .photo-gallery__info {
+				margin-bottom: 0;
+			}
+		}
+		&__img-container {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		&__img {
+			height: 100%;
+			width: auto;
+
+			&.vertical {
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+}
 @media only screen and (max-width: 768px) {
 	.photo-gallery {
-		grid-template-columns: repeat(1, 1fr);
-		grid-template-rows: repeat(8, 50vw);
-		grid-gap: 0.45rem;
+		display: grid;
+		grid-template-columns: repeat(1, minmax(275px, 1fr));
+		grid-gap: 0.5em;
+
+		&__img {
+			width: 100%;
+			height: 100%;
+		}
 	}
 }
 </style>
