@@ -67,6 +67,7 @@ async function processPhoto(photo) {
 		width: photoSize.width,
 		height: photoSize.height,
 		aspect: getAspectRatio(photoSize.width, photoSize.height),
+		position: [0, 0],
 		url_md: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`,
 		url_lg: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
 		url_og: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_o.jpg`,

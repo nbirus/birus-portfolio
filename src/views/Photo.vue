@@ -43,9 +43,18 @@
 			<!-- below information -->
 			<div class="photo__info-container">
 				<div class="max-width-container">
-					<h3 class="photo__info-title mb-2" v-text="photo.name"></h3>
-					<p class="photo__info-title mb-3" v-text="photo.description"></p>
-					<span class="photo__info-title">{{ photo.date | formatDate }}</span>
+					<div class="mb-5">
+						<h3 class="photo__info-title mb-2" v-text="photo.name"></h3>
+						<p class="photo__info-title mb-3" v-text="photo.description"></p>
+						<span class="photo__info-title">{{ photo.date | formatDate }}</span>
+					</div>
+
+					<hr class="mb-5" />
+
+					<div>
+						<h4 class="mb-2">Location</h4>
+						<open-map :position="photo.position" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -56,10 +65,12 @@
 import photos from '@/assets/photos'
 import expand from '@/utils/Expand'
 import formatDate from '@/utils/FormatDate'
+import OpenMap from '@/components/OpenMap'
 import swipeDetect from 'swipe-detect'
 
 export default {
 	name: 'photo',
+	components: { OpenMap },
 	data() {
 		return {
 			photo: {},
