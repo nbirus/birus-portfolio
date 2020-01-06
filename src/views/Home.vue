@@ -1,7 +1,7 @@
 <template>
 	<div class="home page">
 		<div class="identity-container mb-6">
-			<h4 class="thin mb-1">Hello I'm</h4>
+			<h4 class="thin mb-1">Hello I am</h4>
 			<h1 class="mb-4">Nathan Birus</h1>
 			<div class="block-seperator mb-4"></div>
 			<h5 class="thin">a web developer</h5>

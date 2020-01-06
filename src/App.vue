@@ -22,7 +22,7 @@
 		</div>
 
 		<transition name="fade" mode="out-in">
-			<div class="nb-app__back-to-top" v-if="showBackToTop">
+			<div class="nb-app__back-to-top" v-if="showBackToTop && $route.name === 'photography'">
 				<button type="button" @click="backToTop">
 					<img src="/arrow.svg" alt="Go to top" />
 				</button>

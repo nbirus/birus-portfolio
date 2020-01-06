@@ -26,7 +26,7 @@
 						:lazy-src="photo.url_lg"
 						:lazy-srcset="photo.url_og"
 						:alt="photo.name"
-					/> -->
+					/>-->
 				</div>
 
 				<!-- close button -->
@@ -43,9 +43,9 @@
 			<!-- below information -->
 			<div class="photo__info-container">
 				<div class="max-width-container">
-					<h3 class="photo__info-title mb-1" v-text="photo.name"></h3>
-					<p class="photo__info-title" v-text="photo.description"></p>
-					<span class="photo__info-title">Taken on {{ photo.date | formatDate }}</span>
+					<h3 class="photo__info-title mb-2" v-text="photo.name"></h3>
+					<p class="photo__info-title mb-3" v-text="photo.description"></p>
+					<span class="photo__info-title">{{ photo.date | formatDate }}</span>
 				</div>
 			</div>
 		</div>
@@ -137,7 +137,7 @@ export default {
 	&__img-wrapper {
 		display: flex;
 		background-color: var(--c-grey9);
-		min-height: 75vh;
+		min-height: 100vh;
 		position: relative;
 	}
 	&__img-actions {
@@ -153,17 +153,6 @@ export default {
 		display: flex;
 		align-items: center;
 		padding: 0 1.5rem;
-
-		// &:before {
-		// 	content: '';
-		// 	border-radius: 50%;
-		// 	width: 50px;
-		// 	height: 50px;
-		// 	background-color: fade-out(black, 0.75);
-		// 	position: absolute;
-		// 	opacity: 0;
-		// 	transition: opacity 0.15s ease;
-		// }
 
 		&.left {
 			justify-content: flex-start;
@@ -181,7 +170,7 @@ export default {
 		}
 
 		button {
-			opacity: 0.25;
+			opacity: 0.1;
 		}
 		&:hover button {
 			opacity: 1;
@@ -223,10 +212,11 @@ export default {
 		align-items: center;
 		justify-content: center;
 		width: 100vw;
-		padding: 2rem 10vw;
+		padding: 0 10vw;
 	}
 	&__img {
 		max-width: 80vw;
+		max-height: 95vh;
 		box-shadow: 0 0 0.75rem fade-out(black, 0.9);
 	}
 

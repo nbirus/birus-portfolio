@@ -10,6 +10,12 @@ Vue.use(ProgressiveImage, {
 // styles
 import './styles/main.scss'
 
+// favicon
+let favicon = document.querySelector('#fav')
+if (favicon && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	favicon.href = '/favicon.dark.png'
+}
+
 Vue.config.productionTip = false
 
 new Vue({

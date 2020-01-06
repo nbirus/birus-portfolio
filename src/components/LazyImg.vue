@@ -95,11 +95,11 @@ export default {
 
 <style lang="scss">
 // Responsive image styles.
-.AppImage {
-	// max-width: 100%;
-	// max-height: 100%;
-	// width: auto;
-	// height: auto;
-	// vertical-align: middle;
-}
+// .AppImage {
+// max-width: 100%;
+// max-height: 100%;
+// width: auto;
+// height: auto;
+// vertical-align: middle;
+// }
 </style>
