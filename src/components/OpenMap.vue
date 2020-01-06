@@ -25,7 +25,6 @@ export default {
 			.then(FetchResource(styleSrc, 'style', 'mapcss'))
 			.then(() => {
 				this.loading = false
-
 				this.initMap()
 			})
 			.catch(() => {

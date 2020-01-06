@@ -18,6 +18,9 @@
 					<img src="/contact.svg" alt="Home" />
 					<span>Contact me</span>
 				</router-link>
+
+				<!-- photo gallery filters -->
+				<div v-if="$route.name === 'photography'">Photo Filters</div>
 			</div>
 		</div>
 	</nav>
