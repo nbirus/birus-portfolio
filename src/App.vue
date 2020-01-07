@@ -18,7 +18,7 @@
 			<nav-bar />
 		</div>
 		<div class="nb-app__page" :class="{ open }">
-			<router-view :key="$route.params.id" />
+			<router-view />
 		</div>
 
 		<transition name="fade" mode="out-in">

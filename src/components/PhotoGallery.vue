@@ -7,6 +7,7 @@
 			:to="`/photography/${photo.id}`"
 			:id="photo.id"
 			class="photo-gallery__link"
+			:class="`delay-${i}`"
 		>
 			<lazy-img
 				class="photo-gallery__img"
@@ -38,12 +39,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+
 .photo-gallery {
 	&__link {
 		background-color: var(--c-grey1);
 		cursor: pointer;
 		overflow: hidden;
-
+		
 		&:after {
 			content: '';
 			opacity: 0;
@@ -89,4 +93,20 @@ export default {
 		text-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
 	}
 }
+
+@for $i from 0 through 10 {
+  .delay-#{$i} {
+    animation: down .25s + .2s * $i ease-in!important;
+  }
+}
+
+@keyframes down {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 </style>

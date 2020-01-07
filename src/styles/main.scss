@@ -3,6 +3,7 @@
 @import './transitions.scss';
 @import './variables.scss';
 @import './hamburgers.css';
+@import './checkbox.scss';
 
 .flex {
 	display: flex;
@@ -106,6 +107,13 @@ button {
 	text-align: center;
 	-webkit-appearance: none;
 	-moz-appearance: none;
+}
+
+.text {
+	color: var(--c-text);
+}
+.text-secondary {
+	color: var(--c-text-light);
 }
 
 .page {

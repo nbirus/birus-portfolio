@@ -20,15 +20,18 @@
 				</router-link>
 
 				<!-- photo gallery filters -->
-				<div v-if="$route.name === 'photography'">Photo Filters</div>
+				<photo-filters v-if="$route.name === 'photography'"></photo-filters>
 			</div>
 		</div>
 	</nav>
 </template>
 
 <script>
+import PhotoFilters from '@/components/PhotoFilters'
+
 export default {
 	name: 'nav-bar',
+	components: { PhotoFilters }
 }
 </script>
 
