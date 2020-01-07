@@ -1,11 +1,10 @@
 <template>
 	<div class="page photography" :class="{ active: photoActive }">
-		<transition name="fade-down" mode="out-in" appear>
+		<!-- <transition name="fade-down" mode="out-in" appear>
 			<div class="page__header mb-5">
 				<h2>Photography</h2>
-				<!-- <input class="page__search" type="text" placeholder="Search photos"> -->
 			</div>
-		</transition>
+		</transition> -->
 		<div class="page__body">
 			<transition name="fade-down" mode="out-in" appear>
 				<photo-gallery />
