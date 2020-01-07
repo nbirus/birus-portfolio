@@ -39,7 +39,7 @@
 					>
 					</recaptcha>
 					<button
-						:disabled="!verified"
+						:disabled="verified"
 						name="submit"
 						type="submit"
 						id="contact-submit"
@@ -71,7 +71,22 @@ export default {
 		}
 	},
 	methods: {
-		onSubmit() {},
+		onSubmit() {
+			fetch('https://nbirus-portfolio-api.herokuapp.com/', {
+				method: 'post',
+				body: JSON.stringify({
+					name: this.name,
+					email: this.email,
+					message: this.message,
+				}),
+			})
+				.then(response => {
+					return response.json()
+				})
+				.then(myJson => {
+					console.log(myJson)
+				})
+		},
 	},
 }
 </script>
