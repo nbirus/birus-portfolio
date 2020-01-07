@@ -1,6 +1,7 @@
 <template>
 	<div class="contact page">
 		<div class="container">
+			<!-- prettier-ignore -->
 			<form id="contact" action method="post" @submit.prevent="onSubmit">
 				<h2>Contact me</h2>
 				<fieldset>
