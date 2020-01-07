@@ -63,8 +63,11 @@ export default {
 				.then(response => {
 					return response.json()
 				})
-				.then(myJson => {
-					console.log(myJson)
+				.then(() => {
+					alert('MESSAGE SENT')
+				})
+				.catch(e => {
+					alert(e)
 				})
 		},
 	},
