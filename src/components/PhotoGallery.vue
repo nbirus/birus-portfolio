@@ -26,28 +26,45 @@
 <script>
 import photos from '@/assets/photos'
 import LazyImg from '@/components/LazyImg'
+import { EventBus } from '@/event-bus'
 
 export default {
 	name: 'photo-gallery',
 	components: { LazyImg },
 	data() {
 		return {
-			photos,
+			photos: clone(photos),
 		}
 	},
+	mounted() {
+		EventBus.$on('filters', this.filterPhotos)
+	},
+	methods: {
+		filterPhotos(filters) {
+			if (filters.length === 0) {
+				this.photos = clone(photos)
+			} else {
+				this.photos = clone(photos).filter(photo => {
+					const searchString = photo.name + photo.date + photo.description
+					return filters.some(filter => searchString.includes(filter))
+				})
+			}
+		},
+	},
+}
+
+function clone(obj) {
+	return JSON.parse(JSON.stringify(obj))
 }
 </script>
 
 <style lang="scss" scoped>
-
-
-
 .photo-gallery {
 	&__link {
 		background-color: var(--c-grey1);
 		cursor: pointer;
 		overflow: hidden;
-		
+
 		&:after {
 			content: '';
 			opacity: 0;
@@ -95,9 +112,9 @@ export default {
 }
 
 @for $i from 0 through 10 {
-  .delay-#{$i} {
-    animation: down .25s + .2s * $i ease-in!important;
-  }
+	.delay-#{$i} {
+		animation: down 0.25s + 0.2s * $i ease-in !important;
+	}
 }
 
 @keyframes down {
@@ -108,5 +125,4 @@ export default {
 		opacity: 1;
 	}
 }
-
 </style>
