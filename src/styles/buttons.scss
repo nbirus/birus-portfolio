@@ -1,0 +1,15 @@
+.btn-icon {
+
+  img {
+    background-color: transparent;
+    border-radius: 50%;
+    padding: .5rem;
+    transition: background-color .15s ease;
+  }
+
+  &:hover {
+    img {
+      background-color: fade-out(white, .95);
+    }
+  }
+}

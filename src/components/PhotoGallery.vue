@@ -64,6 +64,7 @@ function clone(obj) {
 		background-color: var(--c-grey1);
 		cursor: pointer;
 		overflow: hidden;
+		transition: transform .25s ease;
 
 		&:after {
 			content: '';
@@ -71,6 +72,8 @@ function clone(obj) {
 			transition: opacity 0.35s ease;
 		}
 		&:hover {
+			transform: scale(1.015);
+
 			&:after {
 				content: '';
 				position: absolute;
@@ -111,7 +114,7 @@ function clone(obj) {
 	}
 }
 
-@for $i from 0 through 10 {
+@for $i from 0 through 25 {
 	.delay-#{$i} {
 		animation: down 0.25s + 0.2s * $i ease-in !important;
 	}

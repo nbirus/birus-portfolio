@@ -1,27 +1,30 @@
 <template>
-	<div>
-		<hr class="mb-5" />
-		<div class="photo-filters">
-			<span class="text-secondary">Filter photos</span>
-
-			<div role="group" aria-labelledby="id-group-label">
-				<ul class="checkboxes">
-					<li v-for="filter in filters" :key="filter">
-						<div
-							class="checkbox text"
-							:class="{ active: activeFilters.some(f => f === filter) }"
-							role="checkbox"
-							:aria-checked="activeFilters.some(f => f === filter) ? 'true' : 'false'"
-							tabindex="0"
-							v-text="filter"
-							@click="toggle(filter)"
-							@keydown.space.prevent="toggle(filter)"
-						></div>
-					</li>
-				</ul>
-			</div>
+		<div class="mb-5">
+				<transition name="fade" appear mode="out-in">
+					<hr class="mb-5" />
+				</transition>
+				<transition name="fade-down-left" appear mode="out-in">
+				<div class="photo-filters">
+					<span class="text">Filter photos</span>
+					<div role="group" aria-labelledby="id-group-label">
+						<ul class="checkboxes">
+							<li v-for="filter in filters" :key="filter">
+								<div
+									class="checkbox text"
+									:class="{ active: activeFilters.some(f => f === filter) }"
+									role="checkbox"
+									:aria-checked="activeFilters.some(f => f === filter) ? 'true' : 'false'"
+									tabindex="0"
+									v-text="filter"
+									@click="toggle(filter)"
+									@keydown.space.prevent="toggle(filter)"
+								></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</transition>
 		</div>
-	</div>
 </template>
 
 <script>
@@ -31,7 +34,7 @@ export default {
 	name: 'photo-filters',
 	data() {
 		return {
-			filters: ['Croatia', 'Japan', 'Landscape', 'City', 'Patagonia'],
+			filters: ['Croatia', 'Japan', 'Landscape', 'City', 'Patagonia', 'Woods', 'Ocean', 'Stars'],
 			activeFilters: [],
 		}
 	},
@@ -64,7 +67,7 @@ export default {
 
 	span {
 		font-weight: var(--bold);
-		font-size: 0.85rem;
+		font-size: .9rem;
 		text-transform: uppercase !important;
 	}
 	ul {
@@ -72,37 +75,43 @@ export default {
 		padding: 0;
 	}
 	li {
-		height: 50px;
+		height: 40px;
 		margin-bottom: 0.5rem;
 	}
 	.checkbox {
 		width: 100%;
 		height: 100%;
-		padding: 0 2rem;
-		padding: 0 2.25rem;
+		padding: 0 .75rem;
 		text-transform: uppercase;
-		font-size: 0.95rem;
+		letter-spacing: 1px;
+		font-size: 0.9rem;
 
 		cursor: pointer;
-		border: solid thin var(--c-border);
+		border: solid thin var(--c-border-light);
+		border-radius: 3px;
 		display: flex;
 		align-items: center;
 
 		&:before,
 		&:after {
-			margin-left: 0.75rem;
+			margin-left: 86%;
 		}
 		&:hover {
-			border: solid thin var(--c-blue);
-			background-color: var(--c-grey1);
+			border: solid thin fade-out(#2296f3, .5)!important;
+			background-color: fade-out(#2296f3, .95);
 		}
 		&:focus {
-			box-shadow: 0 0 0 0.1rem lighten(#2296f3, 5);
+			box-shadow: 0 0 0 0.2rem fade-out(#2296f3, .75);
+			border: solid thin fade-out(#2296f3, .25)!important;
+
+			&:before {
+				border-color: fade-out(#2296f3, .75);
+			}
 		}
 		&.active {
-			border: solid thin var(--c-blue);
-
-			font-weight: var(--bold);
+			border: solid thin fade-out(#2296f3, .75);
+			background-color: fade-out(#2296f3, .99);
+			color: darken(#2296f3, 10);
 		}
 	}
 }

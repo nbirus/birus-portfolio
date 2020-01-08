@@ -12,7 +12,9 @@
 		</div>
 
 		<div class="page__overlay">
-			<router-view />
+			<transition name="photo" mode="out-in">
+				<router-view :key="photoActive" />
+			</transition>
 		</div>
 	</div>
 </template>
@@ -87,7 +89,7 @@ export default {
 			min-height: 100vh;
 		}
 		.page__body {
-			visibility: hidden;
+			// visibility: hidden;
 		}
 	}
 }

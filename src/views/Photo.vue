@@ -1,5 +1,5 @@
 <template>
-	<div class="photo">
+	<div class="photo" >
 		<div class="photo__wrapper">
 			<!-- top image -->
 			<div class="photo__img-wrapper">
@@ -20,7 +20,7 @@
 
 				<!-- image container -->
 				<div class="photo__img-container">
-					<img ref="img" :src="photo.url_lg" class="photo__img" :alt="photo.name" />
+					<img ref="img" :src="photo.url_lg" class="photo__img" :class="photo.aspect" :alt="photo.name" />
 					<!-- <lazy-img
 						class="photo__img"
 						:lazy-src="photo.url_lg"
@@ -30,12 +30,12 @@
 				</div>
 
 				<!-- close button -->
-				<button class="photo__img-close" type="button" @click="$router.push('/photography')">
+				<button class="btn-icon photo__img-close" type="button" @click="$router.push('/photography')">
 					<img class="close" src="/close.svg" alt="Close photo" />
 				</button>
 
 				<!-- epxand button -->
-				<button class="photo__img-expand" type="button" @click="expand">
+				<button class="btn-icon photo__img-expand" type="button" @click="expand">
 					<img class="expand" src="/expand.svg" alt="Expand to fullscreen" />
 				</button>
 			</div>
@@ -128,6 +128,9 @@ export default {
 		photoIndex(index) {
 			this.$router.push(`/photography/${photos[index].id}`)
 		},
+		$route() {
+			this.getImageById(this.$route.params.id)
+		}
 	},
 }
 </script>
@@ -223,12 +226,23 @@ export default {
 		align-items: center;
 		justify-content: center;
 		width: 100vw;
-		padding: 0 10vw;
+		padding: 2rem 1vw;
 	}
 	&__img {
-		max-width: 80vw;
-		max-height: 95vh;
+		width: 70vw;
+		max-width: 1300px;
+		min-width: auto;
 		box-shadow: 0 0 0.75rem fade-out(black, 0.9);
+
+		&.vertical {
+			width: auto;
+			max-height: 90vh;
+			height: 100%;
+		}
+
+		&.panorama {
+			max-width: 100vw;
+		}
 	}
 
 	// information

@@ -20,7 +20,7 @@
 				</router-link>
 
 				<!-- photo gallery filters -->
-				<photo-filters v-if="$route.name === 'photography'"></photo-filters>
+				<photo-filters v-if="$route.name === 'photography' || $route.name === 'photo'"></photo-filters>
 			</div>
 		</div>
 	</nav>
