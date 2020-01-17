@@ -3,18 +3,29 @@
 		<div class="container">
 			<!-- prettier-ignore -->
 			<form id="contact" action method="post" @submit.prevent="onSubmit">
-				<h2>Contact me</h2>
-				<fieldset>
-					<input v-model="name" placeholder="Your name" type="text" tabindex="1" required autofocus />
+				<h2 class="mb-5">Contact me</h2>
+
+				<!-- name -->
+				<fieldset class="input-field mb-3">
+					<label for="name">Name</label>
+					<input id="name" type="text" class="sm" v-model="name" tabindex="1" required autofocus />
 				</fieldset>
-				<fieldset>
-					<input v-model="email" placeholder="Your Email Address" type="email" tabindex="2" required />
+
+				<!-- email -->
+				<fieldset class="input-field mb-3">
+					<label for="email">Email Address</label>
+					<input id="email" type="email" class="sm" v-model="email" tabindex="2" required />
 				</fieldset>
-				<fieldset>
-					<textarea v-model="message" placeholder="Type your message here...." tabindex="5" required></textarea>
+
+				<!-- message -->
+				<fieldset class="input-field mb-4">
+					<label for="message">Message</label>
+					<textarea id="message" class="lg" v-model="message" tabindex="3" required />
 				</fieldset>
+
 				<fieldset>
 					<recaptcha
+						class="mb-3"
 						:sitekey="capatchKey"
 						type="3"
 						:loadRecaptchaScript="true"
@@ -22,11 +33,13 @@
 					></recaptcha>
 					<button
 						:disabled="!verified"
+						class="button"
+						:class="{disabled: !verified}"
 						name="submit"
 						type="submit"
 						id="contact-submit"
 						data-submit="...Sending"
-					>Submit</button>
+					>Send Message</button>
 				</fieldset>
 			</form>
 		</div>
@@ -35,7 +48,6 @@
 
 <script>
 const capatchKey = '6LcV6cwUAAAAAD2GR6ba2LpowuES-TUYve1bbuzy'
-
 export default {
 	name: 'contact',
 	components: {

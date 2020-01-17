@@ -6,10 +6,18 @@ const user = '138936915@N05'
 const album = '72157705881479424'
 
 // imports
+const ColorThief = require('colorthief')
+const FastAverageColor = require('fast-average-color')
+const fac = new FastAverageColor()
+
+const url = require('url')
 const calculateAspectRatios = require('calculate-aspect-ratio').default
 const Flickr = require('flickr-sdk')
 const flickrAPI = new Flickr(key, secret)
 const fs = require('fs')
+const request = require('request')
+const fetch = require('node-fetch')
+const { resolve } = require('path')
 
 main()
 
@@ -59,6 +67,7 @@ async function formatPhotos(photos) {
 async function processPhoto(photo) {
 	let photoInfo = await getPhotoInfo(photo.id)
 	let photoSize = await getPhotoSize(photo.id)
+	let placeholderColor = await getPlaceholderColor(photo)
 	return {
 		id: photo.id,
 		name: photo.title,
@@ -67,6 +76,7 @@ async function processPhoto(photo) {
 		width: photoSize.width,
 		height: photoSize.height,
 		aspect: getAspectRatio(photoSize.width, photoSize.height),
+		placeholderColor,
 		position: [0, 0],
 		url_md: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`,
 		url_lg: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
@@ -83,7 +93,22 @@ function getAspectRatio(w, h) {
 	}
 	return 'normal'
 }
-
+async function getPlaceholderColor(photo) {
+	const imgURL = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`
+	const imgFileName = `flickr/temp/${photo.id}.jpg`
+	return new Promise(r => {
+		download(imgURL, imgFileName, () => {
+			const img = resolve(process.cwd(), imgFileName)
+			ColorThief.getColor(img)
+				.then(color => {
+					r(color)
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		})
+	})
+}
 async function getPhotoInfo(photoId) {
 	return new Promise((resolve, reject) => {
 		flickrAPI.photos
@@ -107,5 +132,13 @@ async function getPhotoSize(photoId) {
 				resolve(res.body.sizes.size.find(size => size.label === 'Large'))
 			})
 			.catch(err => reject(err))
+	})
+}
+
+var download = function(uri, filename, callback) {
+	request.head(uri, () => {
+		request(uri)
+			.pipe(fs.createWriteStream(filename))
+			.on('close', callback)
 	})
 }

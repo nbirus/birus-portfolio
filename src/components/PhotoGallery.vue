@@ -8,13 +8,15 @@
 			:id="photo.id"
 			class="photo-gallery__link"
 			:class="`delay-${i}`"
+			:style="`background-color: rgb(${photo.placeholderColor})`"
 		>
 			<lazy-img
 				class="photo-gallery__img"
 				:class="photo.aspect"
-				:lazy-src="photo.url_md"
-				:lazy-srcset="photo.url_lg"
+				:lazySrc="photo.url_sm"
+				:lazySrcset="photo.url_lg"
 				:alt="photo.name"
+				:backgroundColor="`rgb(${photo.placeholderColor})`"
 			/>
 			<div class="photo-gallery__info">
 				<span class="photo-gallery__caption" v-text="photo.name"></span>
@@ -64,7 +66,7 @@ function clone(obj) {
 		background-color: var(--c-grey1);
 		cursor: pointer;
 		overflow: hidden;
-		transition: transform .25s ease;
+		transition: transform 0.25s ease;
 
 		&:after {
 			content: '';

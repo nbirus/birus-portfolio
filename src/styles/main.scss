@@ -106,8 +106,18 @@ button {
 	font-size: 1rem;
 	cursor: pointer;
 	text-align: center;
-	-webkit-appearance: none;
-	-moz-appearance: none;
+
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+}
+
+.button {
+	border: solid thin var(--c-border);
+	padding: 1rem 1.5rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
 }
 
 .text {
@@ -129,4 +139,40 @@ button {
 .max-width-container {
 	max-width: 900px;
 	margin: 0 auto;
+}
+
+// input
+.input-field {
+	display: flex;
+	flex-direction: column;
+
+	label {
+		display: block;
+		margin-bottom: 0.5rem;
+		text-transform: uppercase;
+	}
+	input,
+	textarea {
+		display: block;
+		height: 45px;
+		border-radius: 3px;
+		border: solid thin var(--c-border);
+		font-size: 1rem;
+		padding: 0 0.75rem;
+
+		&:focus {
+			border: solid thin var(--c-blue);
+			outline: none;
+			box-shadow: 0 0.28rem 0.6rem fade-out(black, 0.9);
+		}
+
+		&.sm {
+			width: 350px;
+		}
+		&.lg {
+			padding: 0.75rem;
+			width: 450px;
+			height: 200px;
+		}
+	}
 }

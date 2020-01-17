@@ -6,7 +6,7 @@
 import lozad from 'lozad'
 
 export default {
-	name: 'AppImage',
+	name: 'lazy-img',
 	props: {
 		backgroundColor: {
 			type: String,

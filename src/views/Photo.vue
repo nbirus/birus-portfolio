@@ -1,38 +1,33 @@
 <template>
-	<div class="photo" >
+	<div class="photo">
 		<div class="photo__wrapper">
 			<!-- top image -->
+			<!-- eslint-disable -->
 			<div class="photo__img-wrapper">
 				<!-- next/previous buttons -->
 				<div class="photo__img-actions" ref="swipe" tabindex="0">
-					<button type="button" class="photo__img-actions-side left" @click.stop="goToPrevious">
-						<button type="button" @click="goToPrevious">
+					<router-link :to="prevLink" tag="button" class="photo__img-actions-side left">
+						<div class="contain">
 							<img class="left" src="/left.svg" alt="Previous photo" />
-						</button>
-					</button>
+						</div>
+					</router-link>
 					<div class="photo__img-actions-center"></div>
-					<button class="photo__img-actions-side right" @click.stop="goToNext">
-						<button type="button" @click="goToNext">
+					<router-link :to="nextLink" tag="button" class="photo__img-actions-side right">
+						<div class="contain">
 							<img class="right" src="/right.svg" alt="Next photo" />
-						</button>
-					</button>
+						</div>
+					</router-link>
 				</div>
 
 				<!-- image container -->
 				<div class="photo__img-container">
 					<img ref="img" :src="photo.url_lg" class="photo__img" :class="photo.aspect" :alt="photo.name" />
-					<!-- <lazy-img
-						class="photo__img"
-						:lazy-src="photo.url_lg"
-						:lazy-srcset="photo.url_og"
-						:alt="photo.name"
-					/>-->
 				</div>
 
 				<!-- close button -->
-				<button class="btn-icon photo__img-close" type="button" @click="$router.push('/photography')">
+				<router-link to="/photography" tag="button" class="btn-icon photo__img-close">
 					<img class="close" src="/close.svg" alt="Close photo" />
-				</button>
+				</router-link>
 
 				<!-- epxand button -->
 				<button class="btn-icon photo__img-expand" type="button" @click="expand">
@@ -76,6 +71,16 @@ export default {
 			photo: {},
 			photoIndex: 0,
 		}
+	},
+	computed: {
+		nextLink() {
+			let index = this.photoIndex < photos.length - 1 ? this.photoIndex + 1 : 0
+			return `/photography/${photos[index].id}`
+		},
+		prevLink() {
+			let index = this.photoIndex > 0 ? this.photoIndex - 1 : photos.length - 1
+			return `/photography/${photos[index].id}`
+		},
 	},
 	mounted() {
 		this.getImageById(this.$route.params.id)
@@ -130,7 +135,7 @@ export default {
 		},
 		$route() {
 			this.getImageById(this.$route.params.id)
-		}
+		},
 	},
 }
 </script>
@@ -182,11 +187,23 @@ export default {
 				margin-top: -0.15rem;
 			}
 		}
+		.contain {
+			background-color: transparent;
+			border-radius: 50%;
+			width: 50px;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
-		button {
+		.contain img {
 			opacity: 0.1;
 		}
-		&:hover button {
+		&:hover .contain {
+			background-color: fade-out(white, 0.95);
+		}
+		&:hover .contain img {
 			opacity: 1;
 		}
 		&:hover:before {
@@ -232,6 +249,7 @@ export default {
 		width: 70vw;
 		max-width: 1300px;
 		min-width: auto;
+		max-height: 95vh;
 		box-shadow: 0 0 0.75rem fade-out(black, 0.9);
 
 		&.vertical {
