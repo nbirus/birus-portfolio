@@ -17,9 +17,9 @@
 		<div class="nb-app__nav" :class="{ open }">
 			<nav-bar />
 		</div>
-		<div class="nb-app__page" :class="{ open }">
+		<main class="nb-app__page" :class="{ open }">
 			<router-view />
-		</div>
+		</main>
 
 		<transition name="fade" mode="out-in">
 			<div class="nb-app__back-to-top" v-if="showBackToTop && $route.name === 'photography'">

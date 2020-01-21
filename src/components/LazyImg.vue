@@ -1,5 +1,5 @@
 <template>
-	<img :data-src="lazySrc" :data-srcset="lazySrcset" :style="style" class="AppImage" />
+	<img :data-src="lazySrc" :data-srcset="lazySrcset" :style="style" :alt="alt" class="AppImage" />
 </template>
 
 <script>
@@ -21,6 +21,10 @@ export default {
 			default: null,
 		},
 		lazySrcset: {
+			type: String,
+			default: null,
+		},
+		alt: {
 			type: String,
 			default: null,
 		},

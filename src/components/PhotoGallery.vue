@@ -1,5 +1,5 @@
 <template>
-	<ul class="photo-gallery flexbin" id="photo-gallery">
+	<div class="photo-gallery flexbin" id="photo-gallery">
 		<router-link
 			v-for="(photo, i) in photos"
 			:key="i"
@@ -9,6 +9,7 @@
 			class="photo-gallery__link"
 			:class="`delay-${i}`"
 			:style="`background-color: rgb(${photo.placeholderColor})`"
+			:aria-label="`Open photo ${photo.name}`"
 		>
 			<lazy-img
 				class="photo-gallery__img"
@@ -22,7 +23,7 @@
 				<span class="photo-gallery__caption" v-text="photo.name"></span>
 			</div>
 		</router-link>
-	</ul>
+	</div>
 </template>
 
 <script>
@@ -86,7 +87,7 @@ function clone(obj) {
 				opacity: 1;
 				pointer-events: none;
 				background: rgb(0, 0, 0);
-				background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+				background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
 			}
 		}
 		&:hover .photo-gallery__info {
@@ -112,7 +113,7 @@ function clone(obj) {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		text-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+		text-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
 	}
 }
 

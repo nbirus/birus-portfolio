@@ -4,7 +4,7 @@ import router from './router'
 import ProgressiveImage from 'progressive-image/dist/vue'
 
 Vue.use(ProgressiveImage, {
-	removePreview: true,
+	scale: true,
 })
 
 // styles
