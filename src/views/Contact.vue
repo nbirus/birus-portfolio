@@ -2,7 +2,7 @@
 	<div class="contact page">
 		<div class="container">
 			<!-- prettier-ignore -->
-			<form id="contact" action method="post" @submit.prevent="onSubmit">
+			<form id="contact" ref="form" action method="post" @submit.prevent="onSubmit">
 				<h2 class="mb-5">Contact me</h2>
 
 				<!-- name -->
@@ -14,7 +14,7 @@
 				<!-- email -->
 				<fieldset class="input-field mb-3">
 					<label for="email">Email Address</label>
-					<input id="email" type="email" class="sm" v-model="email" tabindex="2" required />
+					<input ref="email" id="email" type="email" class="sm" v-model="email" tabindex="2" required />
 				</fieldset>
 
 				<!-- message -->
@@ -25,6 +25,7 @@
 
 				<fieldset>
 					<recaptcha
+						tabindex="4"
 						class="mb-3"
 						:sitekey="capatchKey"
 						type="3"
@@ -32,14 +33,17 @@
 						@verify="verified = true"
 					></recaptcha>
 					<button
-						:disabled="!verified"
-						class="button"
-						:class="{disabled: !verified}"
+						tabindex="5"
+						:disabled="sending"
+						:class="{disabled: sending}"
+						id="contact-submit"
+						class="button btn-reg"
 						name="submit"
 						type="submit"
-						id="contact-submit"
-						data-submit="...Sending"
-					>Send Message</button>
+					>
+						<img src="/send.svg" alt="Home" />
+						<span>{{!sending ? 'Send Message' : 'Sending message...'}}</span>
+					</button>
 				</fieldset>
 			</form>
 		</div>
@@ -59,11 +63,18 @@ export default {
 			email: '',
 			message: '',
 			verified: false,
+			sending: false,
 			capatchKey,
+		}
+	},
+	mounted() {
+		this.$refs.email.onblur = () => {
+			this.$refs.form.reportValidity()
 		}
 	},
 	methods: {
 		onSubmit() {
+			this.sending = true
 			fetch('https://nbirus-portfolio-api.herokuapp.com/', {
 				method: 'post',
 				body: JSON.stringify({
@@ -76,12 +87,25 @@ export default {
 					return response.json()
 				})
 				.then(() => {
-					alert('MESSAGE SENT')
+					alert('Your message has been sent!')
 				})
 				.catch(e => {
 					alert(e)
+				})
+				.finally(() => {
+					this.sending = false
 				})
 		},
 	},
 }
 </script>
+
+<style lang="scss">
+#contact-submit {
+	display: flex;
+	align-items: center;
+	img {
+		margin-right: 0.5rem;
+	}
+}
+</style>

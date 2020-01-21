@@ -20,18 +20,19 @@
 				</router-link>
 
 				<!-- photo gallery filters -->
-				<photo-filters v-if="$route.name === 'photography' || $route.name === 'photo'"></photo-filters>
+				<!-- <photo-filters v-if="$route.name === 'photography' || $route.name === 'photo'"></photo-filters> -->
 			</div>
+			<!-- <div class="copyright">All material © copyright by Nathan Birus. All rights reserved.</div> -->
 		</div>
 	</nav>
 </template>
 
 <script>
-import PhotoFilters from '@/components/PhotoFilters'
+// import PhotoFilters from '@/components/PhotoFilters'
 
 export default {
 	name: 'nav-bar',
-	components: { PhotoFilters }
+	// components: { PhotoFilters },
 }
 </script>
 
@@ -41,6 +42,7 @@ export default {
 	width: 100%;
 
 	&__fixed {
+		height: 100vh;
 		position: fixed;
 		width: var(--nav-width);
 		padding-top: 3rem;
@@ -86,6 +88,15 @@ export default {
 			transform: scale(0.9);
 			opacity: 0.65;
 		}
+	}
+
+	.copyright {
+		position: absolute;
+		bottom: 1rem;
+		padding: 0 1rem;
+		font-size: 12px;
+		line-height: 1.4;
+		color: var(--c-text-light);
 	}
 }
 
