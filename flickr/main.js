@@ -7,11 +7,6 @@ const album = '72157705881479424'
 
 // imports
 const ColorThief = require('colorthief')
-const FastAverageColor = require('fast-average-color')
-const fac = new FastAverageColor()
-
-const url = require('url')
-const calculateAspectRatios = require('calculate-aspect-ratio').default
 const Flickr = require('flickr-sdk')
 const flickrAPI = new Flickr(key, secret)
 const fs = require('fs')
