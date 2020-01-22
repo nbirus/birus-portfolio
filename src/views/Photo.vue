@@ -21,7 +21,13 @@
 
 				<!-- image container -->
 				<div class="photo__img-container">
-					<img ref="img" :src="photo.url_lg" class="photo__img" :class="photo.aspect" :alt="photo.name" />
+					<img
+						ref="img"
+						:src="photo.url_lg"
+						class="photo__img"
+						:class="photo.aspect"
+						:alt="photo.name"
+					/>
 				</div>
 
 				<!-- close button -->
@@ -148,6 +154,7 @@ export default {
 	top: 0;
 	display: flex;
 	flex-direction: column;
+	z-index: 99;
 
 	&__wrapper {
 		position: relative;
@@ -247,9 +254,9 @@ export default {
 	}
 	&__img {
 		width: 70vw;
-		max-width: 1300px;
 		min-width: auto;
-		max-height: 95vh;
+		max-width: 1300px;
+		max-height: 93vh;
 		box-shadow: 0 0 0.75rem fade-out(black, 0.9);
 
 		&.vertical {

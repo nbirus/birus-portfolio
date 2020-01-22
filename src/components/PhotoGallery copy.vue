@@ -1,5 +1,5 @@
 <template>
-	<div class="photo-gallery" id="photo-gallery">
+	<div class="photo-gallery flexbin" id="photo-gallery">
 		<router-link
 			v-for="(photo, i) in photos"
 			:key="i"
@@ -7,13 +7,14 @@
 			:to="`/photography/${photo.id}`"
 			:id="photo.id"
 			class="photo-gallery__link"
-			:class="`delay-${i} ${photo.aspect}`"
+			:class="`delay-${i}`"
 			:style="`background-color: rgb(${photo.placeholderColor})`"
 			:aria-label="`Open photo ${photo.name}`"
 		>
 			<photo
-				class="photo-gallery__img"
+				class="photo-gallery__img img"
 				:id="`photo-${photo.id}`"
+				:class="photo.aspect"
 				:height="photo.height"
 				:width="photo.width"
 				:src="photo.url_lg"
@@ -22,6 +23,14 @@
 				:aspect="photo.aspect"
 				:backgroundColor="`rgb(${photo.placeholderColor})`"
 			/>
+			<!-- <lazy-img
+				class="photo-gallery__img"
+				:id="`photo-${photo.id}`"
+				:class="photo.aspect"
+				:lazySrcset="photo.url_lg"
+				:alt="photo.name"
+				:backgroundColor="`rgb(${photo.placeholderColor})`"
+			/> -->
 			<div class="photo-gallery__info">
 				<span class="photo-gallery__caption" v-text="photo.name"></span>
 			</div>
@@ -67,30 +76,16 @@ function clone(obj) {
 
 <style lang="scss" scoped>
 .photo-gallery {
-	display: grid;
-	grid-gap: 8px;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: 300px;
-	grid-auto-flow: row;
-
 	&__link {
-		height: 300px;
 		background-color: var(--c-grey1);
 		cursor: pointer;
 		overflow: hidden;
 		transition: transform 0.25s ease;
-		position: relative;
-
-		&.panorama {
-			grid-column: span 3;
-			height: 200px;
-		}
 
 		&:after {
 			content: '';
 			opacity: 0;
 			transition: opacity 0.35s ease;
-			z-index: 1;
 		}
 		&:hover {
 			transform: scale(1.015);
@@ -110,7 +105,6 @@ function clone(obj) {
 		}
 		&:hover .photo-gallery__info {
 			margin-bottom: 0;
-			opacity: 1;
 		}
 	}
 	&__info {
@@ -120,7 +114,6 @@ function clone(obj) {
 		left: 1rem;
 		margin-bottom: -50px;
 		transition: margin 0.35s ease;
-		opacity: 0;
 	}
 	&__caption {
 		color: white;
@@ -137,16 +130,12 @@ function clone(obj) {
 	}
 }
 
-@media (max-width: var(--screen-tablet)) {
-}
-@media (max-width: var(--screen-phone)) {
-}
-
 @for $i from 0 through 25 {
 	.delay-#{$i} {
 		// animation: down 0.25s + 0.2s * $i ease-in !important;
 	}
 }
+
 @keyframes down {
 	0% {
 		opacity: 0;

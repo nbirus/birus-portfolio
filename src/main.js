@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import ProgressiveImage from 'progressive-image/dist/vue'
-
-Vue.use(ProgressiveImage, {
-	scale: true,
-})
+import VueProgressiveImage from 'vue-progressive-image'
+Vue.use(VueProgressiveImage)
 
 // styles
 import './styles/main.scss'

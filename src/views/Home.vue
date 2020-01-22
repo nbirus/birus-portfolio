@@ -6,16 +6,16 @@
 			<div class="block-seperator mb-4"></div>
 			<h5 class="thin">a web developer</h5>
 		</div>
-		<hr class="mb-5" />
+		<!-- <hr class="mb-5" /> -->
 		<div class="about-container max-char">
-			<h6 class="italic mb-2">About me</h6>
+			<!-- <h6 class="italic mb-2">About me</h6> -->
 			<!-- eslint-disable-next-line -->
-			<p>
+			<!-- <p>
 				I am a passionate website designer/engineer with 3+ years of experience building enterprise
 				level applications. I involve myself in all areas of front-end development including
 				mockups, designs, selecting technologies, CI, implementation, and engineering the final
 				product.
-			</p>
+			</p> -->
 		</div>
 	</div>
 </template>

@@ -16,7 +16,6 @@ const Flickr = require('flickr-sdk')
 const flickrAPI = new Flickr(key, secret)
 const fs = require('fs')
 const request = require('request')
-const fetch = require('node-fetch')
 const { resolve } = require('path')
 
 main()
@@ -88,8 +87,11 @@ function getAspectRatio(w, h) {
 	if (h > w) {
 		return 'vertical'
 	}
-	if (w - h > 500) {
+	if (w - h > 700) {
 		return 'panorama'
+	}
+	if (w === h) {
+		return 'square'
 	}
 	return 'normal'
 }

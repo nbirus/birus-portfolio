@@ -20,10 +20,12 @@
 </template>
 
 <script>
-import PhotoGallery from '@/components/PhotoGallery'
+// import PhotoGallery from '@/components/PhotoGallery'
 export default {
 	name: 'photography',
-	components: { PhotoGallery },
+	components: {
+		PhotoGallery: () => import('@/components/PhotoGallery'),
+	},
 	data() {
 		return {
 			scrollY: 0,
