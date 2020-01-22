@@ -253,6 +253,7 @@ export default {
 		padding: 2rem 1vw;
 	}
 	&__img {
+		animation: open ease 0.5s;
 		width: 70vw;
 		min-width: auto;
 		max-width: 1300px;
@@ -308,6 +309,17 @@ button {
 		&__img-wrapper {
 			min-height: 50vh;
 		}
+	}
+}
+
+@keyframes open {
+	0% {
+		transform: scale(0.75);
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
 	}
 }
 </style>
