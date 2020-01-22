@@ -1,16 +1,21 @@
 <template>
 	<div class="page photography" :class="{ active: photoActive }">
-		<!-- <transition name="fade-down" mode="out-in" appear>
-			<div class="page__header mb-5">
-				<h2>Photography</h2>
-			</div>
-		</transition>-->
-		<div class="page__body">
-			<transition name="fade-down" mode="out-in" appear>
-				<photo-gallery />
-			</transition>
+		<div class="page__header mb-5">
+			<h2>Photography</h2>
 		</div>
-
+		<div class="page__body">
+			<div class="page__categories mb-10">
+				<div class="card category" v-for="category in categories" :key="category.id">
+					<div class="category__img">
+						<img height="85px" :src="category.url" :alt="category.name" />
+					</div>
+					<div class="category__text" v-text="category.name"></div>
+				</div>
+			</div>
+			<div class="page__gallery">
+				<photo-gallery />
+			</div>
+		</div>
 		<div class="page__overlay">
 			<transition name="photo" mode="out-in">
 				<router-view :key="photoActive" />
@@ -20,7 +25,6 @@
 </template>
 
 <script>
-// import PhotoGallery from '@/components/PhotoGallery'
 export default {
 	name: 'photography',
 	components: {
@@ -29,6 +33,23 @@ export default {
 	data() {
 		return {
 			scrollY: 0,
+			categories: [
+				{
+					id: 'landscapes',
+					name: 'Landscapes',
+					url: 'https://farm9.staticflickr.com/8389/29570394020_a50f9be15b_m.jpg',
+				},
+				{
+					id: 'cityscapes',
+					name: 'Cityscapes',
+					url: 'https://farm6.staticflickr.com/5735/24018013875_dcb08102b8_m.jpg',
+				},
+				{
+					id: 'wildLife',
+					name: 'WildLife',
+					url: 'https://farm2.staticflickr.com/1624/23391211893_93076c6106_m.jpg',
+				},
+			],
 		}
 	},
 	computed: {
@@ -77,7 +98,13 @@ export default {
 	&__overlay {
 		display: none;
 	}
+	&__categories {
+		display: flex;
 
+		.card {
+			flex: 1;
+		}
+	}
 	&.active {
 		overflow: hidden;
 		height: 100vh;
@@ -93,6 +120,28 @@ export default {
 		.page__body {
 			// visibility: hidden;
 		}
+	}
+}
+
+.category {
+	height: 75px;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+
+	&__img {
+		flex: 0 0 30%;
+		overflow: hidden;
+	}
+	&__text {
+		flex: 0 0 70%;
+		font-weight: var(--bold);
+		color: var(--c-text-light);
+		padding-left: 1.25rem;
+	}
+
+	&:not(:last-child) {
+		margin-right: 1rem;
 	}
 }
 

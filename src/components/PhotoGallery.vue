@@ -68,7 +68,7 @@ function clone(obj) {
 <style lang="scss" scoped>
 .photo-gallery {
 	display: grid;
-	grid-gap: 8px;
+	grid-gap: 12px;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 300px;
 	grid-auto-flow: row;

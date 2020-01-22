@@ -40,6 +40,9 @@
 .mb-6 {
 	margin-bottom: 3.5rem;
 }
+.mb-10 {
+	margin-bottom: 4rem;
+}
 
 h1 {
 	font-size: 3.5rem;
@@ -174,4 +177,9 @@ button {
 			height: 150px;
 		}
 	}
+}
+
+.card {
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+	border-radius: 4px;
 }
