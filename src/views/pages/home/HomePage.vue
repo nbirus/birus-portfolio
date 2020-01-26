@@ -1,8 +1,8 @@
 <template>
-	<div class="home page">
-		<div class="identity-container mb-6">
+	<div class="home-page page">
+		<div class="identity mb-6">
 			<h4 class="thin mb-1 text">Hello, I am</h4>
-			<h1 class="text mb-4">Nathan Birus</h1>
+			<h1 class="text header mb-4">Nathan Birus</h1>
 			<div class="text block-seperator mb-4"></div>
 			<h5 class="text thin">a web developer</h5>
 		</div>
@@ -28,6 +28,6 @@ export default {
 
 <style lang="scss" scoped>
 .home-page {
-	height: 200vh;
+	padding-top: 3rem;
 }
 </style>

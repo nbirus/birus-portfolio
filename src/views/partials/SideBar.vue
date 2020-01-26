@@ -5,7 +5,7 @@
 				<button class="nb-sidebar__menu icon-btn" @click="$emit('input', false)" type="button">
 					<img src="/close.svg" height="30px" alt="Close navigation" />
 				</button>
-				<button class="nb-sidebar__dark-mode icon-btn" @click="$dark=!$dark">
+				<button class="nb-sidebar__dark-mode icon-btn" @click="$dark = !$dark">
 					<img :src="$dark ? '/moon.svg' : '/sun.svg'" height="20px" alt="Dark Mode Toggle" />
 				</button>
 			</div>
