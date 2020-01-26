@@ -25,9 +25,8 @@ const routes = [{
 			path: '/photography/:id',
 			name: 'photo',
 			component: () => import( /* webpackChunkName: "photo" */ '../views/pages/photography/Photo.vue'),
-		}, ]
+		}]
 	},
-
 	{
 		path: '/design',
 		name: 'design',

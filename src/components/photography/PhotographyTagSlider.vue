@@ -1,74 +1,47 @@
 <template>
 	<div class="scrolling-wrapper">
-		<router-link :to="`photography/${tag.id}`" v-for="tag in tags" :key="tag.id">
+		<button type="button" v-for="tag in tags" :key="tag.id" @click="$emit('tag', tag)">
 			<div class="card">
 				<div class="card__img">
 					<img :src="tag.src" :alt="tag.label" />
 				</div>
 				<div class="card__label text-secondary" v-text="tag.label"></div>
 			</div>
-		</router-link>
+		</button>
+		<div class="filler"></div>
 	</div>
 </template>
 
 <script>
+import tags from '@/assets/tags.json'
+
 export default {
 	name: 'photography-tag-slider',
 	data() {
 		return {
-			tags: [
-				{
-					id: 'landscapes',
-					label: 'Landscapes',
-					src: 'https://farm6.staticflickr.com/5718/29570398080_d757d18eb0_m.jpg',
-				},
-				{
-					id: 'japan',
-					label: 'Japan',
-					src: 'https://farm8.staticflickr.com/7561/26908723540_5e99cb8bcf_m.jpg',
-				},
-				{
-					id: '',
-					label: 'Cityscapes',
-					src: 'https://farm2.staticflickr.com/1618/25576813036_58ba279588_m.jpg',
-				},
-				{
-					id: '',
-					label: 'Chile',
-					src: 'https://farm6.staticflickr.com/5718/29570398080_d757d18eb0_m.jpg',
-				},
-				{
-					id: '',
-					label: 'Patagonia',
-					src: 'https://farm6.staticflickr.com/5718/29570398080_d757d18eb0_m.jpg',
-				},
-				{
-					id: '',
-					label: 'Peru',
-					src: 'https://farm6.staticflickr.com/5718/29570398080_d757d18eb0_m.jpg',
-				},
-			],
+			tags,
 		}
 	},
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/component';
+
 .scrolling-wrapper {
 	display: flex;
 	flex-wrap: nowrap;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
-	padding: 12px;
-	margin-left: -12px;
+	padding: 1rem 3rem;
 
 	&::-webkit-scrollbar {
 		display: none;
 	}
 	.card {
 		flex: 0 0 auto;
-		width: 250px;
-		height: 70px;
+		width: 275px;
+		height: 80px;
 		display: flex;
 		align-items: center;
 		overflow: hidden;
@@ -80,25 +53,75 @@ export default {
 		}
 
 		&__img {
-			width: 70px;
+			width: 90px;
 			height: 100%;
-			overflow: hidden;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			overflow: hidden;
 
 			img {
 				width: auto;
-				height: 100%;
+				height: 110%;
 			}
 		}
 		&__label {
-			padding-left: 1rem;
+			padding-left: 1.25rem;
 			font-weight: var(--bold);
+			text-decoration: none !important;
 		}
+	}
+	button {
+		outline: none;
+		padding: 0;
+		border-radius: 4px;
+		transition: box-shadow 0.25s ease;
 
-		&:not(:last-child) {
-			margin-right: 1rem;
+		&:hover {
+			background-color: fade-out(white, 0.9);
+			box-shadow: 0 0 0 1px var(--c-blue);
+		}
+		&:active,
+		&:focus {
+			background-color: fade-out(white, 0.8);
+			@include active-shadow;
+		}
+	}
+	button:not(:last-child) {
+		margin-right: 1rem;
+	}
+	.filler {
+		position: relative;
+		flex: 0 0 1rem;
+		display: block;
+		height: 80px;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.scrolling-wrapper {
+		padding: 1rem 1rem;
+
+		.card {
+			flex: 0 0 auto;
+			width: 125px;
+			height: 130px;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+
+			&__img {
+				width: 110%;
+				height: auto;
+
+				img {
+					width: auto;
+					height: 140%;
+				}
+			}
+			&__label {
+				padding: 0.85rem 0;
+				font-size: 0.9rem;
+			}
 		}
 	}
 }

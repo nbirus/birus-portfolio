@@ -4,7 +4,7 @@
 			<img src="/menu.svg" height="30px" alt="Open navigation" />
 		</button>
 		<div class="nb-header__logo">
-			<img src="/favicon.png" height="38px" alt="Nbirus Logo" />
+			<img src="/favicon.png" height="42px" alt="Nbirus Logo" />
 		</div>
 		<div class="nb-header__middle"></div>
 		<div class="nb-header__links">
@@ -14,7 +14,7 @@
 			<router-link class="nb-header__link" to="contact">Contact me</router-link>
 		</div>
 		<button class="nb-header__dark-mode icon-btn" @click="$dark=!$dark">
-			<img :src="$dark ? '/moon.svg' : '/sun.svg'" height="20px" alt="Dark Mode Toggle" />
+			<img :src="$dark ? '/moon.svg' : '/sun.svg'" height="16px" alt="Dark Mode Toggle" />
 		</button>
 	</div>
 </template>

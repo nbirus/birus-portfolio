@@ -37,19 +37,19 @@ export default {
 	name: 'photography-gallery',
 	components: { Photo },
 	props: {
-		tags: {
-			type: Array,
-			default: () => [],
+		tag: {
+			type: String,
+			default: '',
 		},
 	},
 	computed: {
 		filteredPhotos() {
-			if (this.tags.length === 0) {
+			if (this.tags === '') {
 				return photos
 			}
 			return clone(photos).filter(photo => {
 				const searchString = photo.name + photo.date + photo.description
-				return this.tags.some(tag => searchString.includes(tag))
+				return searchString.includes(this.tag)
 			})
 		},
 	},

@@ -1,8 +1,15 @@
 <template>
 	<div class="page photography-page" :class="{ fullscreen: $fullscreen }">
-		<h1 class="text mb-4">Photography</h1>
-		<photography-tag-slider class="mb-10" />
-		<photography-gallery />
+		<div class="page__header">
+			<h1 class="text">{{tag.label || 'Photography'}}</h1>
+			<button class="regular-btn" v-if="tag.id" type="button" @click="tag={}">Back to gallery</button>
+		</div>
+		<div class="page__slider" v-if="!tag.id">
+			<photography-tag-slider @tag="tag=$event" />
+		</div>
+		<div class="page__gallery">
+			<photography-gallery :tag="tag.id" />
+		</div>
 
 		<div class="page__overlay">
 			<transition name="photo" mode="out-in">
@@ -22,6 +29,7 @@ export default {
 	data() {
 		return {
 			scrollY: 0,
+			tag: {},
 		}
 	},
 	watch: {
@@ -40,7 +48,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.photography-page {
+.page {
+	padding: 0;
+
+	&__header {
+		padding: 4rem 3rem 0;
+		margin-bottom: 1.5rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	&__slider {
+		width: calc(100vw - 1rem);
+		margin-bottom: 4rem;
+	}
+	&__gallery {
+		padding: 0 3rem;
+	}
+
 	&.fullscreen {
 		overflow: hidden;
 		height: 100vh;
@@ -53,6 +78,21 @@ export default {
 			left: 0;
 			width: 100%;
 			min-height: 100vh;
+		}
+	}
+}
+@media only screen and (max-width: 768px) {
+	.page {
+		&__header {
+			padding: 2rem 1rem 0;
+			margin-bottom: 1.5rem;
+		}
+		&__slider {
+			width: calc(100vw);
+			margin-bottom: 2.5rem;
+		}
+		&__gallery {
+			padding: 0 1rem;
 		}
 	}
 }

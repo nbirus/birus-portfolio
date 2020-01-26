@@ -19,18 +19,57 @@
 	}
 }
 
-.dark .icon-btn {
-	img {
-		filter: invert(1);
-	}
+.regular-btn {
+	border: solid thin var(--c-border);
+	border-radius: 25px;
+	padding: 1rem 2rem;
+	font-size: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	outline: none;
+	font-weight: var(--bold);
+	color: var(--c-text-secondary);
+	transition: background-color 0.1s ease, box-shadow 0.2s ease;
 
 	&:hover {
-		background-color: fade-out(white, .9);
+		background-color: var(--c-grey1);
 	}
 
 	&:active,
 	&:focus {
-		background-color: fade-out(white, .8);
+		background-color: var(--c-grey2);
 		@include active-shadow;
+	}
+}
+
+.dark {
+	.icon-btn {
+		img {
+			filter: invert(1);
+		}
+
+		&:hover {
+			background-color: fade-out(white, .9);
+		}
+
+		&:active,
+		&:focus {
+			background-color: fade-out(white, .8);
+			@include active-shadow;
+		}
+	}
+
+	.regular-btn {
+		color: white;
+
+		&:hover {
+			background-color: fade-out(white, .9);
+		}
+
+		&:active,
+		&:focus {
+			background-color: fade-out(white, .8);
+			@include active-shadow;
+		}
 	}
 }

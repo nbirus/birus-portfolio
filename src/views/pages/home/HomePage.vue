@@ -1,10 +1,10 @@
 <template>
 	<div class="home page">
 		<div class="identity-container mb-6">
-			<h4 class="thin mb-1">Hello I am</h4>
-			<h1 class="mb-4">Nathan Birus</h1>
-			<div class="block-seperator mb-4"></div>
-			<h5 class="thin">a web developer</h5>
+			<h4 class="thin mb-1 text">Hello, I am</h4>
+			<h1 class="text mb-4">Nathan Birus</h1>
+			<div class="text block-seperator mb-4"></div>
+			<h5 class="text thin">a web developer</h5>
 		</div>
 		<!-- <hr class="mb-5" /> -->
 		<div class="about-container max-char">
