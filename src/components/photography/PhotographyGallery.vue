@@ -1,18 +1,18 @@
 <template>
-	<div class="photo-gallery" id="photo-gallery">
+	<div class="photography-gallery" id="photography-gallery">
 		<router-link
-			v-for="(photo, i) in photos"
+			v-for="(photo, i) in filteredPhotos"
 			:key="i"
 			tag="a"
 			:to="`/photography/${photo.id}`"
 			:id="photo.id"
-			class="photo-gallery__link"
+			class="photography-gallery__link"
 			:class="`delay-${i} ${photo.aspect}`"
 			:style="`background-color: rgb(${photo.placeholderColor})`"
 			:aria-label="`Open photo ${photo.name}`"
 		>
 			<photo
-				class="photo-gallery__img"
+				class="photography-gallery__img"
 				:id="`photo-${photo.id}`"
 				:height="photo.height"
 				:width="photo.width"
@@ -22,8 +22,8 @@
 				:aspect="photo.aspect"
 				:backgroundColor="`rgb(${photo.placeholderColor})`"
 			/>
-			<div class="photo-gallery__info">
-				<span class="photo-gallery__caption" v-text="photo.name"></span>
+			<div class="photography-gallery__info">
+				<span class="photography-gallery__caption" v-text="photo.name"></span>
 			</div>
 		</router-link>
 	</div>
@@ -32,29 +32,25 @@
 <script>
 import photos from '@/assets/photos'
 import Photo from '@/components/Photo'
-import { EventBus } from '@/event-bus'
 
 export default {
-	name: 'photo-gallery',
+	name: 'photography-gallery',
 	components: { Photo },
-	data() {
-		return {
-			photos: clone(photos),
-		}
+	props: {
+		tags: {
+			type: Array,
+			default: () => [],
+		},
 	},
-	mounted() {
-		EventBus.$on('filters', this.filterPhotos)
-	},
-	methods: {
-		filterPhotos(filters) {
-			if (filters.length === 0) {
-				this.photos = clone(photos)
-			} else {
-				this.photos = clone(photos).filter(photo => {
-					const searchString = photo.name + photo.date + photo.description
-					return filters.some(filter => searchString.includes(filter))
-				})
+	computed: {
+		filteredPhotos() {
+			if (this.tags.length === 0) {
+				return photos
 			}
+			return clone(photos).filter(photo => {
+				const searchString = photo.name + photo.date + photo.description
+				return this.tags.some(tag => searchString.includes(tag))
+			})
 		},
 	},
 }
@@ -65,7 +61,7 @@ function clone(obj) {
 </script>
 
 <style lang="scss" scoped>
-.photo-gallery {
+.photography-gallery {
 	display: grid;
 	grid-gap: 12px;
 	grid-template-columns: repeat(3, 1fr);
@@ -107,7 +103,7 @@ function clone(obj) {
 				background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
 			}
 		}
-		&:hover .photo-gallery__info {
+		&:hover .photography-gallery__info {
 			margin-bottom: 0;
 			opacity: 1;
 		}
@@ -143,7 +139,7 @@ function clone(obj) {
 
 @for $i from 0 through 25 {
 	.delay-#{$i} {
-		// animation: down 0.25s + 0.2s * $i ease-in !important;
+		animation: down 0.25s + 0.2s * $i ease-in !important;
 	}
 }
 @keyframes down {

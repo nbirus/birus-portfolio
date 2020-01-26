@@ -5,64 +5,32 @@
 		<main class="nb-main">
 			<router-view />
 		</main>
-
-		<!-- <div class="nb-app__actions" :class="{ hideNav }">
-		<transition name="fade" mode="out-in">
-			<div class="nb-app__back-to-top" v-if="showBackToTop && $route.name === 'photography'">
-				<button type="button" @click="backToTop">
-					<img src="/arrow.svg" alt="Go to top" />
-				</button>
-			</div>
-		</transition>-->
 	</div>
 </template>
 
 <script>
-import scrollDetect from '@/utils/ScrollDetect'
-import NavBar from '@/views/NavBar'
 import HeaderBar from '@/views/partials/Header'
 import SideBar from '@/views/partials/SideBar'
 
 export default {
 	name: 'app',
-	components: { HeaderBar, SideBar, NavBar },
+	components: { HeaderBar, SideBar },
 	data() {
 		return {
-			sideBar: true,
-			fullscreen: false,
-			showBackToTop: false,
-			backToTopTimeout: undefined,
+			sideBar: false,
 		}
-	},
-	mounted() {
-		scrollDetect(this.onScrollUp)
 	},
 	computed: {
 		hideNav() {
 			return this.$route.params.id
 		},
 	},
-	methods: {
-		onScrollUp() {
-			this.showBackToTop = true
-
-			if (this.backToTopTimeout) {
-				clearInterval(this.backToTopTimeout)
-			}
-
-			this.backToTopTimeout = setTimeout(() => {
-				this.showBackToTop = false
-			}, 3000)
-		},
-		backToTop() {
-			window.scrollTo({ top: 0, behavior: 'smooth' })
-		},
-	},
 	watch: {
-		$route() {
+		$route(to) {
 			this.sideBar = false
+			this.$fullscreen = to.name === 'photo'
 		},
-		fullscreen(fullscreen) {
+		$fullscreen(fullscreen) {
 			if (fullscreen) {
 				document.body.classList.add('no-scroll')
 			} else {
@@ -83,6 +51,7 @@ export default {
 	padding: 0;
 	word-wrap: break-word;
 	background-color: white;
+	position: relative;
 
 	&.dark {
 		background-color: var(--c-dark);

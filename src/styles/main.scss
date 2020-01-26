@@ -5,7 +5,10 @@
 @import './checkbox.scss';
 @import './buttons.scss';
 
-
+body {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
 
 .flex {
 	display: flex;
@@ -53,11 +56,11 @@
 }
 
 h1 {
-	font-size: 3.5rem;
+	font-size: 2.75rem;
 }
 
 h2 {
-	font-size: 2.5rem;
+	font-size: 2.25rem;
 }
 
 h3 {
@@ -140,13 +143,14 @@ button {
 .text {
 	color: var(--c-text);
 }
+
 .text-secondary {
 	color: var(--c-text-light);
 }
 
 
 .page {
-	padding: 3rem 3rem;
+	padding: 4rem 3rem;
 }
 
 @media only screen and (max-width: 768px) {
@@ -203,12 +207,25 @@ button {
 	border-radius: 4px;
 }
 
+.white-bg {
+	background-color: #fff;
+}
+
 // dark mode
 .dark {
 	.text {
 		color: var(--c-text-dm);
 	}
+
 	.text-secondary {
 		color: var(--c-text-light-dm);
+	}
+
+	.white-bg {
+		background-color: var(--c-dark);
+	}
+
+	.card {
+		background-color: var(--c-grey8);
 	}
 }

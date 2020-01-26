@@ -16,8 +16,9 @@ Vue.config.productionTip = false
 // create reactive dark mode property
 let globalData = new Vue({
 	data: {
-		// $dark: false
-		$dark: isDark
+		// $dark: isDark
+		$dark: false,
+		$fullscreen: false,
 	}
 });
 Vue.mixin({
@@ -33,6 +34,14 @@ Vue.mixin({
 			},
 			set(dark) {
 				globalData.$data.$dark = dark
+			}
+		},
+		$fullscreen: {
+			get() {
+				return globalData.$data.$fullscreen
+			},
+			set(fullscreen) {
+				globalData.$data.$fullscreen = fullscreen
 			}
 		}
 	}

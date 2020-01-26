@@ -24,19 +24,19 @@ const routes = [{
 		children: [{
 			path: '/photography/:id',
 			name: 'photo',
-			component: () => import( /* webpackChunkName: "photo" */ '../views/Photo.vue'),
+			component: () => import( /* webpackChunkName: "photo" */ '../views/pages/photography/Photo.vue'),
 		}, ]
 	},
 
 	{
 		path: '/design',
 		name: 'design',
-		component: () => import( /* webpackChunkName: "design" */ '../views/Design.vue'),
+		component: () => import( /* webpackChunkName: "design" */ '../views/pages/web-design/Design.vue'),
 	},
 	{
 		path: '/contact',
 		name: 'contact',
-		component: () => import( /* webpackChunkName: "contact" */ '../views/Contact.vue'),
+		component: () => import( /* webpackChunkName: "contact" */ '../views/pages/contact/ContactPage.vue'),
 	},
 ]
 const router = new VueRouter({

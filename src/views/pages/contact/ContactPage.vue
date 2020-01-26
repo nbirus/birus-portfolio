@@ -53,7 +53,7 @@
 <script>
 const capatchKey = '6LcV6cwUAAAAAD2GR6ba2LpowuES-TUYve1bbuzy'
 export default {
-	name: 'contact',
+	name: 'contact-page',
 	components: {
 		recaptcha: () => import('vue-recaptcha'),
 	},
