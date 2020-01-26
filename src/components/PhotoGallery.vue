@@ -31,13 +31,12 @@
 
 <script>
 import photos from '@/assets/photos'
-import LazyImg from '@/components/LazyImg'
 import Photo from '@/components/Photo'
 import { EventBus } from '@/event-bus'
 
 export default {
 	name: 'photo-gallery',
-	components: { Photo, LazyImg },
+	components: { Photo },
 	data() {
 		return {
 			photos: clone(photos),

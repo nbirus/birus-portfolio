@@ -15,9 +15,14 @@
 
 	--c-text: var(--c-grey9);
 	--c-text-light: var(--c-grey6);
+	--c-text-dm: white;
+	--c-text-light-dm: var(--c-grey4);
 	--c-border: var(--c-grey3);
+	--c-border-dm: var(--c-grey8);
 	--c-border-light: var(--c-grey2);
 	--c-light: var(--c-grey1);
+	--c-link: var(--c-blue);
+	--c-dark: var(--c-grey9);
 
 	// spacing
 	--space: 3rem;
@@ -31,11 +36,12 @@
 
 	// sizes
 	--screen-tablet: 980px;
-	--screen-phone: 400px;
+	--screen-phone: 768px;
 
 	// other
 	--br: 3px;
 	--nav-width: 270px;
 	--transition: 0.35s;
 	--transition-ease: cubic-bezier(0.88, 0.02, 0.29, 0.99);
+	--header-height: 80px;
 }

@@ -5,6 +5,8 @@
 @import './checkbox.scss';
 @import './buttons.scss';
 
+
+
 .flex {
 	display: flex;
 
@@ -25,21 +27,27 @@
 .mb-1 {
 	margin-bottom: 0.25rem;
 }
+
 .mb-2 {
 	margin-bottom: 1rem;
 }
+
 .mb-3 {
 	margin-bottom: 1.5rem;
 }
+
 .mb-4 {
 	margin-bottom: 2rem;
 }
+
 .mb-5 {
 	margin-bottom: 2.5rem;
 }
+
 .mb-6 {
 	margin-bottom: 3.5rem;
 }
+
 .mb-10 {
 	margin-bottom: 4rem;
 }
@@ -47,18 +55,23 @@
 h1 {
 	font-size: 3.5rem;
 }
+
 h2 {
 	font-size: 2.5rem;
 }
+
 h3 {
 	font-size: 1.75rem;
 }
+
 h4 {
 	font-size: 1.5rem;
 }
+
 h5 {
 	font-size: 1.25rem;
 }
+
 h6 {
 	font-size: 1.15rem;
 }
@@ -72,9 +85,11 @@ h6 {
 	&:not(.thin) {
 		font-weight: var(--bold);
 	}
+
 	&.thin {
 		font-weight: var(--thin);
 	}
+
 	&.italic {
 		font-style: italic;
 	}
@@ -129,9 +144,11 @@ button {
 	color: var(--c-text-light);
 }
 
+
 .page {
 	padding: 3rem 3rem;
 }
+
 @media only screen and (max-width: 768px) {
 	.page {
 		padding: 0.5rem 1rem 2rem;
@@ -153,6 +170,7 @@ button {
 		margin-bottom: 0.5rem;
 		text-transform: uppercase;
 	}
+
 	input,
 	textarea {
 		display: block;
@@ -171,6 +189,7 @@ button {
 		&.sm {
 			width: 350px;
 		}
+
 		&.lg {
 			padding: 0.75rem;
 			width: 450px;
@@ -182,4 +201,14 @@ button {
 .card {
 	box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 	border-radius: 4px;
+}
+
+// dark mode
+.dark {
+	.text {
+		color: var(--c-text-dm);
+	}
+	.text-secondary {
+		color: var(--c-text-light-dm);
+	}
 }
