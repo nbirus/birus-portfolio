@@ -84,4 +84,14 @@ export default {
 	margin-top: var(--header-height);
 	min-height: calc(100vh - var(--header-height));
 }
+
+@media only screen and (max-width: 768px) {
+	.nb-header {
+		height: var(--header-height-sm);
+	}
+	.nb-main {
+		margin-top: var(--header-height-sm);
+		min-height: calc(100vh - var(--header-height-sm));
+	}
+}
 </style>
