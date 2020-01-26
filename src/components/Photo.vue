@@ -96,7 +96,7 @@ export default {
 	}
 	&.normal {
 		img {
-			height: 300px;
+			height: 320px;
 			width: auto;
 			position: relative;
 		}

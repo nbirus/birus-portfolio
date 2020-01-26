@@ -1,10 +1,11 @@
 <template>
 	<div class="page photography-page" :class="{ fullscreen: $fullscreen }">
-		<div class="page__header">
+		<!-- <div class="page__header">
 			<h1 class="text">{{tag.label || 'Photography'}}</h1>
 			<button class="regular-btn" v-if="tag.id" type="button" @click="tag={}">Back to gallery</button>
-		</div>
+		</div>-->
 		<div class="page__slider" v-if="!tag.id">
+			<!-- <span class="page__slider-label text-secondary">Select a category</span> -->
 			<photography-tag-slider @tag="tag=$event" />
 		</div>
 		<div class="page__gallery">
@@ -13,7 +14,7 @@
 
 		<div class="page__overlay">
 			<transition name="photo" mode="out-in">
-				<router-view :key="$route.params.id" />
+				<router-view :key="$route.params.id !== undefined" />
 			</transition>
 		</div>
 	</div>
@@ -49,18 +50,24 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-	padding: 0;
+	padding: 2rem 0 4rem;
 
 	&__header {
-		padding: 4rem 3rem 0;
-		margin-bottom: 1.5rem;
+		padding: 3rem 3rem 0;
+		margin-bottom: 2rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 	&__slider {
 		width: calc(100vw - 1rem);
-		margin-bottom: 4rem;
+		margin-bottom: 3rem;
+	}
+	&__slider-label {
+		display: block;
+		margin-left: 3rem;
+		font-size: 1.2rem;
+		margin-bottom: 0.25rem;
 	}
 	&__gallery {
 		padding: 0 3rem;
@@ -92,7 +99,7 @@ export default {
 			margin-bottom: 2.5rem;
 		}
 		&__gallery {
-			padding: 0 1rem;
+			padding: 0;
 		}
 	}
 }

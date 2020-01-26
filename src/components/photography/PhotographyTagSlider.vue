@@ -74,7 +74,7 @@ export default {
 	button {
 		outline: none;
 		padding: 0;
-		border-radius: 4px;
+		border-radius: var(--r);
 		transition: box-shadow 0.25s ease;
 
 		&:hover {

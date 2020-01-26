@@ -60,10 +60,10 @@ function clone(obj) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .photography-gallery {
 	display: grid;
-	grid-gap: 12px;
+	grid-gap: 2rem;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 300px;
 	grid-auto-flow: row;
@@ -75,6 +75,7 @@ function clone(obj) {
 		overflow: hidden;
 		transition: transform 0.25s ease;
 		position: relative;
+		border-radius: var(--r);
 
 		&.panorama {
 			grid-column: span 3;
@@ -88,7 +89,9 @@ function clone(obj) {
 			z-index: 1;
 		}
 		&:hover {
-			transform: scale(1.015);
+			img {
+				transform: scale(1.05);
+			}
 
 			&:after {
 				content: '';
@@ -100,7 +103,7 @@ function clone(obj) {
 				opacity: 1;
 				pointer-events: none;
 				background: rgb(0, 0, 0);
-				background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
+				background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.75) 100%);
 			}
 		}
 		&:hover .photography-gallery__info {
@@ -134,7 +137,25 @@ function clone(obj) {
 
 @media (max-width: var(--screen-tablet)) {
 }
-@media (max-width: var(--screen-phone)) {
+@media only screen and (max-width: 768px) {
+	.photography-gallery {
+		grid-template-columns: repeat(1, 1fr);
+		grid-gap: 1rem;
+
+		&__link {
+			border-radius: 0;
+
+			&.panorama {
+				grid-column: span 1;
+				height: 100px;
+
+				img {
+					height: 100px;
+					width: 100%;
+				}
+			}
+		}
+	}
 }
 
 @for $i from 0 through 25 {
