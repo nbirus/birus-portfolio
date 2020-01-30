@@ -1,14 +1,26 @@
 <template>
-	<div class="scrolling-wrapper">
-		<button type="button" v-for="tag in tags" :key="tag.id" @click="$emit('tag', tag)">
-			<div class="card">
-				<div class="card__img">
-					<img :src="tag.src" :alt="tag.label" />
-				</div>
-				<div class="card__label text-secondary" v-text="tag.label"></div>
-			</div>
+	<div class="contain">
+		<ul class="scrolling-wrapper">
+			<li
+				class="scrolling-wrapper__item"
+				v-for="tag in visibleTags"
+				:key="tag.id"
+				:class="`size-${size}`"
+			>
+				<button class="scrolling-wrapper__button card" @click="$emit('tag', tag)">
+					<div class="scrolling-wrapper__img">
+						<img :src="tag.src" :alt="tag.label" />
+					</div>
+					<div class="scrolling-wrapper__label text-secondary" v-text="tag.label"></div>
+				</button>
+			</li>
+		</ul>
+		<button class="icon-btn left" v-if="from > 0">
+			<img class="right" src="/left.svg" alt="Slide left" />
 		</button>
-		<div class="filler"></div>
+		<button class="icon-btn right" v-if="from + size > tags.legnth">
+			<img class="right" src="/right.svg" alt="Slide right" />
+		</button>
 	</div>
 </template>
 
@@ -17,11 +29,40 @@ import tags from '@/assets/tags.json'
 
 export default {
 	name: 'photography-tag-slider',
+	props: ['width'],
 	data() {
 		return {
+			from: 0,
 			tags,
 		}
 	},
+	computed: {
+		size() {
+			if (this.width > 1600) {
+				return 10
+			} else if (this.width > 1400) {
+				return 9
+			} else if (this.width > 1200) {
+				return 8
+			} else if (this.width > 1150) {
+				return 7
+			} else if (this.width > 950) {
+				return 6
+			} else {
+				return 5
+			}
+		},
+		to() {
+			return this.from + this.size
+		},
+		visibleTags() {
+			return clone(tags).splice(this.from, this.to)
+		},
+	},
+}
+
+function clone(o) {
+	return JSON.parse(JSON.stringify(o))
 }
 </script>
 
@@ -31,98 +72,92 @@ export default {
 .scrolling-wrapper {
 	display: flex;
 	flex-wrap: nowrap;
-	overflow-x: auto;
-	-webkit-overflow-scrolling: touch;
-	padding: 1rem 3rem;
+	padding: 0 3rem;
 
-	&::-webkit-scrollbar {
-		display: none;
+	&__item {
+		height: 135px;
+		padding: 0 0.5rem;
+
+		&.size-10 {
+			flex: 0 0 10%;
+		}
+		&.size-9 {
+			flex: 0 0 11.111%;
+		}
+		&.size-8 {
+			flex: 0 0 12.5%;
+		}
+		&.size-7 {
+			height: 150px;
+			flex: 0 0 14.2857%;
+		}
+		&.size-6 {
+			height: 145px;
+			flex: 0 0 16.666%;
+		}
+		&.size-5 {
+			height: 140px;
+			flex: 0 0 20%;
+		}
+		&.size-4 {
+			flex: 0 0 25%;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+		&:first-child {
+			padding-left: 0;
+		}
 	}
-	.card {
-		flex: 0 0 auto;
-		width: 275px;
-		height: 80px;
+	&__button {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		overflow: hidden;
+	}
+	&__img {
+		height: 70%;
+		width: 100%;
+		overflow: hidden;
 		display: flex;
 		align-items: center;
-		overflow: hidden;
-		cursor: pointer;
-		transition: box-shadow 0.2s ease;
+		justify-content: center;
 
-		&:hover {
-			box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 14px;
-		}
-
-		&__img {
-			width: 90px;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			overflow: hidden;
-
-			img {
-				width: auto;
-				height: 110%;
-			}
-		}
-		&__label {
-			padding-left: 1.25rem;
-			font-weight: var(--bold);
-			text-decoration: none !important;
+		img {
+			max-width: 150%;
+			max-height: 150%;
 		}
 	}
-	button {
-		outline: none;
-		padding: 0;
-		border-radius: var(--r);
-		transition: box-shadow 0.25s ease;
-
-		&:hover {
-			background-color: fade-out(white, 0.9);
-			box-shadow: 0 0 0 1px var(--c-blue);
-		}
-		&:active,
-		&:focus {
-			background-color: fade-out(white, 0.8);
-			@include active-shadow;
-		}
-	}
-	button:not(:last-child) {
-		margin-right: 1rem;
-	}
-	.filler {
-		position: relative;
-		flex: 0 0 1rem;
-		display: block;
-		height: 80px;
+	&__label {
+		height: 30%;
+		display: flex;
+		align-items: center;
+		padding-left: 1rem;
+		width: 100%;
+		font-size: 0.9rem;
+		font-weight: var(--bold);
 	}
 }
-@media only screen and (max-width: 768px) {
-	.scrolling-wrapper {
-		padding: 1rem 1rem;
+.contain {
+	position: relative;
+}
+.icon-btn {
+	background-color: white;
+	position: absolute;
+	box-shadow: 0 0 4px fade-out(black, 0.75);
+	top: calc(50% - 25px);
+	width: 40px !important;
+	height: 40px !important;
 
-		.card {
-			flex: 0 0 auto;
-			width: 125px;
-			height: 130px;
-			display: flex;
-			align-items: center;
-			flex-direction: column;
+	img {
+		filter: invert(1);
+	}
 
-			&__img {
-				width: 110%;
-				height: auto;
-
-				img {
-					width: auto;
-					height: 140%;
-				}
-			}
-			&__label {
-				padding: 0.85rem 0;
-				font-size: 0.9rem;
-			}
-		}
+	&.left {
+		left: 1.5rem;
+	}
+	&.right {
+		right: 1.5rem;
 	}
 }
 </style>

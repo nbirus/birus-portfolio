@@ -1,31 +1,47 @@
-[{
-    "id": "landscapes",
-    "label": "Landscapes",
-    "src": "https://farm6.staticflickr.com/5718/29570398080_d757d18eb0_m.jpg"
-  },
-  {
-    "id": "japan",
-    "label": "Japan",
-    "src": "https://farm8.staticflickr.com/7561/26908723540_5e99cb8bcf_m.jpg"
-  },
-  {
-    "id": "cityscapes",
-    "label": "Cityscapes",
-    "src": "https://farm2.staticflickr.com/1618/25576813036_58ba279588_m.jpg"
-  },
-  {
-    "id": "chile",
-    "label": "Chile",
-    "src": "https://farm6.staticflickr.com/5626/23722243090_cf2d4bf749_m.jpg"
-  },
-  {
-    "id": "patagonia",
-    "label": "Patagonia",
-    "src": "https://farm6.staticflickr.com/5775/23935485501_f3dceece76_m.jpg"
-  },
-  {
-    "id": "peru",
-    "label": "Peru",
-    "src": "https://farm6.staticflickr.com/5735/24018013875_dcb08102b8_m.jpg"
-  }
+[
+	{
+		"id": "landscapes",
+		"label": "Landscapes",
+		"src": "https://farm6.staticflickr.com/5718/29570398080_d757d18eb0_m.jpg"
+	},
+	{
+		"id": "japan",
+		"label": "Japan",
+		"src": "https://farm8.staticflickr.com/7561/26908723540_5e99cb8bcf_m.jpg"
+	},
+	{
+		"id": "cityscapes",
+		"label": "Cityscapes",
+		"src": "https://farm2.staticflickr.com/1618/25576813036_58ba279588_m.jpg"
+	},
+	{
+		"id": "chile",
+		"label": "Chile",
+		"src": "https://farm6.staticflickr.com/5626/23722243090_cf2d4bf749_m.jpg"
+	},
+	{
+		"id": "patagonia",
+		"label": "Patagonia",
+		"src": "https://farm6.staticflickr.com/5775/23935485501_f3dceece76_m.jpg"
+	},
+	{
+		"id": "peru",
+		"label": "Peru",
+		"src": "https://farm6.staticflickr.com/5735/24018013875_dcb08102b8_m.jpg"
+	},
+	{
+		"id": "chile",
+		"label": "Chile",
+		"src": "https://farm6.staticflickr.com/5626/23722243090_cf2d4bf749_m.jpg"
+	},
+	{
+		"id": "patagonia",
+		"label": "Patagonia",
+		"src": "https://farm6.staticflickr.com/5775/23935485501_f3dceece76_m.jpg"
+	},
+	{
+		"id": "peru",
+		"label": "Peru",
+		"src": "https://farm6.staticflickr.com/5735/24018013875_dcb08102b8_m.jpg"
+	}
 ]

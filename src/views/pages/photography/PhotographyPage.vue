@@ -1,12 +1,12 @@
 <template>
 	<div class="page photography-page" :class="{ fullscreen: $fullscreen }">
-		<!-- <div class="page__header">
-			<h1 class="text">{{tag.label || 'Photography'}}</h1>
-			<button class="regular-btn" v-if="tag.id" type="button" @click="tag={}">Back to gallery</button>
-		</div>-->
+		<div class="page__header">
+			<h1 class="text">{{ tag.label || 'Photography' }}</h1>
+			<button class="regular-btn" v-if="tag.id" type="button" @click="tag = {}">Back to gallery</button>
+		</div>
 		<div class="page__slider" v-if="!tag.id">
-			<!-- <span class="page__slider-label text-secondary">Select a category</span> -->
-			<photography-tag-slider @tag="tag=$event" />
+			<photography-tag-slider v-if="width > 768" @tag="tag = $event" :width="width" />
+			<photography-tag-slider-mobile v-else @tag="tag = $event" />
 		</div>
 		<div class="page__gallery">
 			<photography-gallery :tag="tag.id" />
@@ -25,13 +25,29 @@ export default {
 	name: 'photography-page',
 	components: {
 		PhotographyTagSlider: () => import('@/components/photography/PhotographyTagSlider'),
+		PhotographyTagSliderMobile: () => import('@/components/photography/PhotographyTagSliderMobile'),
 		PhotographyGallery: () => import('@/components/photography/PhotographyGallery'),
 	},
 	data() {
 		return {
+			width: 0,
 			scrollY: 0,
 			tag: {},
 		}
+	},
+	mounted() {
+		this.$nextTick(() => {
+			window.addEventListener('resize', this.onResize)
+			this.onResize()
+		})
+	},
+	beforeDestroy() {
+		window.removeEventListener('resize', this.onResize)
+	},
+	methods: {
+		onResize() {
+			this.width = window.innerWidth
+		},
 	},
 	watch: {
 		$route(to, from) {
@@ -50,18 +66,17 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-	padding: 2rem 0 4rem;
+	padding: 1rem 0 4rem;
 
 	&__header {
 		padding: 3rem 3rem 0;
-		margin-bottom: 2rem;
+		margin-bottom: 3rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 	&__slider {
-		width: calc(100vw - 1rem);
-		margin-bottom: 3rem;
+		margin-bottom: 6rem;
 	}
 	&__slider-label {
 		display: block;

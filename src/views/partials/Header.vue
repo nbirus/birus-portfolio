@@ -30,7 +30,6 @@ export default {
 
 .nb-header {
 	background: #fff;
-	// border-bottom: solid thin var(--c-border);
 	padding: 0 2rem;
 	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
 
@@ -52,6 +51,7 @@ export default {
 		font-weight: var(--thin);
 		font-size: 0.9rem;
 		text-decoration: underline;
+		opacity: 0.75;
 
 		display: flex;
 		align-items: center;
@@ -60,6 +60,7 @@ export default {
 			color: var(--c-text);
 			font-weight: var(--bold);
 			text-decoration: none;
+			opacity: 1;
 		}
 		&:not(:last-child) {
 			margin-right: 2.5rem;

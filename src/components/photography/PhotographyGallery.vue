@@ -75,7 +75,8 @@ function clone(obj) {
 		overflow: hidden;
 		transition: transform 0.25s ease;
 		position: relative;
-		border-radius: var(--r);
+		border-radius: 4px;
+		// border-radius: var(--r);
 
 		&.panorama {
 			grid-column: span 3;
