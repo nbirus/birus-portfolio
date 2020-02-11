@@ -21,13 +21,7 @@
 
 				<!-- image container -->
 				<div class="photo__img-container">
-					<img
-						ref="img"
-						:src="photo.url_lg"
-						class="photo__img"
-						:class="photo.aspect"
-						:alt="photo.name"
-					/>
+					<img ref="img" :src="photo.url_lg" class="photo__img" :class="photo.aspect" :alt="photo.name" />
 				</div>
 
 				<!-- close button -->
@@ -74,6 +68,7 @@ export default {
 	components: { OpenMap },
 	data() {
 		return {
+			fromTag: '',
 			photo: {},
 			photoIndex: 0,
 		}

@@ -4,21 +4,26 @@
 			<li
 				class="scrolling-wrapper__item"
 				v-for="tag in visibleTags"
-				:key="tag.id"
+				:key="`tag-${tag.id}`"
 				:class="`size-${size}`"
 			>
-				<button class="scrolling-wrapper__button card" @click="$emit('tag', tag)">
+				<router-link
+					:to="{ path: 'photography', query: { tag: tag.id }}"
+					tag="button"
+					class="scrolling-wrapper__button card"
+					@click="$emit('tag', tag)"
+				>
 					<div class="scrolling-wrapper__img">
-						<img :src="tag.src" :alt="tag.label" />
+						<!-- <img :src="tag.src" :alt="tag.label" /> -->
 					</div>
-					<div class="scrolling-wrapper__label text-secondary" v-text="tag.label"></div>
-				</button>
+					<div class="scrolling-wrapper__label text" v-text="tag.label"></div>
+				</router-link>
 			</li>
 		</ul>
-		<button class="icon-btn left" v-if="from > 0">
+		<button class="icon-btn left" v-if="from > 0" @click="prevPage">
 			<img class="right" src="/left.svg" alt="Slide left" />
 		</button>
-		<button class="icon-btn right" v-if="from + size > tags.legnth">
+		<button class="icon-btn right" v-if="to < tags.length" @click="nextPage">
 			<img class="right" src="/right.svg" alt="Slide right" />
 		</button>
 	</div>
@@ -32,31 +37,40 @@ export default {
 	props: ['width'],
 	data() {
 		return {
+			page: 0,
 			from: 0,
 			tags,
 		}
 	},
 	computed: {
 		size() {
-			if (this.width > 1600) {
-				return 10
-			} else if (this.width > 1400) {
-				return 9
-			} else if (this.width > 1200) {
-				return 8
-			} else if (this.width > 1150) {
+			if (this.width > 2000) {
 				return 7
-			} else if (this.width > 950) {
+			} else if (this.width > 1300) {
 				return 6
-			} else {
+			} else if (this.width > 1150) {
 				return 5
+			} else if (this.width > 975) {
+				return 4
+			} else {
+				return 3
 			}
 		},
 		to() {
 			return this.from + this.size
 		},
 		visibleTags() {
-			return clone(tags).splice(this.from, this.to)
+			return clone(tags).slice(this.from, this.to)
+		},
+	},
+	methods: {
+		prevPage() {
+			this.page--
+			this.from = this.size * this.page
+		},
+		nextPage() {
+			this.page++
+			this.from = this.size * this.page
 		},
 	},
 }
@@ -75,7 +89,7 @@ function clone(o) {
 	padding: 0 3rem;
 
 	&__item {
-		height: 135px;
+		height: 200px;
 		padding: 0 0.5rem;
 
 		&.size-10 {
@@ -88,19 +102,24 @@ function clone(o) {
 			flex: 0 0 12.5%;
 		}
 		&.size-7 {
-			height: 150px;
+			height: 200px;
 			flex: 0 0 14.2857%;
 		}
 		&.size-6 {
-			height: 145px;
+			height: 200px;
 			flex: 0 0 16.666%;
 		}
 		&.size-5 {
-			height: 140px;
+			height: 200px;
 			flex: 0 0 20%;
 		}
 		&.size-4 {
+			height: 220px;
 			flex: 0 0 25%;
+		}
+		&.size-3 {
+			height: 220px;
+			flex: 0 0 33.333%;
 		}
 		&:last-child {
 			padding-right: 0;
@@ -114,28 +133,35 @@ function clone(o) {
 		height: 100%;
 		padding: 0;
 		overflow: hidden;
+		transition: box-shadow 0.25s ease;
+
+		&:hover {
+			box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.35);
+		}
+		&:active {
+			border: solid thin var(--c-blue);
+			outline: none;
+		}
 	}
 	&__img {
-		height: 70%;
+		height: 75%;
 		width: 100%;
 		overflow: hidden;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-
 		img {
-			max-width: 150%;
-			max-height: 150%;
+			background-color: lightgrey;
 		}
 	}
 	&__label {
-		height: 30%;
+		height: 25%;
 		display: flex;
 		align-items: center;
-		padding-left: 1rem;
+		padding-left: 1.25rem;
 		width: 100%;
-		font-size: 0.9rem;
-		font-weight: var(--bold);
+		font-size: 1rem;
+		font-weight: var(--thin);
 	}
 }
 .contain {
@@ -144,13 +170,25 @@ function clone(o) {
 .icon-btn {
 	background-color: white;
 	position: absolute;
-	box-shadow: 0 0 4px fade-out(black, 0.75);
+	box-shadow: 0 1px 6px fade-out(black, 0.5);
 	top: calc(50% - 25px);
 	width: 40px !important;
 	height: 40px !important;
 
 	img {
 		filter: invert(1);
+		transform: scale(1.4);
+	}
+
+	&:hover {
+		box-shadow: 0 2px 12px fade-out(black, 0.45);
+	}
+	&:active {
+		border: solid thin var(--c-blue);
+		box-shadow: 0 1px 4px fade-out(black, 0.45);
+	}
+	&:focus {
+		border: solid thin var(--c-blue);
 	}
 
 	&.left {

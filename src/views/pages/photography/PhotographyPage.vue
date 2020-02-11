@@ -1,15 +1,22 @@
 <template>
-	<div class="page photography-page" :class="{ fullscreen: $fullscreen }">
+	<div class="page photography-page" :class="{ fullscreen: $fullscreen, tag: !!selectedTag }">
 		<div class="page__header">
-			<h1 class="text">{{ tag.label || 'Photography' }}</h1>
-			<button class="regular-btn" v-if="tag.id" type="button" @click="tag = {}">Back to gallery</button>
+			<h1 class="text">{{ 'Photography' }}</h1>
+			<router-link class="back text" :to="{ path: 'photography' }" v-if="selectedTag">Back to gallery</router-link>
 		</div>
-		<div class="page__slider" v-if="!tag.id">
-			<photography-tag-slider v-if="width > 768" @tag="tag = $event" :width="width" />
-			<photography-tag-slider-mobile v-else @tag="tag = $event" />
-		</div>
+		<transition name="slide-up" mode="out-in">
+			<div class="page__tag-container" v-if="$route.query.tag">
+				<h1 class="text tag" v-text="tagName"></h1>
+			</div>
+		</transition>
+		<transition name="slide-down" mode="out-in">
+			<div class="page__slider" v-if="!selectedTag">
+				<photography-tag-slider v-if="width > 768" @tag="tag = $event" :width="width" />
+				<photography-tag-slider-mobile v-else @tag="tag = $event" />
+			</div>
+		</transition>
 		<div class="page__gallery">
-			<photography-gallery :tag="tag.id" />
+			<photography-gallery />
 		</div>
 
 		<div class="page__overlay">
@@ -21,6 +28,8 @@
 </template>
 
 <script>
+import tags from '@/assets/tags.json'
+
 export default {
 	name: 'photography-page',
 	components: {
@@ -32,7 +41,8 @@ export default {
 		return {
 			width: 0,
 			scrollY: 0,
-			tag: {},
+			selectedTag: undefined,
+			tagName: undefined,
 		}
 	},
 	mounted() {
@@ -60,23 +70,55 @@ export default {
 				}, 1)
 			}
 		},
+		'$route.query'(query) {
+			this.selectedTag = query.tag
+			if (query.tag) {
+				this.tagName = tags.find(t => query.tag === t.id).label
+			}
+		},
 	},
 }
 </script>
 
 <style lang="scss" scoped>
 .page {
-	padding: 1rem 0 4rem;
+	padding: 0 0 4rem;
+	max-width: 1400px;
+	margin: 0 auto;
 
 	&__header {
 		padding: 3rem 3rem 0;
-		margin-bottom: 3rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		transition: margin 0.45s ease;
+		margin-bottom: 0;
+
+		h1 {
+			transition: all 0.45s ease;
+		}
+		.back {
+			font-size: 1rem;
+			transform: translateY(3.25rem);
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+			&:active {
+				color: var(--c-blue);
+			}
+		}
+	}
+	&__tag-container {
+		padding: 0 3rem;
+
+		h1 {
+			position: absolute;
+		}
 	}
 	&__slider {
-		margin-bottom: 6rem;
+		margin: 3rem 0;
 	}
 	&__slider-label {
 		display: block;
@@ -86,6 +128,11 @@ export default {
 	}
 	&__gallery {
 		padding: 0 3rem;
+		position: absolute;
+		top: 500px;
+		margin-top: 0;
+		max-width: 1400px;
+		transition: top 0.45s ease-in-out, margin 0.45s ease-in-out;
 	}
 
 	&.fullscreen {
@@ -101,6 +148,22 @@ export default {
 			width: 100%;
 			min-height: 100vh;
 		}
+	}
+}
+.tag {
+	.page__header {
+		padding: 3rem 3rem 0;
+		margin-bottom: 0.25rem;
+
+		h1 {
+			font-size: 1.15rem;
+			font-weight: var(--thin);
+			letter-spacing: 1px;
+		}
+	}
+	.page__gallery {
+		margin-top: 4rem;
+		top: 180px;
 	}
 }
 @media only screen and (max-width: 768px) {

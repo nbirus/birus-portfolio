@@ -29,7 +29,7 @@ export default {
 @import '@/styles/component';
 
 .nb-header {
-	background: #fff;
+	background: fade-out(#fff, 0.1);
 	padding: 0 2rem;
 	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
 
@@ -49,9 +49,10 @@ export default {
 		text-transform: uppercase;
 		text-decoration: none;
 		font-weight: var(--thin);
-		font-size: 0.9rem;
+		font-size: 0.95rem;
 		text-decoration: underline;
 		opacity: 0.75;
+		letter-spacing: 1px;
 
 		display: flex;
 		align-items: center;

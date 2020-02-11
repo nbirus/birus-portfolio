@@ -1,5 +1,4 @@
-[
-	{
+[{
 		"id": "landscapes",
 		"label": "Landscapes",
 		"src": "https://farm6.staticflickr.com/5718/29570398080_d757d18eb0_m.jpg"
@@ -30,18 +29,18 @@
 		"src": "https://farm6.staticflickr.com/5735/24018013875_dcb08102b8_m.jpg"
 	},
 	{
-		"id": "chile",
-		"label": "Chile",
+		"id": "amazon",
+		"label": "Amazon",
 		"src": "https://farm6.staticflickr.com/5626/23722243090_cf2d4bf749_m.jpg"
 	},
 	{
-		"id": "patagonia",
-		"label": "Patagonia",
+		"id": "new-york",
+		"label": "New York",
 		"src": "https://farm6.staticflickr.com/5775/23935485501_f3dceece76_m.jpg"
 	},
 	{
-		"id": "peru",
-		"label": "Peru",
+		"id": "other",
+		"label": "Other",
 		"src": "https://farm6.staticflickr.com/5735/24018013875_dcb08102b8_m.jpg"
 	}
 ]

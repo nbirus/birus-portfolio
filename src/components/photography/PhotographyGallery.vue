@@ -63,7 +63,7 @@ function clone(obj) {
 <style lang="scss">
 .photography-gallery {
 	display: grid;
-	grid-gap: 2rem;
+	grid-gap: 1rem;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 300px;
 	grid-auto-flow: row;
@@ -75,7 +75,7 @@ function clone(obj) {
 		overflow: hidden;
 		transition: transform 0.25s ease;
 		position: relative;
-		border-radius: 4px;
+		// border-radius: 4px;
 		// border-radius: var(--r);
 
 		&.panorama {
