@@ -29,9 +29,9 @@ export default {
 @import '@/styles/component';
 
 .nb-header {
-	background: fade-out(#fff, 0.025);
+	background: fade-out(#fff, 0.05);
 	padding: 0 2rem;
-	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.2), 0 2px 6px 2px rgba(60, 64, 67, 0.1);
 
 	&__menu {
 		display: none;

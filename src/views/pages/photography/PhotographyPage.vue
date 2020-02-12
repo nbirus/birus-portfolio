@@ -2,7 +2,14 @@
 	<div class="page photography-page" :class="{ fullscreen: $fullscreen, tag: !!selectedTag }">
 		<div class="page__header">
 			<h1 class="text">{{ 'Photography' }}</h1>
-			<router-link class="back text" :to="{ path: 'photography' }" v-if="selectedTag">Back to gallery</router-link>
+			<transition name="slide-down" mode="out-in">
+				<router-link
+					tag="button"
+					class="regular-btn back text"
+					:to="{ path: 'photography' }"
+					v-if="selectedTag"
+				>Back to gallery</router-link>
+			</transition>
 		</div>
 		<transition name="slide-up" mode="out-in">
 			<div class="page__tag-container" v-if="$route.query.tag">
@@ -94,20 +101,22 @@ export default {
 		align-items: center;
 		transition: margin 0.45s ease;
 		margin-bottom: 0;
+		position: relative;
 
 		h1 {
 			transition: all 0.45s ease;
 		}
 		.back {
-			font-size: 1rem;
-			transform: translateY(3.25rem);
+			right: 3rem;
+			position: absolute;
+			transform: translateY(2.5rem);
 			text-decoration: none;
 
 			&:hover {
-				text-decoration: underline;
+				// text-decoration: underline;
 			}
 			&:active {
-				color: var(--c-blue);
+				// color: var(--c-blue);
 			}
 		}
 	}

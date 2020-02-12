@@ -133,14 +133,18 @@ function clone(o) {
 		height: 100%;
 		padding: 0;
 		overflow: hidden;
-		transition: box-shadow 0.25s ease;
+		border: solid 2px transparent;
+		transition: box-shadow 0.15s ease, border 0.1s ease;
 
 		&:hover {
 			box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.35);
 		}
-		&:active {
+		&:active,
+		&:focus {
 			outline: none;
-			@include active-shadow;
+			border: solid 2px var(--c-blue);
+
+			// @include active-shadow;
 		}
 	}
 	&__img {
@@ -150,6 +154,8 @@ function clone(o) {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background-color: lightgrey;
+
 		img {
 			background-color: lightgrey;
 		}
