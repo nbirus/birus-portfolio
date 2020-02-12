@@ -18,6 +18,7 @@
 	--c-text-dm: white;
 	--c-text-light-dm: var(--c-grey4);
 	--c-border: var(--c-grey3);
+	--c-border-dark: var(--c-grey4);
 	--c-border-dm: var(--c-grey8);
 	--c-border-light: var(--c-grey2);
 	--c-light: var(--c-grey1);
@@ -46,4 +47,7 @@
 	--header-height: 80px;
 	--header-height-sm: 70px;
 	--r: 8px;
+
+	// transtion
+	--t: 0.5s;
 }

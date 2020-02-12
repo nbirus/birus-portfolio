@@ -13,7 +13,7 @@
 			<router-link class="nb-header__link" to="photography">Photography</router-link>
 			<router-link class="nb-header__link" to="contact">Contact me</router-link>
 		</div>
-		<button class="nb-header__dark-mode icon-btn" @click="$dark=!$dark">
+		<button class="nb-header__dark-mode btn btn-icon-circle flat nb" @click="$dark=!$dark">
 			<img :src="$dark ? '/moon.svg' : '/sun.svg'" height="16px" alt="Dark Mode Toggle" />
 		</button>
 	</div>

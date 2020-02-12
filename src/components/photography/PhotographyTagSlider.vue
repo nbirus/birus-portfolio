@@ -20,11 +20,11 @@
 				</router-link>
 			</li>
 		</ul>
-		<button class="icon-btn left" v-if="from > 0" @click="prevPage">
-			<img class="right" src="/left.svg" alt="Slide left" />
+		<button class="btn btn-icon-circle left" v-if="from > 0" @click="prevPage">
+			<i class="material-icons">chevron_left</i>
 		</button>
-		<button class="icon-btn right" v-if="to < tags.length" @click="nextPage">
-			<img class="right" src="/right.svg" alt="Slide right" />
+		<button class="btn btn-icon-circle right" v-if="to < tags.length" @click="nextPage">
+			<i class="material-icons">chevron_right</i>
 		</button>
 	</div>
 </template>
@@ -86,11 +86,10 @@ function clone(o) {
 .scrolling-wrapper {
 	display: flex;
 	flex-wrap: nowrap;
-	padding: 0 3rem;
 
 	&__item {
 		height: 200px;
-		padding: 0 0.5rem;
+		padding: 0 0.75rem;
 
 		&.size-10 {
 			flex: 0 0 10%;
@@ -133,18 +132,17 @@ function clone(o) {
 		height: 100%;
 		padding: 0;
 		overflow: hidden;
-		border: solid 2px transparent;
-		transition: box-shadow 0.15s ease, border 0.1s ease;
+		border: none;
+		transition: box-shadow 0.1s ease;
+		cursor: pointer;
 
 		&:hover {
-			box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.35);
+			box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.25);
 		}
 		&:active,
 		&:focus {
 			outline: none;
-			border: solid 2px var(--c-blue);
-
-			// @include active-shadow;
+			box-shadow: 0 0 0 3px var(--c-blue);
 		}
 	}
 	&__img {
@@ -154,7 +152,7 @@ function clone(o) {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: lightgrey;
+		background-color: var(--c-grey1);
 
 		img {
 			background-color: lightgrey;
@@ -173,35 +171,15 @@ function clone(o) {
 .contain {
 	position: relative;
 }
-.icon-btn {
-	background-color: white;
+.btn-icon-circle {
 	position: absolute;
-	box-shadow: 0 1px 6px fade-out(black, 0.5);
 	top: calc(50% - 25px);
-	width: 40px !important;
-	height: 40px !important;
-
-	img {
-		filter: invert(1);
-		transform: scale(1.4);
-	}
-
-	&:hover {
-		box-shadow: 0 2px 12px fade-out(black, 0.45);
-	}
-	&:active {
-		border: solid thin var(--c-blue);
-		box-shadow: 0 1px 4px fade-out(black, 0.45);
-	}
-	&:focus {
-		border: solid thin var(--c-blue);
-	}
 
 	&.left {
-		left: 1.5rem;
+		left: -1.5rem;
 	}
 	&.right {
-		right: 1.5rem;
+		right: -1.5rem;
 	}
 }
 </style>
