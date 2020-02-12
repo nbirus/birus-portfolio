@@ -139,8 +139,8 @@ function clone(o) {
 			box-shadow: 0px 2px 18px rgba(0, 0, 0, 0.35);
 		}
 		&:active {
-			border: solid thin var(--c-blue);
 			outline: none;
+			@include active-shadow;
 		}
 	}
 	&__img {

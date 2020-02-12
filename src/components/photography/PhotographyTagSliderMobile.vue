@@ -1,13 +1,18 @@
 <template>
 	<div class="scrolling-wrapper">
-		<button type="button" v-for="tag in tags" :key="tag.id" @click="$emit('tag', tag)">
+		<router-link
+			v-for="tag in tags"
+			:key="tag.id"
+			:to="{ path: 'photography', query: { tag: tag.id }}"
+			tag="button"
+		>
 			<div class="card">
 				<div class="card__img">
 					<img :src="tag.src" :alt="tag.label" />
 				</div>
-				<div class="card__label text-secondary" v-text="tag.label"></div>
+				<div class="card__label text" v-text="tag.label"></div>
 			</div>
-		</button>
+		</router-link>
 		<div class="filler"></div>
 	</div>
 </template>
@@ -43,7 +48,7 @@ export default {
 		width: 275px;
 		height: 80px;
 		display: flex;
-		align-items: center;
+		// align-items: center;
 		overflow: hidden;
 		cursor: pointer;
 		transition: box-shadow 0.2s ease;
@@ -67,7 +72,7 @@ export default {
 		}
 		&__label {
 			padding-left: 1.25rem;
-			font-weight: var(--bold);
+			font-weight: var(--thin);
 			text-decoration: none !important;
 		}
 	}

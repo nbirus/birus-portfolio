@@ -73,6 +73,7 @@ export default {
 		'$route.query'(query) {
 			this.selectedTag = query.tag
 			if (query.tag) {
+				window.scroll(0, 0)
 				this.tagName = tags.find(t => query.tag === t.id).label
 			}
 		},

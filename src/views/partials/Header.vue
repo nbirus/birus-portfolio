@@ -8,7 +8,7 @@
 		</div>
 		<div class="nb-header__middle"></div>
 		<div class="nb-header__links">
-			<router-link class="nb-header__link" to="/">Home</router-link>
+			<router-link class="nb-header__link" to="/" exact>Home</router-link>
 			<router-link class="nb-header__link" to="design">Web Design</router-link>
 			<router-link class="nb-header__link" to="photography">Photography</router-link>
 			<router-link class="nb-header__link" to="contact">Contact me</router-link>
@@ -29,7 +29,7 @@ export default {
 @import '@/styles/component';
 
 .nb-header {
-	background: fade-out(#fff, 0.1);
+	background: fade-out(#fff, 0.025);
 	padding: 0 2rem;
 	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
 
@@ -47,7 +47,7 @@ export default {
 	&__link {
 		color: var(--c-text-light);
 		text-transform: uppercase;
-		text-decoration: none;
+		text-decoration: none !important;
 		font-weight: var(--thin);
 		font-size: 0.95rem;
 		text-decoration: underline;
@@ -57,16 +57,16 @@ export default {
 		display: flex;
 		align-items: center;
 
-		&.router-link-exact-active {
+		&.router-link-active {
 			color: var(--c-text);
 			font-weight: var(--bold);
 			text-decoration: none;
 			opacity: 1;
 		}
 		&:not(:last-child) {
-			margin-right: 2.5rem;
+			margin-right: 2rem;
 		}
-		&:hover:not(.router-link-exact-active) {
+		&:hover:not(.router-link-active) {
 			color: var(--c-link);
 		}
 	}
