@@ -1,6 +1,6 @@
 <template>
 	<transition name="modal">
-		<div class="modal-mask" v-if="$shareDialog" @click.self="$shareDialog = false">
+		<div class="modal-mask" v-show="$shareDialog" @click.self="$shareDialog = false">
 			<div class="modal">
 				<div class="modal__container">
 					<div class="modal__header">
@@ -11,7 +11,11 @@
 					</div>
 					<div class="modal__body">
 						<ul class="modal__share-list">
-							<li v-for="(link, i) in shareLinks" :key="i" class="modal__share-list-item"></li>
+							<li v-for="(link, i) in shareLinks" :key="i" class="modal__share-list-item">
+								<a class="link" :href="link.url" target="_blank" :class="link.class" :title="`Share on ${link.name}`">
+									<img :src="`${link.id}.svg`" :alt="`Share on ${link.name}`" />
+								</a>
+							</li>
 						</ul>
 						<input
 							ref="copy"
@@ -41,20 +45,6 @@ export default {
 	data() {
 		return {
 			copyPopover: false,
-			shareLinks: [
-				{
-					name: 'Facebook',
-				},
-				{
-					name: 'Twitter',
-				},
-				{
-					name: 'Pintrest',
-				},
-				{
-					name: 'Tumblr',
-				},
-			],
 		}
 	},
 	computed: {
@@ -78,6 +68,38 @@ export default {
 				return 'Share Photos'
 			}
 		},
+		shareLinks() {
+			return [
+				{
+					id: 'facebook',
+					name: 'Facebook',
+					class: 'facebook-share-button',
+					url: `https://www.facebook.com/sharer/sharer.php?u=${this.shareLink}`,
+					logo: '',
+				},
+				{
+					id: 'twitter',
+					name: 'Twitter',
+					class: 'twitter-share-button',
+					url: `https://twitter.com/intent/tweet?text=${this.shareLink}`,
+					logo: '',
+				},
+				{
+					id: 'pinterest',
+					name: 'Pinterest',
+					class: 'pinterest-share-button',
+					url: `http://pinterest.com/pin/create/button/?url=${this.shareLink}`,
+					logo: '',
+				},
+				{
+					id: 'tumblr',
+					name: 'Tumblr',
+					class: 'tumblr-share-button',
+					url: `https://www.tumblr.com/widgets/share/tool?shareSource=legacy&canonicalUrl=<-urlencode(${this.shareLink})->&posttype=link`,
+					logo: '',
+				},
+			]
+		},
 	},
 	methods: {
 		copy() {
@@ -86,6 +108,11 @@ export default {
 			setTimeout(() => {
 				this.copyPopover = false
 			}, 4000)
+		},
+	},
+	watch: {
+		$shareDialog() {
+			this.copyPopover = false
 		},
 	},
 }
@@ -107,7 +134,6 @@ export default {
 	justify-content: center;
 	transition: opacity 0.3s ease;
 }
-
 .modal {
 	&__container {
 		width: 350px;
@@ -123,7 +149,7 @@ export default {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 
 		.btn {
 			color: var(--c-grey5);
@@ -171,6 +197,49 @@ export default {
 
 		i {
 			margin-right: 0.5rem;
+		}
+	}
+	&__share-list {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		margin: 0 0 1.5rem;
+		padding: 0;
+	}
+	&__share-list-item {
+		display: block;
+		margin: 0;
+		padding: 0;
+
+		.link {
+			display: block;
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			background-color: var(--c-grey1);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		img {
+			width: 60px;
+			height: 60px;
+		}
+		.tumblr-share-button {
+			background-color: #304155;
+			img {
+				width: 35px;
+				height: 35px;
+			}
+		}
+		.twitter-share-button {
+			background-color: #1c9dea;
+
+			img {
+				width: 35px;
+				height: 35px;
+				transform: translateY(2px);
+			}
 		}
 	}
 }
