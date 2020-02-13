@@ -23,14 +23,14 @@ const routes = [
 		name: 'photography',
 		component: () =>
 			import(
-				/* webpackChunkName: "photography" */ '../views/pages/photography2/PhotographyPage.vue'
+				/* webpackChunkName: "photography" */ '../views/pages/photography/PhotographyPage.vue'
 			),
 		children: [
 			{
 				path: '/photography/:id',
 				name: 'photo',
 				component: () =>
-					import(/* webpackChunkName: "photo" */ '../views/pages/photography2/PhotoPage.vue'),
+					import(/* webpackChunkName: "photo" */ '../views/pages/photography/PhotoPage.vue'),
 			},
 		],
 	},

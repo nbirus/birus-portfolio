@@ -9,7 +9,8 @@ import './styles/main.scss'
 
 // dark mode
 let favicon = document.querySelector('#fav')
-let isDark = favicon && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+let isDark =
+	favicon && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
 favicon.href = isDark ? '/favicon.dark.png' : '/favicon.png'
 Vue.config.productionTip = false
 
@@ -19,13 +20,14 @@ let globalData = new Vue({
 		// $dark: isDark
 		$dark: false,
 		$fullscreen: false,
-	}
-});
+		$shareDialog: false,
+	},
+})
 Vue.mixin({
 	computed: {
 		$darkClass() {
 			return {
-				'dark': globalData.$data.$dark
+				dark: globalData.$data.$dark,
 			}
 		},
 		$dark: {
@@ -34,7 +36,7 @@ Vue.mixin({
 			},
 			set(dark) {
 				globalData.$data.$dark = dark
-			}
+			},
 		},
 		$fullscreen: {
 			get() {
@@ -42,9 +44,17 @@ Vue.mixin({
 			},
 			set(fullscreen) {
 				globalData.$data.$fullscreen = fullscreen
-			}
-		}
-	}
+			},
+		},
+		$shareDialog: {
+			get() {
+				return globalData.$data.$shareDialog
+			},
+			set(shareDialog) {
+				globalData.$data.$shareDialog = shareDialog
+			},
+		},
+	},
 })
 
 new Vue({

@@ -1,5 +1,5 @@
 <template>
-	<div class="nb-header" role="navigation" :class="$darkClass">
+	<div class="nb-header" role="navigation" :class="[$darkClass, shadow && 'shadow']">
 		<button class="nb-header__menu icon-btn" @click="$emit('side-bar')" type="button">
 			<img src="/menu.svg" height="30px" alt="Open navigation" />
 		</button>
@@ -20,8 +20,16 @@
 </template>
 
 <script>
+import ScrollMixin from '@/mixins/ScrollMixin'
+
 export default {
 	name: 'header-bar',
+	mixins: [ScrollMixin],
+	computed: {
+		shadow() {
+			return this.$route.query.tag !== undefined || this.scroll$ > 32
+		},
+	},
 }
 </script>
 
@@ -31,7 +39,14 @@ export default {
 .nb-header {
 	background: fade-out(#fff, 0.05);
 	padding: 0 2rem;
-	box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.2), 0 2px 6px 2px rgba(60, 64, 67, 0.1);
+	transition: box-shadow 1s ease;
+
+	&:not(.shadow) {
+		border-bottom: solid thin var(--c-border);
+	}
+	&.shadow {
+		box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.1), 0 2px 14px 2px rgba(60, 64, 67, 0.2);
+	}
 
 	&__menu {
 		display: none;

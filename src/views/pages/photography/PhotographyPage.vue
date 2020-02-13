@@ -1,87 +1,101 @@
 <template>
-	<div class="page page-photography" :class="{ fullscreen: $fullscreen, tag: !!selectedTag }">
+	<div class="page photography-page" :class="pageClass">
+		<!-- banner -->
+		<div class="page__banner"></div>
+
+		<!-- header -->
 		<div class="page__header">
-			<h1 class="text">{{ 'Photography' }}</h1>
-			<transition name="slide-down" mode="out-in">
-				<router-link
-					tag="button"
-					class="regular-btn back text"
-					:to="{ path: 'photography' }"
-					v-if="selectedTag"
-				>Back to gallery</router-link>
-			</transition>
-		</div>
-		<transition name="slide-up" mode="out-in">
-			<div class="page__tag-container" v-if="$route.query.tag">
-				<h1 class="text tag" v-text="tagName"></h1>
+			<div class="page__title-container">
+				<h1 class="page__title">Photography</h1>
+				<h1 class="page__tag-title" v-if="tagActive" v-text="activeTag.label"></h1>
 			</div>
-		</transition>
-		<transition name="slide-down" mode="out-in">
-			<div class="page__slider" v-if="!selectedTag">
-				<photography-tag-slider v-if="width > 768" @tag="tag = $event" :width="width" />
-				<photography-tag-slider-mobile v-else @tag="tag = $event" />
+			<div class="page__button-container">
+				<router-link tag="button" class="btn with-icon mr-1" v-if="tagActive" to="photography">
+					<i class="material-icons">keyboard_backspace</i>Back to gallery
+				</router-link>
+				<button class="btn with-icon" @click="$shareDialog = true">
+					<i class="material-icons">share</i>Share
+				</button>
 			</div>
-		</transition>
-		<div class="page__gallery">
-			<photography-gallery />
 		</div>
 
-		<div class="page__overlay">
-			<transition name="photo" mode="out-in">
-				<router-view :key="$route.params.id !== undefined" />
-			</transition>
+		<!-- body -->
+		<div class="page__body">
+			<div class="page__tag-container">
+				<photography-tag-slider v-if="!tagActive && !hideTags" :width="width$" />
+			</div>
+			<div class="page__gallery">
+				<photography-gallery />
+			</div>
+		</div>
+
+		<!-- photo -->
+		<div class="page__photo-overlay">
+			<router-view :key="$route.params.id !== undefined" />
 		</div>
 	</div>
 </template>
 
 <script>
 import tags from '@/assets/tags.json'
+import WidthMixin from '@/mixins/WidthMixin'
 
 export default {
 	name: 'photography-page',
+	mixins: [WidthMixin],
 	components: {
 		PhotographyTagSlider: () => import('@/components/photography/PhotographyTagSlider'),
-		PhotographyTagSliderMobile: () => import('@/components/photography/PhotographyTagSliderMobile'),
 		PhotographyGallery: () => import('@/components/photography/PhotographyGallery'),
 	},
 	data() {
 		return {
-			width: 0,
+			hideTags: false,
 			scrollY: 0,
-			selectedTag: undefined,
-			tagName: undefined,
+			activeTag: {},
 		}
 	},
-	mounted() {
-		this.$nextTick(() => {
-			window.addEventListener('resize', this.onResize)
-			this.onResize()
-		})
-	},
-	beforeDestroy() {
-		window.removeEventListener('resize', this.onResize)
+	computed: {
+		pageClass() {
+			return {
+				'tag-active': this.tagActive,
+				'photo-active': this.$route.params.id,
+			}
+		},
+		tagActive() {
+			return !!this.activeTag.id && !this.hideTags
+		},
 	},
 	methods: {
-		onResize() {
-			this.width = window.innerWidth
+		setTag(selectedTag) {
+			this.activeTag = tags.find(t => t.id === selectedTag) || {}
 		},
 	},
 	watch: {
 		$route(to, from) {
-			if (to.name === 'photo' && from.name === 'photography') {
-				this.scrollY = window.scrollY
-			} else if (to.name === 'photography' && from.name === 'photo') {
-				setTimeout(() => {
-					window.scroll(0, this.scrollY)
-					this.scrollY = 0
-				}, 1)
+			// this.hideTags = to.name === 'photo' && from.query.tag !== undefined
+			this.scrollY = window.scrollY
+			const toPhotoCondition = to.name === 'photo' && from.name === 'photography'
+			const fromPhotoCondition = to.name === 'photography' && from.name === 'photo'
+
+			// if going to photo, maintain scroll position
+			if (toPhotoCondition || fromPhotoCondition || (to.params.id && from.params.id)) {
+				this.$nextTick(() => {
+					window.scrollTo({ top: this.scrollY })
+				})
 			}
-		},
-		'$route.query'(query) {
-			this.selectedTag = query.tag
-			if (query.tag) {
-				window.scroll(0, 0)
-				this.tagName = tags.find(t => query.tag === t.id).label
+
+			if (to.params.id === undefined) {
+				// set tag if not leaving the photo page
+				if (to.query.tag !== undefined && !toPhotoCondition) {
+					this.setTag(to.query.tag)
+					window.scrollTo({ top: 0, behavior: 'smooth' })
+				}
+				if (
+					to.query.tag === undefined &&
+					(!toPhotoCondition || (to.name === 'photography' && from.name === 'photography'))
+				) {
+					this.setTag()
+				}
 			}
 		},
 	},
@@ -89,101 +103,84 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$banner-height: 200px;
+$side-pad: 4rem;
+
 .page {
+	padding: 0;
+	max-width: var(--max-width);
+	margin: 0 auto;
+
+	&__banner {
+		height: 0px;
+		background-color: var(--c-grey1);
+		transition: height var(--t) ease;
+	}
 	&__header {
-		padding: 3rem 3rem 0;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		transition: margin 0.45s ease;
-		margin-bottom: 0;
+		justify-content: space-between;
+		margin-top: 0;
+		padding: 3.5rem $side-pad 0;
+	}
+	&__tag-title {
+		display: none;
+	}
+	&__button-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&__body {
+		padding: 3rem $side-pad;
 		position: relative;
-
-		h1 {
-			transition: all 0.45s ease;
-		}
-		.back {
-			right: 3rem;
-			position: absolute;
-			transform: translateY(2.5rem);
-			text-decoration: none;
-
-			&:hover {
-				// text-decoration: underline;
-			}
-			&:active {
-				// color: var(--c-blue);
-			}
-		}
 	}
 	&__tag-container {
-		padding: 0 3rem;
-
-		h1 {
-			position: absolute;
-		}
-	}
-	&__slider {
-		margin: 3rem 0;
-	}
-	&__slider-label {
-		display: block;
-		margin-left: 3rem;
-		font-size: 1.2rem;
-		margin-bottom: 0.25rem;
+		position: absolute;
+		height: 275px;
+		top: 3rem;
+		left: 4rem;
+		right: 4rem;
 	}
 	&__gallery {
-		padding: 0 3rem;
-		position: absolute;
-		top: 500px;
-		margin-top: 0;
-		max-width: 1400px;
-		transition: top 0.45s ease-in-out, margin 0.45s ease-in-out;
+		margin-top: 275px;
+		transition: margin var(--t) ease;
 	}
-
-	&.fullscreen {
-		overflow: hidden;
+	&__photo-overlay {
+		position: fixed;
+		top: 0;
+		width: 100%;
 		height: 100vh;
-
-		.page__overlay {
-			z-index: 9999;
-			display: block;
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			min-height: 100vh;
-		}
+		z-index: 999;
+		pointer-events: none;
 	}
 }
-.tag {
-	.page__header {
-		padding: 3rem 3rem 0;
-		margin-bottom: 0.25rem;
-
-		h1 {
-			font-size: 1.15rem;
+.tag-active {
+	.page {
+		&__banner {
+			height: $banner-height;
+		}
+		&__title {
+			font-size: 1.35rem;
 			font-weight: var(--thin);
 			letter-spacing: 1px;
+			margin-top: -4px;
 		}
-	}
-	.page__gallery {
-		margin-top: 4rem;
-		top: 180px;
-	}
-}
-@media only screen and (max-width: 768px) {
-	.page {
-		&__header {
-			padding: 2rem 1rem 0;
-			margin-bottom: 1.5rem;
-		}
-		&__slider {
-			width: calc(100vw);
-			margin-bottom: 2.5rem;
+		&__tag-title {
+			display: block;
+			transform: translateY(0.5rem);
 		}
 		&__gallery {
-			padding: 0;
+			margin-top: 1rem;
+		}
+	}
+}
+.photo-active {
+	.page {
+		&__photo-overlay {
+			position: fixed;
+			left: 0;
+			pointer-events: all;
 		}
 	}
 }

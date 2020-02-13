@@ -1,19 +1,21 @@
 <template>
 	<div class="page photo-page" @click.self="close">
 		<div class="photo-page__toolbar">
-			<div class="photo-page__count">{{photo.name}}</div>
+			<div class="photo-page__count">
+				<span v-text="photo.name"></span>
+			</div>
 			<div class="photo-page__actions">
-				<button class="btn btn-icon-circle btn-action">
-					<i class="material-icons small" @click="close">open_with</i>
+				<button class="btn btn-icon-circle btn-action" title="More Information">
+					<i class="material-icons small">info</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action">
-					<i class="material-icons small" @click="close">pin_drop</i>
+				<button class="btn btn-icon-circle btn-action" title="Location" @click="download">
+					<i class="material-icons small">cloud_download</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action">
-					<i class="material-icons small" @click="close">share</i>
+				<button class="btn btn-icon-circle btn-action" title="Share Image" @click="$shareDialog = true">
+					<i class="material-icons small">share</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action">
-					<i class="material-icons" @click="close">close</i>
+				<button class="btn btn-icon-circle btn-action" title="Close Image" @click="close">
+					<i class="material-icons">close</i>
 				</button>
 			</div>
 		</div>
@@ -57,6 +59,7 @@ export default {
 			lastTag: '',
 			photo: {},
 			photoIndex: 0,
+			photosLength: 0,
 			width: 0,
 			imgWidth: '100%',
 			imgHeight: 'auto',
@@ -86,6 +89,7 @@ export default {
 		this.dOnResize = debounce(this.onResizeEvent, 100)
 		this.onResizeEvent()
 		this.setEscKey()
+		this.photosLength = photos.length
 	},
 	methods: {
 		getImage() {
@@ -108,6 +112,15 @@ export default {
 			} else {
 				this.$router.push('/photography')
 			}
+		},
+		download() {
+			var link = document.createElement('a')
+			link.download = 'name.jpg'
+			link.href = this.photo.url_lg
+			link.target = '_blank'
+			document.body.appendChild(link)
+			link.click()
+			document.body.removeChild(link)
 		},
 		onResizeEvent() {
 			let maxWidth = this.photo.width
@@ -201,7 +214,8 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: fade-out(black, 0.1);
+		background-color: fade-out(black, 0.15);
+		animation: fade-in 0.4s ease;
 	}
 
 	// toolbar
@@ -211,6 +225,7 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 		display: flex;
 		align-items: center;
 		padding: 0 2rem;
+		animation: slide-down 0.6s ease;
 	}
 	&__count {
 		flex: 0 1 100%;
@@ -239,14 +254,13 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 		}
 	}
 
+	// main
 	&__main {
 		height: calc(100% - 80px);
 		position: relative;
 		pointer-events: none;
 		padding: 2rem 4rem;
 	}
-
-	// image
 	&__main-img {
 		width: 100%;
 		height: 100%;
@@ -260,6 +274,7 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 	&__img {
 		max-height: 100%;
 		max-width: 100%;
+		animation: pop-in 0.3s ease;
 	}
 
 	// controls
@@ -314,6 +329,31 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 		.center {
 			flex: 2;
 		}
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		background-color: fade-out(black, 1);
+	}
+	100% {
+		background-color: fade-out(black, 0.15);
+	}
+}
+@keyframes slide-down {
+	0% {
+		transform: translateY(-80px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+@keyframes pop-in {
+	0% {
+		transform: scale(0.75);
+	}
+	100% {
+		transform: scale(1);
 	}
 }
 </style>
