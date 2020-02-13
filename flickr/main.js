@@ -11,9 +11,7 @@ const Flickr = require('flickr-sdk')
 const flickrAPI = new Flickr(key, secret)
 const fs = require('fs')
 const request = require('request')
-const {
-	resolve
-} = require('path')
+const { resolve } = require('path')
 
 main()
 
@@ -77,6 +75,7 @@ async function processPhoto(photo) {
 		url_md: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`,
 		url_lg: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
 		url_og: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_o.jpg`,
+		url_sq: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`,
 	}
 }
 
@@ -129,14 +128,14 @@ async function getPhotoSize(photoId) {
 				photo_id: photoId,
 			})
 			.then(res => {
-				console.log(res)
+				console.log(res.body.sizes.size)
 				resolve(res.body.sizes.size.find(size => size.label === 'Large'))
 			})
 			.catch(err => reject(err))
 	})
 }
 
-var download = function (uri, filename, callback) {
+var download = function(uri, filename, callback) {
 	request.head(uri, () => {
 		request(uri)
 			.pipe(fs.createWriteStream(filename))

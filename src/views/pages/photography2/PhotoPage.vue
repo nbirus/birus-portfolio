@@ -4,6 +4,15 @@
 			<div class="photo-page__count">{{photo.name}}</div>
 			<div class="photo-page__actions">
 				<button class="btn btn-icon-circle btn-action">
+					<i class="material-icons small" @click="close">open_with</i>
+				</button>
+				<button class="btn btn-icon-circle btn-action">
+					<i class="material-icons small" @click="close">pin_drop</i>
+				</button>
+				<button class="btn btn-icon-circle btn-action">
+					<i class="material-icons small" @click="close">share</i>
+				</button>
+				<button class="btn btn-icon-circle btn-action">
 					<i class="material-icons" @click="close">close</i>
 				</button>
 			</div>
@@ -20,13 +29,13 @@
 				/>
 			</div>
 			<div class="photo-page__main-controls">
-				<router-link class="left" :to="prevLink">
+				<router-link class="left" :to="prevLink" ref="prev">
 					<div class="i-c">
 						<i class="material-icons">chevron_left</i>
 					</div>
 				</router-link>
 				<div class="center"></div>
-				<router-link class="right" :to="nextLink">
+				<router-link class="right" :to="nextLink" ref="next">
 					<div class="i-c">
 						<i class="material-icons">chevron_right</i>
 					</div>
@@ -51,17 +60,16 @@ export default {
 			width: 0,
 			imgWidth: '100%',
 			imgHeight: 'auto',
-			imgMaxWidth: 'auto',
-			imgMaxHeight: 'auto',
 		}
 	},
 	computed: {
 		imgStyle() {
 			return {
+				dOnResize: undefined,
 				width: this.imgWidth,
 				height: this.imgHeight,
-				maxWidth: this.imgMaxWidth,
-				maxHeight: this.imgMaxHeight,
+				maxWidth: `${this.photo.width}px`,
+				maxHeight: `${this.photo.height}px`,
 			}
 		},
 		prevLink() {
@@ -75,6 +83,9 @@ export default {
 	},
 	mounted() {
 		this.getImage()
+		this.dOnResize = debounce(this.onResizeEvent, 100)
+		this.onResizeEvent()
+		this.setEscKey()
 	},
 	methods: {
 		getImage() {
@@ -99,64 +110,74 @@ export default {
 			}
 		},
 		onResizeEvent() {
+			let maxWidth = this.photo.width
+			let maxHeight = this.photo.height
 			let cWidth = this.$refs.container.offsetWidth
 			let cHeight = this.$refs.container.offsetHeight
-			let iWidth = this.$refs.img.offsetWidth
-			let iHeight = this.$refs.img.offsetHeight
+			let isStretchingH = maxWidth < cWidth
+			let isStretchingV = maxHeight < cHeight
 
-			let hitsTop = cHeight === iHeight
-			let hitsWidth = cWidth === iWidth
-
-			if (hitsTop) {
-				this.imgWidth = 'auto'
-				this.imgHeight = '100%'
-			} else {
-				this.imgWidth = '100%'
-				this.imgHeight = 'auto'
+			if (this.photo.aspect === 'vertical') {
+				if (isStretchingV) {
+					this.imgWidth = '100%'
+					this.imgHeight = 'auto'
+				} else {
+					this.imgWidth = 'auto'
+					this.imgHeight = '100%'
+				}
+			} else if (this.photo.aspect === 'normal') {
+				if (isStretchingH) {
+					this.imgWidth = 'auto'
+					this.imgHeight = '100%'
+				} else {
+					this.imgWidth = '100%'
+					this.imgHeight = 'auto'
+				}
 			}
+		},
+		setEscKey() {
+			let that = this
+			let prev = this.$refs.prev.$el
+			let next = this.$refs.next.$el
 
-			// let { w, h } = calculateAspectRatioFit(
-			// 	this.$refs.img.offsetWidth,
-			// 	this.$refs.img.offsetHeight,
-			// 	width - (64 + 64),
-			// 	window.innerHeight - (82 + 64)
-			// )
-			// this.imgWidth = `${w}px`
-			// this.imgHeight = `${h}px`
-
-			// let widthAuto = true
-			// // if going inwards check width
-			// if (width < oldWidth) {
-			// 	let imgWidth = this.$refs.img.offsetWidth
-			// 	let widowWidth = width - (64 + 64)
-
-			// 	widthAuto = imgWidth <= widowWidth
-			// 	console.log(widthAuto)
-			// }
-			// // else going outwards/expanding check height
-			// else {
-			// 	let widowHeight = window.innerHeight - (82 + 64)
-			// 	let imgHeight = this.$refs.img.offsetHeight
-			// 	widthAuto = imgHeight > widowHeight
-			// }
-
-			// if (widthAuto) {
-
-			// } else {
-			// this.imgWidth = '100%'
-			// this.imgHeight = 'auto'
-			// }
+			document.addEventListener('keyup', function(evt) {
+				if (evt.keyCode === 27) {
+					that.close()
+				} else if (evt.keyCode === 39) {
+					prev.click()
+				} else if (evt.keyCode === 37) {
+					next.click()
+				}
+			})
 		},
 	},
 	watch: {
 		$route: 'getImage',
-		width$: 'onResizeEvent',
+		width$(width) {
+			this.dOnResize(width)
+		},
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
 			vm.open(from)
 		})
 	},
+}
+
+function debounce(func, wait, immediate) {
+	var timeout
+	return function() {
+		var context = this,
+			args = arguments
+		var later = function() {
+			timeout = null
+			if (!immediate) func.apply(context, args)
+		}
+		var callNow = immediate && !timeout
+		clearTimeout(timeout)
+		timeout = setTimeout(later, wait)
+		if (callNow) func.apply(context, args)
+	}
 }
 
 function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
@@ -169,6 +190,7 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 .photo-page {
 	height: 100%;
 	overflow-y: auto;
+	overflow-x: hidden;
 	width: 100%;
 	max-width: none;
 
@@ -198,6 +220,8 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 	&__actions {
 		flex: 0 0 auto;
 		z-index: 99999;
+		display: flex;
+		align-items: center;
 
 		.btn.btn-action {
 			background-color: transparent;
@@ -207,7 +231,10 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			width: 55px;
 
 			&:hover {
-				background-color: black;
+				background-color: fade-out(white, 0.9);
+			}
+			.small {
+				font-size: 1.5rem;
 			}
 		}
 	}
@@ -278,8 +305,14 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			height: 100%;
 			pointer-events: auto;
 		}
+		.left {
+			transform: translateX(-10%);
+		}
+		.right {
+			transform: translateX(10%);
+		}
 		.center {
-			flex: 3;
+			flex: 2;
 		}
 	}
 }
