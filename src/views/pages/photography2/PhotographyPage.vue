@@ -108,6 +108,8 @@ $side-pad: 4rem;
 
 .page {
 	padding: 0;
+	max-width: var(--max-width);
+	margin: 0 auto;
 
 	&__banner {
 		height: 0px;
@@ -176,6 +178,8 @@ $side-pad: 4rem;
 .photo-active {
 	.page {
 		&__photo-overlay {
+			position: fixed;
+			left: 0;
 			pointer-events: all;
 		}
 	}

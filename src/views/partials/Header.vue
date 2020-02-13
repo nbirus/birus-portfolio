@@ -49,7 +49,7 @@ export default {
 		text-transform: uppercase;
 		text-decoration: none !important;
 		font-weight: var(--thin);
-		font-size: 0.95rem;
+		font-size: 0.9rem;
 		text-decoration: underline;
 		opacity: 0.75;
 		letter-spacing: 1px;
@@ -62,12 +62,14 @@ export default {
 			font-weight: var(--bold);
 			text-decoration: none;
 			opacity: 1;
+			cursor: default;
 		}
 		&:not(:last-child) {
 			margin-right: 2rem;
 		}
 		&:hover:not(.router-link-active) {
 			color: var(--c-link);
+			opacity: 1;
 		}
 	}
 	&__dark-mode {

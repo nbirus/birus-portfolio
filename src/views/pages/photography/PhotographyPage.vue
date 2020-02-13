@@ -1,5 +1,5 @@
 <template>
-	<div class="page photography-page" :class="{ fullscreen: $fullscreen, tag: !!selectedTag }">
+	<div class="page page-photography" :class="{ fullscreen: $fullscreen, tag: !!selectedTag }">
 		<div class="page__header">
 			<h1 class="text">{{ 'Photography' }}</h1>
 			<transition name="slide-down" mode="out-in">
@@ -90,10 +90,6 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-	padding: 0 0 4rem;
-	max-width: 1400px;
-	margin: 0 auto;
-
 	&__header {
 		padding: 3rem 3rem 0;
 		display: flex;

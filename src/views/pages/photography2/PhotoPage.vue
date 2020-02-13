@@ -9,11 +9,12 @@
 			</div>
 		</div>
 		<div class="photo-page__main">
-			<div class="photo-page__main-img">
+			<div class="photo-page__main-img" ref="container">
 				<img
 					ref="img"
 					class="photo-page__img"
-					:class="[{ 'width-over': width > width$ }, photo.aspect]"
+					:class="photo.aspect"
+					:style="imgStyle"
 					:src="photo.url_lg"
 					:alt="photo.name"
 				/>
@@ -48,9 +49,21 @@ export default {
 			photo: {},
 			photoIndex: 0,
 			width: 0,
+			imgWidth: '100%',
+			imgHeight: 'auto',
+			imgMaxWidth: 'auto',
+			imgMaxHeight: 'auto',
 		}
 	},
 	computed: {
+		imgStyle() {
+			return {
+				width: this.imgWidth,
+				height: this.imgHeight,
+				maxWidth: this.imgMaxWidth,
+				maxHeight: this.imgMaxHeight,
+			}
+		},
 		prevLink() {
 			let index = this.photoIndex > 0 ? this.photoIndex - 1 : photos.length - 1
 			return `/photography/${photos[index].id}`
@@ -69,9 +82,6 @@ export default {
 			this.photoIndex = photos.findIndex(p => p.id === id)
 			if (this.photoIndex !== -1) {
 				this.photo = photos[this.photoIndex]
-				this.$nextTick(() => {
-					this.width = this.$refs.img.clientWidth
-				})
 			} else {
 				this.$router.push('/photography')
 			}
@@ -88,9 +98,59 @@ export default {
 				this.$router.push('/photography')
 			}
 		},
+		onResizeEvent() {
+			let cWidth = this.$refs.container.offsetWidth
+			let cHeight = this.$refs.container.offsetHeight
+			let iWidth = this.$refs.img.offsetWidth
+			let iHeight = this.$refs.img.offsetHeight
+
+			let hitsTop = cHeight === iHeight
+			let hitsWidth = cWidth === iWidth
+
+			if (hitsTop) {
+				this.imgWidth = 'auto'
+				this.imgHeight = '100%'
+			} else {
+				this.imgWidth = '100%'
+				this.imgHeight = 'auto'
+			}
+
+			// let { w, h } = calculateAspectRatioFit(
+			// 	this.$refs.img.offsetWidth,
+			// 	this.$refs.img.offsetHeight,
+			// 	width - (64 + 64),
+			// 	window.innerHeight - (82 + 64)
+			// )
+			// this.imgWidth = `${w}px`
+			// this.imgHeight = `${h}px`
+
+			// let widthAuto = true
+			// // if going inwards check width
+			// if (width < oldWidth) {
+			// 	let imgWidth = this.$refs.img.offsetWidth
+			// 	let widowWidth = width - (64 + 64)
+
+			// 	widthAuto = imgWidth <= widowWidth
+			// 	console.log(widthAuto)
+			// }
+			// // else going outwards/expanding check height
+			// else {
+			// 	let widowHeight = window.innerHeight - (82 + 64)
+			// 	let imgHeight = this.$refs.img.offsetHeight
+			// 	widthAuto = imgHeight > widowHeight
+			// }
+
+			// if (widthAuto) {
+
+			// } else {
+			// this.imgWidth = '100%'
+			// this.imgHeight = 'auto'
+			// }
+		},
 	},
 	watch: {
 		$route: 'getImage',
+		width$: 'onResizeEvent',
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
@@ -98,12 +158,19 @@ export default {
 		})
 	},
 }
+
+function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight)
+	return { width: srcWidth * ratio, height: srcHeight * ratio }
+}
 </script>
 
 <style lang="scss" scoped>
 .photo-page {
 	height: 100%;
 	overflow-y: auto;
+	width: 100%;
+	max-width: none;
 
 	&:before {
 		content: '';
@@ -149,30 +216,23 @@ export default {
 		height: calc(100% - 80px);
 		position: relative;
 		pointer-events: none;
+		padding: 2rem 4rem;
 	}
 
 	// image
 	&__main-img {
+		width: 100%;
 		height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		pointer-events: none;
 		position: relative;
+		padding: 0px;
 	}
 	&__img {
-		height: calc(100% - 3rem);
-		width: auto;
-		pointer-events: auto;
-
-		&.width-over {
-			height: auto;
-			width: calc(100% - 2rem);
-		}
-	}
-	&__img.panorama {
-		height: auto;
-		width: calc(100% - 2rem);
+		max-height: 100%;
+		max-width: 100%;
 	}
 
 	// controls
