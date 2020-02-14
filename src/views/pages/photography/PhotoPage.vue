@@ -146,7 +146,9 @@ export default {
 			}
 		},
 		close() {
-			close()
+			if (this.isExpanded) {
+				close()
+			}
 			if (this.lastTag) {
 				this.$router.push(`/photography?tag=${this.lastTag}`)
 			} else {

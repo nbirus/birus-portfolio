@@ -10,7 +10,7 @@
 				</button>
 			</div>
 			<div class="nb-sidebar__links">
-				<router-link class="nb-sidebar__link" to="/">Home</router-link>
+				<router-link class="nb-sidebar__link" to="/" exact>Home</router-link>
 				<router-link class="nb-sidebar__link" to="photography">Photography</router-link>
 				<router-link class="nb-sidebar__link" to="design">Web Design</router-link>
 				<router-link class="nb-sidebar__link" to="contact">Contact me</router-link>
@@ -83,7 +83,7 @@ export default {
 		display: flex;
 		align-items: center;
 
-		&.router-link-exact-active {
+		&.router-link-active {
 			color: var(--c-text);
 			font-weight: var(--bold);
 			text-decoration: none;
@@ -91,7 +91,7 @@ export default {
 		&:not(:last-child) {
 			border-bottom: solid thin var(--c-border);
 		}
-		&:hover:not(.router-link-exact-active) {
+		&:hover:not(.router-link-active) {
 			color: var(--c-link);
 		}
 	}
