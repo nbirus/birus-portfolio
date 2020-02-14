@@ -1,52 +1,50 @@
 <template>
 	<div class="contact page">
-		<div class="container">
-			<!-- prettier-ignore -->
-			<form id="contact" ref="form" action method="post" @submit.prevent="onSubmit">
-				<h2 class="mb-5">Contact me</h2>
+		<!-- prettier-ignore -->
+		<form class="container" id="contact" ref="form" action method="post" @submit.prevent="onSubmit">
+			<h2 class="mb-4">Contact me</h2>
 
-				<!-- name -->
-				<fieldset class="input-field mb-3">
-					<label for="name">Name</label>
-					<input id="name" type="text" class="sm" v-model="name" tabindex="1" required autofocus />
-				</fieldset>
+			<!-- name -->
+			<fieldset class="input-field mb-3">
+				<label for="name">Name</label>
+				<input id="name" type="text" class="sm" v-model="name" tabindex="1" required autofocus />
+			</fieldset>
 
-				<!-- email -->
-				<fieldset class="input-field mb-3">
-					<label for="email">Email Address</label>
-					<input ref="email" id="email" type="email" class="sm" v-model="email" tabindex="2" required />
-				</fieldset>
+			<!-- email -->
+			<fieldset class="input-field mb-3">
+				<label for="email">Email Address</label>
+				<input ref="email" id="email" type="email" class="sm" v-model="email" tabindex="2" required />
+			</fieldset>
 
-				<!-- message -->
-				<fieldset class="input-field mb-4">
-					<label for="message">Message</label>
-					<textarea id="message" class="lg" v-model="message" tabindex="3" required />
-				</fieldset>
+			<!-- message -->
+			<fieldset class="input-field mb-4">
+				<label for="message">Message</label>
+				<textarea id="message" class="lg" v-model="message" tabindex="3" required />
+			</fieldset>
 
-				<fieldset>
-					<recaptcha
-						tabindex="4"
-						class="mb-3"
-						:sitekey="capatchKey"
-						type="3"
-						:loadRecaptchaScript="true"
-						@verify="verified = true"
-					></recaptcha>
-					<button
-						tabindex="5"
-						:disabled="sending"
-						:class="{disabled: sending}"
-						id="contact-submit"
-						class="button btn-reg"
-						name="submit"
-						type="submit"
-					>
-						<img src="/send.svg" alt="Home" />
-						<span>{{!sending ? 'Send Message' : 'Sending message...'}}</span>
-					</button>
-				</fieldset>
-			</form>
-		</div>
+			<fieldset class="bottom">
+				<!-- <recaptcha
+					tabindex="4"
+					class="recaptcha mb-3"
+					:sitekey="capatchKey"
+					type="3"
+					:loadRecaptchaScript="true"
+					@verify="verified = true"
+				></recaptcha>-->
+				<button
+					class="btn with-icon submit"
+					tabindex="5"
+					:disabled="sending"
+					:class="{disabled: sending}"
+					id="contact-submit"
+					name="submit"
+					type="submit"
+				>
+					<i class="material-icons">mail_outline</i>
+					<span>{{!sending ? 'Send Message' : 'Sending message...'}}</span>
+				</button>
+			</fieldset>
+		</form>
 	</div>
 </template>
 
@@ -87,7 +85,7 @@ export default {
 					return response.json()
 				})
 				.then(() => {
-					alert('Your message has been sent!')
+					alert('Your message has been sent!  I will get back to you ASAP!')
 				})
 				.catch(e => {
 					alert(e)
@@ -101,9 +99,33 @@ export default {
 </script>
 
 <style lang="scss">
-#contact-submit {
+.contact .container {
+	max-width: 350px;
+	margin: 0 auto;
 	display: flex;
-	align-items: center;
+	// align-items: center;
+	flex-direction: column;
+
+	.input-field {
+		input,
+		textarea {
+			width: 325px;
+		}
+	}
+	.bottom {
+		display: flex;
+	}
+	.submit {
+		width: 100%;
+		justify-content: center;
+		position: relative;
+
+		i {
+			margin-right: 0.65rem;
+		}
+	}
+}
+#contact-submit {
 	img {
 		margin-right: 0.5rem;
 	}
