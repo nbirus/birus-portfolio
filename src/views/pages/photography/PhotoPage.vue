@@ -408,6 +408,9 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			pointer-events: none;
 			padding: 1rem;
 		}
+		&__toolbar {
+			padding: 0 1rem;
+		}
 	}
 }
 

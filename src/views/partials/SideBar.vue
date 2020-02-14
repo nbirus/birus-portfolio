@@ -1,8 +1,8 @@
 <template>
-	<div class="nb-sidebar" :class="[{open: value}, $darkClass]" @click.self="$emit('input', false)">
+	<div class="nb-sidebar" :class="[{ open: value }, $darkClass]" @click.self="$emit('input', false)">
 		<nav class="nb-sidebar__container">
 			<div class="nb-sidebar__header">
-				<button class="nb-sidebar__menu icon-btn" @click="$emit('input', false)" type="button">
+				<button class="btn btn-icon-circle flat nb nb-sidebar__menu" @click="$emit('input', false)">
 					<i class="material-icons">close</i>
 				</button>
 				<button class="nb-sidebar__dark-mode btn btn-icon-circle flat nb" @click="$dark = !$dark">

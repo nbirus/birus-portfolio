@@ -1,6 +1,10 @@
 <template>
 	<div class="nb-header" role="navigation" :class="[$darkClass, shadow && 'shadow']">
-		<button class="nb-header__menu icon-btn" @click="$emit('side-bar')" type="button">
+		<button
+			class="btn btn-icon-circle flat nb nb-header__menu"
+			@click="$emit('side-bar')"
+			type="button"
+		>
 			<i class="material-icons">menu</i>
 		</button>
 		<div class="nb-header__logo">
