@@ -1,7 +1,10 @@
 import screenfull from 'screenfull'
 
-export default function(elem) {
+export function expand(elem) {
 	if (screenfull.isEnabled) {
 		screenfull.request(elem)
 	}
+}
+export function close() {
+	screenfull.exit()
 }

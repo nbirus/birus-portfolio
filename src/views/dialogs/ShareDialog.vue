@@ -1,40 +1,42 @@
 <template>
 	<transition name="modal">
 		<div class="modal-mask" v-show="$shareDialog" @click.self="$shareDialog = false">
-			<div class="modal">
-				<div class="modal__container">
-					<div class="modal__header">
-						<h4 v-text="label"></h4>
-						<button class="btn btn-icon-circle flat nb" @click="$shareDialog = false" title="Close Share">
-							<i class="material-icons">close</i>
-						</button>
-					</div>
-					<div class="modal__body">
-						<ul class="modal__share-list">
-							<li v-for="(link, i) in shareLinks" :key="i" class="modal__share-list-item">
-								<a class="link" :href="link.url" target="_blank" :class="link.class" :title="`Share on ${link.name}`">
-									<img :src="`${link.id}.svg`" :alt="`Share on ${link.name}`" />
-								</a>
-							</li>
-						</ul>
-						<input
-							ref="copy"
-							class="modal__share_url"
-							type="text"
-							readonly
-							:value="shareLink"
-							onclick="this.select()"
-							@click="copy"
-						/>
-						<transition name="popover" mode="out-in">
-							<div class="modal__share_url_popover" v-if="copyPopover">
-								<i class="material-icons">check</i>
-								<span>Copied to clipboard</span>
-							</div>
-						</transition>
+			<transition name="popover" mode="out-in">
+				<div class="modal">
+					<div class="modal__container">
+						<div class="modal__header">
+							<h4 v-text="label"></h4>
+							<button class="btn btn-icon-circle flat nb close" @click="$shareDialog = false" title="Close Share">
+								<i class="material-icons">close</i>
+							</button>
+						</div>
+						<div class="modal__body">
+							<ul class="modal__share-list">
+								<li v-for="(link, i) in shareLinks" :key="i" class="modal__share-list-item">
+									<a class="link" :href="link.url" target="_blank" :class="link.class" :title="`Share on ${link.name}`">
+										<img :src="`/${link.id}.svg`" :alt="`Share on ${link.name}`" />
+									</a>
+								</li>
+							</ul>
+							<input
+								ref="copy"
+								class="modal__share_url"
+								type="text"
+								readonly
+								:value="shareLink"
+								onclick="this.select()"
+								@click="copy"
+							/>
+							<transition name="popover" mode="out-in">
+								<div class="modal__share_url_popover" v-if="copyPopover">
+									<i class="material-icons">check</i>
+									<span>Copied to clipboard</span>
+								</div>
+							</transition>
+						</div>
 					</div>
 				</div>
-			</div>
+			</transition>
 		</div>
 	</transition>
 </template>
@@ -138,7 +140,7 @@ export default {
 	&__container {
 		width: 350px;
 		margin: 0px auto;
-		padding: 1.25rem 1.5rem;
+		padding: 1.25rem 1.5rem 1.5rem;
 		background-color: #fff;
 		border-radius: 4px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -149,7 +151,7 @@ export default {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 1rem;
+		margin-bottom: 0.75rem;
 
 		.btn {
 			color: var(--c-grey5);
@@ -213,35 +215,43 @@ export default {
 
 		.link {
 			display: block;
-			width: 60px;
-			height: 60px;
+			width: 55px;
+			height: 55px;
 			border-radius: 50%;
 			background-color: var(--c-grey1);
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			transition: box-shadow 0.2s ease;
+
+			&:focus {
+				box-shadow: 0 0 0 3px var(--c-blue);
+			}
 		}
 		img {
-			width: 60px;
-			height: 60px;
+			width: 55px;
+			height: 55px;
 		}
 		.tumblr-share-button {
 			background-color: #304155;
 			img {
-				width: 35px;
-				height: 35px;
+				width: 32px;
+				height: 32px;
 			}
 		}
 		.twitter-share-button {
 			background-color: #1c9dea;
 
 			img {
-				width: 35px;
-				height: 35px;
-				transform: translateY(2px);
+				width: 30px;
+				height: 30px;
+				transform: translateY(1px) translateX(1px);
 			}
 		}
 	}
+}
+.close {
+	transform: translateY(-0.9rem) translateX(1.15rem) scale(0.9);
 }
 
 // transition
@@ -253,7 +263,6 @@ export default {
 }
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
+	transform: scale(0.8);
 }
 </style>

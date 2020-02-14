@@ -1,14 +1,17 @@
 <template>
-	<div class="page photo-page" @click.self="close">
+	<div class="page photo-page">
 		<div class="photo-page__toolbar">
 			<div class="photo-page__count">
-				<span v-text="photo.name"></span>
+				<span v-text="`${photoIndex + 1}/${photoLength}`"></span>
 			</div>
 			<div class="photo-page__actions">
-				<button class="btn btn-icon-circle btn-action" title="More Information">
+				<button class="btn btn-icon-circle btn-action" title="Go Fullscreen" @click="isExpanded = !isExpanded">
+					<i class="material-icons small">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
+				</button>
+				<button class="btn btn-icon-circle btn-action" title="More Information" @click="infoDialog = true">
 					<i class="material-icons small">info</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action" title="Location" @click="download">
+				<button class="btn btn-icon-circle btn-action" title="Download" @click="download">
 					<i class="material-icons small">cloud_download</i>
 				</button>
 				<button class="btn btn-icon-circle btn-action" title="Share Image" @click="$shareDialog = true">
@@ -44,18 +47,25 @@
 				</router-link>
 			</div>
 		</div>
+
+		<information-dialog v-model="infoDialog" :photo="photo" />
 	</div>
 </template>
 
 <script>
+import { expand, close } from '@/utils/Expand'
 import photos from '@/assets/photos'
 import WidthMixin from '@/mixins/WidthMixin'
+import InformationDialog from '@/views/dialogs/InformationDialog'
 
 export default {
 	name: 'photo-page',
 	mixins: [WidthMixin],
+	components: { InformationDialog },
 	data() {
 		return {
+			isExpanded: false,
+			infoDialog: false,
 			lastTag: '',
 			photo: {},
 			photoIndex: 0,
@@ -82,6 +92,9 @@ export default {
 		nextLink() {
 			let index = this.photoIndex < photos.length - 1 ? this.photoIndex + 1 : 0
 			return `/photography/${photos[index].id}`
+		},
+		photoLength() {
+			return photos.length
 		},
 	},
 	mounted() {
@@ -169,6 +182,13 @@ export default {
 		width$(width) {
 			this.dOnResize(width)
 		},
+		isExpanded(isExpanded) {
+			if (!isExpanded) {
+				expand(this.$refs.expand).$el
+			} else {
+				close()
+			}
+		},
 	},
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
@@ -192,7 +212,6 @@ function debounce(func, wait, immediate) {
 		if (callNow) func.apply(context, args)
 	}
 }
-
 function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight)
 	return { width: srcWidth * ratio, height: srcHeight * ratio }
@@ -200,6 +219,8 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/component';
+
 .photo-page {
 	height: 100%;
 	overflow-y: auto;
@@ -247,6 +268,10 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 
 			&:hover {
 				background-color: fade-out(white, 0.9);
+			}
+			&:focus,
+			&:active {
+				background: fade-out(white, 0.8);
 			}
 			.small {
 				font-size: 1.5rem;
@@ -297,10 +322,12 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			text-decoration: none;
 			color: white;
 
-			&:hover {
-				.i-c {
-					background: fade-out(black, 0.25);
-				}
+			&:hover .i-c {
+				background: fade-out(white, 0.75);
+			}
+			&:active .i-c {
+				background: fade-out(white, 0.65);
+				@include active-shadow;
 			}
 		}
 		i {
@@ -313,6 +340,7 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			transition: box-shadow 0.2s ease, background-color 0.3s ease;
 		}
 		.left,
 		.right {
