@@ -16,13 +16,13 @@
 			</transition>
 			<div class="page__button-container">
 				<transition name="fade-up" mode="out-in">
-					<div v-if="tagActive">
+					<div class="back-btn" v-if="tagActive">
 						<router-link tag="button" class="btn with-icon mr-1" to="photography">
 							<i class="material-icons">keyboard_backspace</i>Back to gallery
 						</router-link>
 					</div>
 				</transition>
-				<button class="btn with-icon" @click="$shareDialog = true">
+				<button class="share-btn btn with-icon" @click="$shareDialog = true">
 					<i class="material-icons">share</i>Share
 				</button>
 			</div>
@@ -113,7 +113,9 @@ export default {
 
 <style lang="scss" scoped>
 $banner-height: 200px;
+$banner-height-sm: 120px;
 $side-pad: 4rem;
+$side-pad-sm: 1.5rem;
 
 .page {
 	padding: 0;
@@ -133,9 +135,6 @@ $side-pad: 4rem;
 		padding: 4rem $side-pad 0;
 		height: 132px;
 		transition: height 0.2s ease;
-	}
-	&__title-container {
-		// position: absolute;
 	}
 	&__tag-title {
 		transform: translateY(0.5rem);
@@ -194,6 +193,48 @@ $side-pad: 4rem;
 			position: fixed;
 			left: 0;
 			pointer-events: all;
+		}
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.page {
+		&__header {
+			padding: 2rem $side-pad-sm;
+			height: 132px;
+			flex-direction: column;
+			align-items: stretch;
+		}
+		&__title-container,
+		&__title-container-tag {
+			order: 2;
+		}
+		&__button-container {
+			justify-content: flex-end;
+			transform: translateY(0);
+			margin-bottom: 2rem;
+			order: 1;
+		}
+		&__tag-container {
+			position: absolute;
+			height: 185px;
+			top: 3.5rem;
+			left: 0;
+			right: 0;
+		}
+		&__body {
+			padding: 1rem 0;
+		}
+		&__gallery {
+			margin-top: 225px;
+		}
+	}
+	.tag-active.page {
+		.page__banner {
+			height: $banner-height-sm;
+		}
+		.page__gallery {
+			margin-top: 4rem !important;
 		}
 	}
 }

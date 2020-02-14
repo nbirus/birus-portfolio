@@ -44,7 +44,9 @@ export default {
 	},
 	computed: {
 		size() {
-			if (this.width > 2000) {
+			if (this.width < 768) {
+				return tags.length
+			} else if (this.width > 2000) {
 				return 7
 			} else if (this.width > 1300) {
 				return 6
@@ -181,6 +183,32 @@ function clone(o) {
 	}
 	&.right {
 		right: -1.5rem;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.scrolling-wrapper {
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		padding: 1rem;
+
+		&__item {
+			height: 120px;
+			flex: 0 0 135px;
+			padding: 0 0.5rem;
+		}
+		&__img {
+			height: 70%;
+		}
+		&__label {
+			height: 30%;
+			padding-left: 0.75rem;
+			font-size: 0.9rem;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
 	}
 }
 </style>

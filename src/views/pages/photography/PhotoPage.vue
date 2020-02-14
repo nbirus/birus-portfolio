@@ -7,16 +7,23 @@
 			</div>
 			<div class="photo-page__actions">
 				<button
+					id="info"
 					class="btn btn-icon-circle btn-action flat"
 					title="More Information"
 					@click="infoDialog = true"
 				>
 					<i class="material-icons small">info</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action flat" title="Download" @click="download">
+				<button
+					id="download"
+					class="btn btn-icon-circle btn-action flat"
+					title="Download"
+					@click="download"
+				>
 					<i class="material-icons small">open_in_new</i>
 				</button>
 				<button
+					id="share"
 					class="btn btn-icon-circle btn-action flat"
 					title="Share Image"
 					@click="$shareDialog = true"
@@ -24,13 +31,19 @@
 					<i class="material-icons small">share</i>
 				</button>
 				<button
+					id="fullscreen"
 					class="btn btn-icon-circle btn-action flat"
 					title="Go Fullscreen"
 					@click="isExpanded = !isExpanded"
 				>
 					<i class="material-icons">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action flat" title="Close Image" @click="close">
+				<button
+					id="close"
+					class="btn btn-icon-circle btn-action flat"
+					title="Close Image"
+					@click="close"
+				>
 					<i class="material-icons">close</i>
 				</button>
 			</div>
@@ -379,6 +392,21 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 		}
 		.center {
 			flex: 2;
+		}
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#download,
+	#fullscreen {
+		display: none;
+	}
+	.photo-page {
+		&__main {
+			height: calc(100% - 80px);
+			position: relative;
+			pointer-events: none;
+			padding: 1rem;
 		}
 	}
 }

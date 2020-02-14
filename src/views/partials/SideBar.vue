@@ -3,10 +3,10 @@
 		<nav class="nb-sidebar__container">
 			<div class="nb-sidebar__header">
 				<button class="nb-sidebar__menu icon-btn" @click="$emit('input', false)" type="button">
-					<img src="/close.svg" height="30px" alt="Close navigation" />
+					<i class="material-icons">close</i>
 				</button>
-				<button class="nb-sidebar__dark-mode icon-btn" @click="$dark = !$dark">
-					<img :src="$dark ? '/moon.svg' : '/sun.svg'" height="20px" alt="Dark Mode Toggle" />
+				<button class="nb-sidebar__dark-mode btn btn-icon-circle flat nb" @click="$dark = !$dark">
+					<i class="material-icons">{{ !$dark ? 'brightness_low' : 'brightness_high' }}</i>
 				</button>
 			</div>
 			<div class="nb-sidebar__links">
@@ -61,6 +61,12 @@ export default {
 		justify-content: space-between;
 		align-items: center;
 		height: var(--header-height);
+	}
+	&__dark-mode i {
+		font-size: 1.75rem !important;
+	}
+	&__menu i {
+		font-size: 2.25rem !important;
 	}
 	&__links {
 		display: flex;

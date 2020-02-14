@@ -1,10 +1,10 @@
 <template>
 	<div class="nb-header" role="navigation" :class="[$darkClass, shadow && 'shadow']">
 		<button class="nb-header__menu icon-btn" @click="$emit('side-bar')" type="button">
-			<img src="/menu.svg" height="30px" alt="Open navigation" />
+			<i class="material-icons">menu</i>
 		</button>
 		<div class="nb-header__logo">
-			<img src="/favicon.png" height="42px" alt="Nbirus Logo" />
+			<img src="/favicon.png" height="42px" alt="nbirus" />
 		</div>
 		<div class="nb-header__middle"></div>
 		<div class="nb-header__links">
@@ -13,9 +13,8 @@
 			<router-link class="nb-header__link" to="photography">Photography</router-link>
 			<router-link class="nb-header__link" to="contact">Contact me</router-link>
 		</div>
-		<button class="nb-header__dark-mode btn btn-icon-circle flat nb" @click="$dark=!$dark">
-			<!-- <img :src="$dark ? '/moon.svg' : '/sun.svg'" height="16px" alt="Dark Mode Toggle" /> -->
-			<i class="material-icons">wb_sunny</i>
+		<button class="nb-header__dark-mode btn btn-icon-circle flat nb" @click="$dark = !$dark">
+			<i class="material-icons">{{ !$dark ? 'brightness_low' : 'brightness_high' }}</i>
 		</button>
 	</div>
 </template>
@@ -52,6 +51,10 @@ export default {
 	&__menu {
 		display: none;
 		margin-right: 0.5rem;
+
+		i {
+			font-size: 2.25rem;
+		}
 	}
 	&__middle {
 		flex-grow: 1;
@@ -91,8 +94,8 @@ export default {
 	&__dark-mode {
 		margin-left: 1.5rem;
 		border-radius: 50%;
-		width: 40px;
-		height: 40px;
+		width: 40px !important;
+		height: 40px !important;
 		padding-top: 0.4rem;
 		transition: background-color 0.1s ease, box-shadow 0.2s ease;
 		outline: none;
@@ -142,8 +145,8 @@ export default {
 		&__links {
 			display: none;
 		}
-		&__dark-mode {
-			display: none;
+		.nb-header__dark-mode {
+			display: none !important;
 		}
 		&__logo {
 			width: 100%;
