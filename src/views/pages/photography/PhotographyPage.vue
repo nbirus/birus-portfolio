@@ -5,10 +5,15 @@
 
 		<!-- header -->
 		<div class="page__header">
-			<div class="page__title-container">
-				<h1 class="page__title">Photography</h1>
-				<h1 class="page__tag-title" v-if="tagActive" v-text="activeTag.label"></h1>
-			</div>
+			<transition name="title" mode="out-in">
+				<div class="page__title-container" v-if="!tagActive" key="1">
+					<h1 class="page__title">Photography</h1>
+				</div>
+				<div class="page__title-container-tag" v-else key="2">
+					<h1 class="page__title-tag">Photography</h1>
+					<h1 class="page__tag-title" v-if="tagActive" v-text="activeTag.label"></h1>
+				</div>
+			</transition>
 			<div class="page__button-container">
 				<transition name="fade-up" mode="out-in">
 					<div v-if="tagActive">
@@ -126,9 +131,19 @@ $side-pad: 4rem;
 		justify-content: space-between;
 		margin-top: 0;
 		padding: 4rem $side-pad 0;
+		height: 132px;
+		transition: height 0.2s ease;
+	}
+	&__title-container {
+		// position: absolute;
 	}
 	&__tag-title {
-		display: none;
+		transform: translateY(0.5rem);
+	}
+	&__title-tag {
+		font-size: 1.35rem;
+		font-weight: var(--thin);
+		letter-spacing: 1px;
 	}
 	&__button-container {
 		display: flex;
@@ -165,15 +180,8 @@ $side-pad: 4rem;
 		&__banner {
 			height: $banner-height;
 		}
-		&__title {
-			font-size: 1.35rem;
-			font-weight: var(--thin);
-			letter-spacing: 1px;
-			margin-top: -4px;
-		}
-		&__tag-title {
-			display: block;
-			transform: translateY(0.5rem);
+		&__header {
+			height: 140px;
 		}
 		&__gallery {
 			margin-top: 1rem;

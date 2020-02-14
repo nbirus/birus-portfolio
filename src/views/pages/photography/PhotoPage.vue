@@ -2,7 +2,8 @@
 	<div class="page photo-page">
 		<div class="photo-page__toolbar">
 			<div class="photo-page__count">
-				<span v-text="`${photoIndex + 1}/${photoLength}`"></span>
+				<div class="name" v-text="photo.name"></div>
+				<div class="location" v-text="photo.location"></div>
 			</div>
 			<div class="photo-page__actions">
 				<button
@@ -27,7 +28,7 @@
 					title="Go Fullscreen"
 					@click="isExpanded = !isExpanded"
 				>
-					<i class="material-icons small">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
+					<i class="material-icons">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
 				</button>
 				<button class="btn btn-icon-circle btn-action flat" title="Close Image" @click="close">
 					<i class="material-icons">close</i>
@@ -265,6 +266,14 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 		flex: 0 1 100%;
 		color: white;
 		z-index: 99999;
+
+		.name {
+			margin-bottom: 0.35rem;
+		}
+		.location {
+			font-size: 0.9rem;
+			opacity: 0.5;
+		}
 	}
 	&__actions {
 		flex: 0 0 auto;
@@ -278,6 +287,7 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			border: none;
 			height: 55px;
 			width: 55px;
+			margin-left: 0.35rem;
 
 			&:hover {
 				background-color: fade-out(white, 0.9);

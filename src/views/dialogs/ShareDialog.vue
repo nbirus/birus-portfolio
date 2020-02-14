@@ -1,11 +1,11 @@
 <template>
 	<transition name="modal">
 		<div class="modal-mask" v-show="$shareDialog" @click.self="$shareDialog = false">
-			<transition name="popover" mode="out-in">
+			<transition name="popover" mode="out-in" &#x26;#x26;#x26;#x60;>
 				<div class="modal">
 					<div class="modal__container">
 						<div class="modal__header">
-							<h6>Share {{label}} with...</h6>
+							<h4 v-text="label"></h4>
 							<button
 								class="btn btn-icon-circle flat nb close"
 								@click="$shareDialog = false"
@@ -72,9 +72,12 @@ export default {
 		},
 		label() {
 			if (this.$route.params.id) {
-				return 'photo'
+				return 'Share Photo'
+			}
+			if (this.$route.query.tag) {
+				return 'Share Photos'
 			} else {
-				return 'these photos'
+				return 'Share Photos'
 			}
 		},
 		shareLinks() {
@@ -84,28 +87,24 @@ export default {
 					name: 'Facebook',
 					class: 'facebook-share-button',
 					url: `https://www.facebook.com/sharer/sharer.php?u=${this.shareLink}`,
-					logo: '',
 				},
 				{
 					id: 'twitter',
 					name: 'Twitter',
 					class: 'twitter-share-button',
 					url: `https://twitter.com/intent/tweet?text=${this.shareLink}`,
-					logo: '',
 				},
 				{
 					id: 'pinterest',
 					name: 'Pinterest',
 					class: 'pinterest-share-button',
 					url: `http://pinterest.com/pin/create/button/?url=${this.shareLink}`,
-					logo: '',
 				},
 				{
 					id: 'tumblr',
 					name: 'Tumblr',
 					class: 'tumblr-share-button',
 					url: `https://www.tumblr.com/widgets/share/tool?shareSource=legacy&canonicalUrl=<-urlencode(${this.shareLink})->&posttype=link`,
-					logo: '',
 				},
 			]
 		},
@@ -137,7 +136,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.75);
+	background-color: rgba(0, 0, 0, 0.5);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -145,7 +144,7 @@ export default {
 }
 .modal {
 	&__container {
-		width: 355px;
+		width: 350px;
 		margin: 0px auto;
 		padding: 1.25rem 1.5rem 1.5rem;
 		background-color: #fff;
@@ -168,7 +167,7 @@ export default {
 		}
 	}
 	&__share_url {
-		width: 240px;
+		width: 235px;
 		text-align: center;
 		padding: 0.75rem 2rem;
 		font-size: 1rem;
@@ -213,7 +212,7 @@ export default {
 		align-items: center;
 		justify-content: space-around;
 		margin: 0 0 1.5rem;
-		padding: 0 0.5rem;
+		padding: 0;
 	}
 	&__share-list-item {
 		display: block;
@@ -258,7 +257,7 @@ export default {
 	}
 }
 .close {
-	transform: translateY(-0.5rem) translateX(0.5rem) scale(0.9);
+	transform: translateY(-0.9rem) translateX(1.15rem) scale(0.9);
 }
 
 // transition
