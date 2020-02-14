@@ -200,8 +200,8 @@ $side-pad-sm: 1.5rem;
 @media only screen and (max-width: 768px) {
 	.page {
 		&__header {
-			padding: 2rem $side-pad-sm;
-			height: 132px;
+			padding: 1.5rem $side-pad-sm 1rem;
+			height: auto;
 			flex-direction: column;
 			align-items: stretch;
 		}
@@ -218,7 +218,7 @@ $side-pad-sm: 1.5rem;
 		&__tag-container {
 			position: absolute;
 			height: 185px;
-			top: 3.5rem;
+			top: 0;
 			left: 0;
 			right: 0;
 		}
@@ -226,7 +226,7 @@ $side-pad-sm: 1.5rem;
 			padding: 1rem 0;
 		}
 		&__gallery {
-			margin-top: 225px;
+			margin-top: 175px;
 		}
 	}
 	.tag-active.page {

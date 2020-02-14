@@ -19,6 +19,7 @@
 					<div class="scrolling-wrapper__label text" v-text="tag.label"></div>
 				</router-link>
 			</li>
+			<li class="after"></li>
 		</ul>
 		<button class="btn btn-icon-circle left" v-if="from > 0" @click="prevPage">
 			<i class="material-icons">chevron_left</i>
@@ -191,7 +192,13 @@ function clone(o) {
 		flex-wrap: nowrap;
 		overflow-x: auto;
 		-webkit-overflow-scrolling: touch;
-		padding: 1rem;
+		padding: 1rem 1.5rem;
+
+		.after {
+			min-width: 1.5rem;
+			height: 100px;
+			position: relative;
+		}
 
 		&__item {
 			height: 120px;
