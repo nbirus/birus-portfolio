@@ -5,15 +5,25 @@
 				<div class="modal">
 					<div class="modal__container">
 						<div class="modal__header">
-							<h4 v-text="label"></h4>
-							<button class="btn btn-icon-circle flat nb close" @click="$shareDialog = false" title="Close Share">
+							<h6>Share {{label}} with...</h6>
+							<button
+								class="btn btn-icon-circle flat nb close"
+								@click="$shareDialog = false"
+								title="Close Share"
+							>
 								<i class="material-icons">close</i>
 							</button>
 						</div>
 						<div class="modal__body">
 							<ul class="modal__share-list">
 								<li v-for="(link, i) in shareLinks" :key="i" class="modal__share-list-item">
-									<a class="link" :href="link.url" target="_blank" :class="link.class" :title="`Share on ${link.name}`">
+									<a
+										class="link"
+										:href="link.url"
+										target="_blank"
+										:class="link.class"
+										:title="`Share on ${link.name}`"
+									>
 										<img :src="`/${link.id}.svg`" :alt="`Share on ${link.name}`" />
 									</a>
 								</li>
@@ -62,12 +72,9 @@ export default {
 		},
 		label() {
 			if (this.$route.params.id) {
-				return 'Share Photo'
-			}
-			if (this.$route.query.tag) {
-				return 'Share Photos'
+				return 'photo'
 			} else {
-				return 'Share Photos'
+				return 'these photos'
 			}
 		},
 		shareLinks() {
@@ -130,7 +137,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.75);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -138,7 +145,7 @@ export default {
 }
 .modal {
 	&__container {
-		width: 350px;
+		width: 355px;
 		margin: 0px auto;
 		padding: 1.25rem 1.5rem 1.5rem;
 		background-color: #fff;
@@ -161,7 +168,7 @@ export default {
 		}
 	}
 	&__share_url {
-		width: 235px;
+		width: 240px;
 		text-align: center;
 		padding: 0.75rem 2rem;
 		font-size: 1rem;
@@ -206,7 +213,7 @@ export default {
 		align-items: center;
 		justify-content: space-around;
 		margin: 0 0 1.5rem;
-		padding: 0;
+		padding: 0 0.5rem;
 	}
 	&__share-list-item {
 		display: block;
@@ -251,7 +258,7 @@ export default {
 	}
 }
 .close {
-	transform: translateY(-0.9rem) translateX(1.15rem) scale(0.9);
+	transform: translateY(-0.5rem) translateX(0.5rem) scale(0.9);
 }
 
 // transition

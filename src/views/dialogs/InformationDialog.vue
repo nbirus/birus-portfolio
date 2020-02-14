@@ -4,7 +4,11 @@
 			<div class="modal">
 				<div class="modal__container">
 					<div class="modal__header">
-						<button class="btn btn-icon-circle flat nb close" @click="$emit('input', false)" title="Close Share">
+						<button
+							class="btn btn-icon-circle flat nb close"
+							@click="$emit('input', false)"
+							title="Close Share"
+						>
 							<i class="material-icons">close</i>
 						</button>
 					</div>
@@ -63,7 +67,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.75);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -108,7 +112,7 @@ export default {
 }
 
 .close {
-	transform: translateY(-0.9rem) translateX(1.15rem) scale(0.9);
+	transform: translateY(-0.5rem) translateX(0.5rem) scale(0.9);
 }
 
 // transition

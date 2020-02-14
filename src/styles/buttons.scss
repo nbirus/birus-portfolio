@@ -12,25 +12,30 @@
 	border-radius: 4px;
 	padding: 0.75rem 1.25rem;
 	outline: none;
-	transition: box-shadow 0.2s ease;
+	transition: box-shadow 0.3s ease,
+		border 0.2s ease;
 
 	&:hover {
 		border-color: var(--c-border-dark);
 		background-color: var(--c-grey1);
 	}
+
 	&:active,
 	&:focus {
 		background-color: white;
 		border-color: var(--c-blue);
 		@include active-shadow;
 	}
+
 	&:active {
 		background-color: var(--c-grey2);
 	}
+
 	&.disabled {
 		pointer-events: none;
 		opacity: 0.5;
 	}
+
 	&.with-icon {
 		display: flex;
 		align-items: center;
@@ -60,15 +65,18 @@
 	&.nb {
 		border: none !important;
 	}
+
 	&:not(.flat) {
-		box-shadow: 0 1px 5px fade-out(black, 0.75);
+		box-shadow: 0 1px 3px fade-out(black, 0.75);
 	}
+
 	&:active,
 	&:focus {
 		background-color: white;
 		border-color: var(--c-blue);
 		@include active-shadow;
 	}
+
 	&:active {
 		background-color: var(--c-grey2);
 	}

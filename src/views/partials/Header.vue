@@ -14,7 +14,8 @@
 			<router-link class="nb-header__link" to="contact">Contact me</router-link>
 		</div>
 		<button class="nb-header__dark-mode btn btn-icon-circle flat nb" @click="$dark=!$dark">
-			<img :src="$dark ? '/moon.svg' : '/sun.svg'" height="16px" alt="Dark Mode Toggle" />
+			<!-- <img :src="$dark ? '/moon.svg' : '/sun.svg'" height="16px" alt="Dark Mode Toggle" /> -->
+			<i class="material-icons">wb_sunny</i>
 		</button>
 	</div>
 </template>
@@ -95,6 +96,10 @@ export default {
 		padding-top: 0.4rem;
 		transition: background-color 0.1s ease, box-shadow 0.2s ease;
 		outline: none;
+
+		i {
+			font-size: 1.15rem !important;
+		}
 
 		&:hover {
 			background-color: var(--c-grey1);

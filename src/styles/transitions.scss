@@ -21,6 +21,24 @@
 	transform: translateY(-2rem);
 }
 
+// fade-down
+.fade-up-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.fade-up-enter-active {
+	transition: all 0.5s ease;
+}
+
+.fade-up-enter {
+	opacity: 0;
+	transform: translateY(2rem);
+}
+
+.fade-up-leave-to {
+	opacity: 0;
+}
+
 // fade-up
 .slide-up-enter-active,
 .slide-up-leave-active {

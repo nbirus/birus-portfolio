@@ -10,9 +10,13 @@
 				<h1 class="page__tag-title" v-if="tagActive" v-text="activeTag.label"></h1>
 			</div>
 			<div class="page__button-container">
-				<router-link tag="button" class="btn with-icon mr-1" v-if="tagActive" to="photography">
-					<i class="material-icons">keyboard_backspace</i>Back to gallery
-				</router-link>
+				<transition name="fade-up" mode="out-in">
+					<div v-if="tagActive">
+						<router-link tag="button" class="btn with-icon mr-1" to="photography">
+							<i class="material-icons">keyboard_backspace</i>Back to gallery
+						</router-link>
+					</div>
+				</transition>
 				<button class="btn with-icon" @click="$shareDialog = true">
 					<i class="material-icons">share</i>Share
 				</button>
@@ -121,7 +125,7 @@ $side-pad: 4rem;
 		align-items: center;
 		justify-content: space-between;
 		margin-top: 0;
-		padding: 3.5rem $side-pad 0;
+		padding: 4rem $side-pad 0;
 	}
 	&__tag-title {
 		display: none;
@@ -130,6 +134,7 @@ $side-pad: 4rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		transform: translateY(-1rem);
 	}
 	&__body {
 		padding: 3rem $side-pad;

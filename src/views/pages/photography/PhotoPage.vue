@@ -5,19 +5,31 @@
 				<span v-text="`${photoIndex + 1}/${photoLength}`"></span>
 			</div>
 			<div class="photo-page__actions">
-				<button class="btn btn-icon-circle btn-action" title="Go Fullscreen" @click="isExpanded = !isExpanded">
-					<i class="material-icons small">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
-				</button>
-				<button class="btn btn-icon-circle btn-action" title="More Information" @click="infoDialog = true">
+				<button
+					class="btn btn-icon-circle btn-action flat"
+					title="More Information"
+					@click="infoDialog = true"
+				>
 					<i class="material-icons small">info</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action" title="Download" @click="download">
-					<i class="material-icons small">cloud_download</i>
+				<button class="btn btn-icon-circle btn-action flat" title="Download" @click="download">
+					<i class="material-icons small">open_in_new</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action" title="Share Image" @click="$shareDialog = true">
+				<button
+					class="btn btn-icon-circle btn-action flat"
+					title="Share Image"
+					@click="$shareDialog = true"
+				>
 					<i class="material-icons small">share</i>
 				</button>
-				<button class="btn btn-icon-circle btn-action" title="Close Image" @click="close">
+				<button
+					class="btn btn-icon-circle btn-action flat"
+					title="Go Fullscreen"
+					@click="isExpanded = !isExpanded"
+				>
+					<i class="material-icons small">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
+				</button>
+				<button class="btn btn-icon-circle btn-action flat" title="Close Image" @click="close">
 					<i class="material-icons">close</i>
 				</button>
 			</div>
@@ -120,6 +132,7 @@ export default {
 			}
 		},
 		close() {
+			close()
 			if (this.lastTag) {
 				this.$router.push(`/photography?tag=${this.lastTag}`)
 			} else {
@@ -183,7 +196,7 @@ export default {
 			this.dOnResize(width)
 		},
 		isExpanded(isExpanded) {
-			if (!isExpanded) {
+			if (isExpanded) {
 				expand(this.$refs.expand).$el
 			} else {
 				close()
