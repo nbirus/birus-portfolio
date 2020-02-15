@@ -21,30 +21,24 @@ const routes = [
 	{
 		path: '/photography',
 		name: 'photography',
-		component: () =>
-			import(
-				/* webpackChunkName: "photography" */ '../views/pages/photography/PhotographyPage.vue'
-			),
+		component: () => import(/* webpackChunkName: "photography" */ '../views/pages/photography/PhotographyPage2.vue'),
 		children: [
 			{
 				path: '/photography/:id',
 				name: 'photo',
-				component: () =>
-					import(/* webpackChunkName: "photo" */ '../views/pages/photography/PhotoPage.vue'),
+				component: () => import(/* webpackChunkName: "photo" */ '../views/pages/photography/PhotoPage.vue'),
 			},
 		],
 	},
 	{
 		path: '/design',
 		name: 'design',
-		component: () =>
-			import(/* webpackChunkName: "design" */ '../views/pages/web-design/Design.vue'),
+		component: () => import(/* webpackChunkName: "design" */ '../views/pages/web-design/Design.vue'),
 	},
 	{
 		path: '/contact',
 		name: 'contact',
-		component: () =>
-			import(/* webpackChunkName: "contact" */ '../views/pages/contact/ContactPage.vue'),
+		component: () => import(/* webpackChunkName: "contact" */ '../views/pages/contact/ContactPage.vue'),
 	},
 ]
 const router = new VueRouter({
