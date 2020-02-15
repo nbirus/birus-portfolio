@@ -71,36 +71,14 @@ export default {
 		},
 	},
 	methods: {
-		setTag(selectedTag) {
-			this.tag = tags.find(t => t.id === selectedTag) || {}
+		setTag() {
+			this.tag = tags.find(t => t.id === this.$route.query.tag) || {}
 		},
 	},
 	watch: {
 		$route(to, from) {
-			// this.hideTags = to.name === 'photo' && from.query.tag !== undefined
-			this.scrollY = window.scrollY
-			const toPhotoCondition = to.name === 'photo' && from.name === 'photography'
-			const fromPhotoCondition = to.name === 'photography' && from.name === 'photo'
-
-			// if going to photo, maintain scroll position
-			if (toPhotoCondition || fromPhotoCondition || (to.params.id && from.params.id)) {
-				this.$nextTick(() => {
-					window.scrollTo({ top: this.scrollY })
-				})
-			}
-
 			if (to.params.id === undefined) {
-				// set tag if not leaving the photo page
-				if (to.query.tag !== undefined && !toPhotoCondition) {
-					this.setTag(to.query.tag)
-					window.scrollTo({ top: 0, behavior: 'smooth' })
-				}
-				if (
-					to.query.tag === undefined &&
-					(!toPhotoCondition || (to.name === 'photography' && from.name === 'photography'))
-				) {
-					this.setTag()
-				}
+				this.setTag()
 			}
 		},
 	},
@@ -157,8 +135,12 @@ export default {
 .photo-active {
 	.page {
 		&__photo-overlay {
+			z-index: 999;
 			position: fixed;
 			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
 			pointer-events: all;
 		}
 	}

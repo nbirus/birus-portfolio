@@ -46,10 +46,17 @@ const router = new VueRouter({
 	base: process.env.BASE_URL,
 	routes,
 	scrollBehavior(to, from, savedPosition) {
+		let lastY = 0
+		let saveScroll = to.name === 'photography' || to.name === 'photo'
+
+		if (saveScroll) {
+			lastY = window.scrollY
+		}
+
 		if (savedPosition) {
 			return savedPosition
 		} else {
-			return { x: 0, y: 0 }
+			return { x: 0, y: saveScroll ? lastY : 0 }
 		}
 	},
 })
