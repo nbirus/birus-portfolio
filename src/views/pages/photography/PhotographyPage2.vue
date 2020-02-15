@@ -155,6 +155,10 @@ export default {
 			margin-bottom: 0;
 			flex-direction: column;
 			align-items: flex-start;
+
+			h1 {
+				font-size: 2.5rem;
+			}
 		}
 		&__title-container {
 			order: 2;

@@ -53,8 +53,9 @@ export default {
 	}
 
 	&__menu {
-		display: none;
-		margin-right: 0.5rem;
+		display: none !important;
+		width: 50px !important;
+		height: 50px !important;
 
 		i {
 			font-size: 2.25rem;
@@ -144,7 +145,8 @@ export default {
 		padding: 0 1.5rem 0 1rem;
 
 		&__menu {
-			display: block;
+			display: block !important;
+			background-color: transparent;
 		}
 		&__links {
 			display: none;
