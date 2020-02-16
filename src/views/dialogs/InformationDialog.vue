@@ -13,13 +13,13 @@
 						</button>
 					</div>
 					<div class="modal__body">
-						<div class="info__description">
+						<!-- <div class="info__description">
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
 								dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
 								ea commodo consequat.
 							</p>
-						</div>
+						</div>-->
 						<div class="info__date-location">
 							<div class="info__date-location-group">
 								<i class="material-icons">access_time</i>
@@ -27,7 +27,7 @@
 							</div>
 							<div class="info__date-location-group">
 								<i class="material-icons">location_on</i>
-								<span>{{ photo.location }}</span>
+								<span>{{ photo.position }}</span>
 							</div>
 						</div>
 						<div class="info__tags">
@@ -111,8 +111,6 @@ export default {
 		align-items: center;
 		padding: 1rem 0.5rem;
 		border-top: solid thin var(--c-border-light);
-		border-bottom: solid thin var(--c-border-light);
-		margin-bottom: 1rem;
 	}
 	&__date-location-group {
 		display: flex;
@@ -150,6 +148,24 @@ export default {
 
 .close {
 	transform: translateY(-0.5rem) translateX(0.5rem) scale(0.9);
+}
+
+@media only screen and (max-width: 768px) {
+	.modal {
+		&__container {
+			width: 100%;
+		}
+	}
+	.info {
+		&__date-location {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		&__date-location-group:first-child {
+			margin-right: 0;
+			margin-bottom: 1rem;
+		}
+	}
 }
 
 // transition

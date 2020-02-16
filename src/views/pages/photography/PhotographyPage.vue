@@ -136,7 +136,7 @@ export default {
 .tag-active {
 	.page {
 		&__banner {
-			height: 200px;
+			height: 175px;
 		}
 	}
 }
