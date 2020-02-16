@@ -77,29 +77,9 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/component';
 
-.modal-mask {
-	position: fixed;
-	z-index: 99999;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.75);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: opacity 0.3s ease;
-}
 .modal {
 	&__container {
 		width: 450px;
-		margin: 0px auto;
-		padding: 1.25rem 1.5rem 1.5rem;
-		background-color: #fff;
-		border-radius: 4px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-		transition: all 0.3s ease;
-		position: relative;
 	}
 	&__header {
 		display: flex;

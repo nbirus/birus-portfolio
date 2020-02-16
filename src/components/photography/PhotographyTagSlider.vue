@@ -218,4 +218,15 @@ function clone(o) {
 		}
 	}
 }
+
+.dark {
+	.scrolling-wrapper {
+		&__img {
+			background-color: var(--c-grey7);
+		}
+		&__button {
+			background-color: var(--c-grey8);
+		}
+	}
+}
 </style>

@@ -4,6 +4,7 @@
 @import './hamburgers.css';
 @import './checkbox.scss';
 @import './buttons.scss';
+@import './modal.scss';
 
 body {
 	overflow-x: hidden;
@@ -139,7 +140,7 @@ hr {
 
 @media only screen and (max-width: 768px) {
 	.page {
-		padding: 0.5rem 1rem 2rem;
+		padding: 1.5rem 1rem 2rem;
 	}
 }
 
@@ -208,5 +209,12 @@ hr {
 
 	.card {
 		background-color: var(--c-grey8);
+	}
+
+	input,
+	textarea {
+		background-color: var(--c-grey7);
+		color: white;
+		border-color: var(--c-border-dm) !important;
 	}
 }

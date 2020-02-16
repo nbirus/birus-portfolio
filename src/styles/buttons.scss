@@ -98,33 +98,29 @@
 }
 
 .dark {
-	.icon-btn {
-		img {
-			filter: invert(1);
-		}
+	.btn {
+		color: white;
+		border-color: var(--c-border-dm);
 
 		&:hover {
 			background-color: fade-out(white, 0.9);
 		}
-
 		&:active,
 		&:focus {
 			background-color: fade-out(white, 0.8);
-			@include active-shadow;
 		}
 	}
-
-	.regular-btn {
-		color: white;
+	.btn-icon-circle {
+		color: white !important;
+		background-color: var(--c-grey8);
+		border-color: var(--c-grey7);
 
 		&:hover {
-			background-color: fade-out(white, 0.9);
+			background-color: var(--c-grey7);
 		}
-
 		&:active,
 		&:focus {
-			background-color: fade-out(white, 0.8);
-			@include active-shadow;
+			background-color: var(--c-grey6);
 		}
 	}
 }

@@ -113,9 +113,9 @@ export default {
 // dark mode
 .dark {
 	background-color: var(--c-dark);
-	border-bottom: solid thin var(--c-border-dm);
 
 	.nb-header {
+		border-bottom: solid thin var(--c-border-dm);
 		&__logo {
 			filter: invert(1);
 		}

@@ -2,23 +2,23 @@
 	<div class="contact page">
 		<!-- prettier-ignore -->
 		<form class="container" id="contact" ref="form" action method="post" @submit.prevent="onSubmit">
-			<h2 class="mb-4">Contact me</h2>
+			<h2 class="mb-4 text">Contact me</h2>
 
 			<!-- name -->
 			<fieldset class="input-field mb-3">
-				<label for="name">Name</label>
+				<label class="text" for="name">Name</label>
 				<input id="name" type="text" class="sm" v-model="name" tabindex="1" required autofocus />
 			</fieldset>
 
 			<!-- email -->
 			<fieldset class="input-field mb-3">
-				<label for="email">Email Address</label>
+				<label class="text" for="email">Email Address</label>
 				<input ref="email" id="email" type="email" class="sm" v-model="email" tabindex="2" required />
 			</fieldset>
 
 			<!-- message -->
 			<fieldset class="input-field mb-4">
-				<label for="message">Message</label>
+				<label class="text" for="message">Message</label>
 				<textarea id="message" class="lg" v-model="message" tabindex="3" required />
 			</fieldset>
 
@@ -100,16 +100,19 @@ export default {
 
 <style lang="scss">
 .contact .container {
-	max-width: 350px;
+	width: 350px;
 	margin: 0 auto;
 	display: flex;
-	// align-items: center;
 	flex-direction: column;
 
 	.input-field {
+		position: relative;
+		min-width: 350px;
+		max-width: 100%;
+
 		input,
 		textarea {
-			width: 325px;
+			width: calc(100% - 2rem);
 		}
 	}
 	.bottom {

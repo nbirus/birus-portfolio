@@ -1,11 +1,11 @@
 <template>
 	<transition name="modal">
 		<div class="modal-mask" v-show="$shareDialog" @click.self="$shareDialog = false">
-			<transition name="popover" mode="out-in" &#x26;#x26;#x26;#x60;>
+			<transition name="popover" mode="out-in" &#x26;#x26;#x26;#x26;#x26;#x60;>
 				<div class="modal">
 					<div class="modal__container">
 						<div class="modal__header">
-							<h4 v-text="label"></h4>
+							<h4 class="text" v-text="label"></h4>
 							<button
 								class="btn btn-icon-circle flat nb close"
 								@click="$shareDialog = false"
@@ -129,29 +129,9 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/component';
 
-.modal-mask {
-	position: fixed;
-	z-index: 9998;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: opacity 0.3s ease;
-}
 .modal {
 	&__container {
 		width: 350px;
-		margin: 0px auto;
-		padding: 1.25rem 1.5rem 1.5rem;
-		background-color: #fff;
-		border-radius: 4px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-		transition: all 0.3s ease;
-		position: relative;
 	}
 	&__header {
 		display: flex;
