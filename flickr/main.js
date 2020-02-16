@@ -11,7 +11,9 @@ const Flickr = require('flickr-sdk')
 const flickrAPI = new Flickr(key, secret)
 const fs = require('fs')
 const request = require('request')
-const { resolve } = require('path')
+const {
+	resolve
+} = require('path')
 
 main()
 
@@ -48,6 +50,8 @@ function getPhotos() {
 
 // save json to photos.json
 function writeJSON(json) {
+	console.log(json);
+
 	fs.writeFile('src/assets/photos.json', JSON.stringify(json), err => {
 		if (err) throw err
 	})
@@ -60,36 +64,37 @@ async function formatPhotos(photos) {
 // take in response and produce array of photo objets
 async function processPhoto(photo) {
 	let photoInfo = await getPhotoInfo(photo.id)
-	let photoSize = await getPhotoSize(photo.id)
+	let photoSizes = await getPhotoSize(photo.id)
 	let placeholderColor = await getPlaceholderColor(photo)
+	let description = photoInfo.description._content
+
 	return {
 		id: photo.id,
 		name: photo.title,
 		date: photoInfo.dates.taken,
-		description: photoInfo.description._content,
-		width: photoSize.width,
-		height: photoSize.height,
-		aspect: getAspectRatio(photoSize.width, photoSize.height),
+		description,
+		width: photoSizes.Large.width,
+		height: photoSizes.Large.height,
+		aspect: getAspectRatio(photoSizes.Large.width, photoSizes.Large.height),
 		placeholderColor,
-		position: [0, 0],
-		url_md: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`,
-		url_lg: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`,
-		url_og: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_o.jpg`,
-		url_sq: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`,
+		position: description.substring(
+			description.lastIndexOf("(") + 1,
+			description.lastIndexOf(")")
+		),
+		urls: photoSizes
 	}
 }
 
 function getAspectRatio(w, h) {
 	if (h > w) {
-		return 'vertical'
+		return 'v'
+	} else if (w - h > 700) {
+		return 'p'
+	} else if (w === h) {
+		return 's'
+	} else {
+		return 'h'
 	}
-	if (w - h > 700) {
-		return 'panorama'
-	}
-	if (w === h) {
-		return 'square'
-	}
-	return 'normal'
 }
 async function getPlaceholderColor(photo) {
 	const imgURL = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`
@@ -118,23 +123,29 @@ async function getPhotoInfo(photoId) {
 			.catch(err => reject(err))
 	})
 }
-
 async function getPhotoSize(photoId) {
 	return new Promise((resolve, reject) => {
+		let sizeMap = {}
+		let sizes = ['Small', 'Medium', 'Large', 'Original']
 		flickrAPI.photos
 			.getSizes({
 				api_key: key,
 				photo_id: photoId,
 			})
 			.then(res => {
-				console.log(res.body.sizes.size)
-				resolve(res.body.sizes.size.find(size => size.label === 'Large'))
+				res.body.sizes.size.forEach(size => {
+					if (sizes.includes(size.label)) {
+						sizeMap[size.label] = size
+					}
+				})
+				// resolve(res.body.sizes.size.find(size => size.label === 'Large'))
+				resolve(sizeMap)
 			})
 			.catch(err => reject(err))
 	})
 }
 
-var download = function(uri, filename, callback) {
+var download = function (uri, filename, callback) {
 	request.head(uri, () => {
 		request(uri)
 			.pipe(fs.createWriteStream(filename))

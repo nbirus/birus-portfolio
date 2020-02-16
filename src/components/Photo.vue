@@ -81,11 +81,14 @@ export default {
 
 <style lang="scss">
 .root {
-	height: 300px;
+	// height: 100%;
 	position: relative;
 
 	.progressive-image {
 		max-width: unset !important;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 	.progressive-image-wrapper {
 		padding-bottom: 100% !important;
@@ -93,27 +96,6 @@ export default {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}
-	&.normal {
-		img {
-			height: 320px;
-			width: auto;
-			position: relative;
-		}
-	}
-	&.vertical {
-		img {
-			width: 110%;
-			height: auto;
-			position: relative;
-		}
-	}
-	&.panorama {
-		width: 100%;
-		img {
-			height: 200px;
-			width: 100%;
-		}
 	}
 }
 </style>

@@ -12,12 +12,12 @@
 			:aria-label="`Open photo ${photo.name}`"
 		>
 			<photo
-				class="photography-gallery__img"
+				class="photography-gallery__img img"
 				:id="`photo-${photo.id}`"
 				:height="photo.height"
 				:width="photo.width"
-				:src="photo.url_lg"
-				:placeholder="photo.url_md"
+				:src="photo.urls.Large.source"
+				:placeholder="photo.urls.Medium.source"
 				:alt="photo.name"
 				:aspect="photo.aspect"
 				:backgroundColor="`rgb(${photo.placeholderColor})`"
@@ -63,24 +63,47 @@ function clone(obj) {
 <style lang="scss">
 .photography-gallery {
 	display: grid;
-	grid-gap: 1rem;
+	grid-gap: 1.5rem;
 	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: 300px;
-	grid-auto-flow: row;
+	grid-template-rows: repeat(30, 4vw);
+	grid-auto-flow: dense;
 
 	&__link {
-		height: 300px;
 		background-color: var(--c-grey1);
 		cursor: pointer;
 		overflow: hidden;
 		transition: transform 0.25s ease;
 		position: relative;
-		// border-radius: 4px;
-		// border-radius: var(--r);
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 
-		&.panorama {
-			grid-column: span 3;
-			height: 200px;
+		&.h {
+			grid-column: span 2;
+			grid-row: span 5;
+
+			.img {
+				width: 100%;
+				height: auto;
+			}
+		}
+		&.v {
+			grid-column: span 1;
+			grid-row: span 5;
+
+			.img {
+				width: auto;
+				height: 100%;
+			}
+		}
+		&.s {
+			grid-column: span 1;
+			grid-row: span 4;
+
+			.img {
+				width: auto;
+				height: 110%;
+			}
 		}
 
 		&:after {
@@ -136,26 +159,25 @@ function clone(obj) {
 	}
 }
 
-@media (max-width: var(--screen-tablet)) {
+@media only screen and (max-width: 2065px) {
+	.photography-gallery {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}
+@media only screen and (max-width: 1565px) {
+	.photography-gallery {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+@media only screen and (max-width: 1100px) {
+	.photography-gallery {
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
 @media only screen and (max-width: 768px) {
 	.photography-gallery {
 		grid-template-columns: repeat(1, 1fr);
-		grid-gap: 1rem;
-
-		&__link {
-			border-radius: 0;
-
-			&.panorama {
-				grid-column: span 1;
-				height: 100px;
-
-				img {
-					height: 100px;
-					width: 100%;
-				}
-			}
-		}
+		grid-gap: 0.5rem;
 	}
 }
 

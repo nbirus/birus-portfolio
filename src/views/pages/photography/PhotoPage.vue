@@ -51,11 +51,12 @@
 		<div class="photo-page__main">
 			<div class="photo-page__main-img" ref="container">
 				<img
+					v-if="photo.urls"
 					ref="img"
 					class="photo-page__img"
 					:class="photo.aspect"
 					:style="imgStyle"
-					:src="photo.url_lg"
+					:src="photo.urls.Large.source"
 					:alt="photo.name"
 				/>
 			</div>
@@ -79,6 +80,7 @@
 </template>
 
 <script>
+import Photo from '@/components/Photo'
 import { expand, close } from '@/utils/Expand'
 import photos from '@/assets/photos'
 import WidthMixin from '@/mixins/WidthMixin'
@@ -87,7 +89,7 @@ import InformationDialog from '@/views/dialogs/InformationDialog'
 export default {
 	name: 'photo-page',
 	mixins: [WidthMixin],
-	components: { InformationDialog },
+	components: { InformationDialog, Photo },
 	data() {
 		return {
 			isExpanded: false,
@@ -104,7 +106,6 @@ export default {
 	computed: {
 		imgStyle() {
 			return {
-				dOnResize: undefined,
 				width: this.imgWidth,
 				height: this.imgHeight,
 				maxWidth: `${this.photo.width}px`,
@@ -124,9 +125,9 @@ export default {
 		},
 	},
 	mounted() {
+		this.setEscKey()
 		this.getImage()
 		this.dOnResize = debounce(this.onResizeEvent, 100)
-		this.$nextTick(this.onResizeEvent)
 		this.setEscKey()
 		this.photosLength = photos.length
 	},
@@ -158,7 +159,7 @@ export default {
 		download() {
 			var link = document.createElement('a')
 			link.download = 'name.jpg'
-			link.href = this.photo.url_lg
+			link.href = this.photo.urls.Original.source
 			link.target = '_blank'
 			document.body.appendChild(link)
 			link.click()
@@ -172,7 +173,7 @@ export default {
 			let isStretchingH = maxWidth < cWidth
 			let isStretchingV = maxHeight < cHeight
 
-			if (this.photo.aspect === 'vertical') {
+			if (this.photo.aspect === 'v') {
 				if (isStretchingV) {
 					this.imgWidth = '100%'
 					this.imgHeight = 'auto'
@@ -180,7 +181,7 @@ export default {
 					this.imgWidth = 'auto'
 					this.imgHeight = '100%'
 				}
-			} else if (this.photo.aspect === 'normal') {
+			} else if (this.photo.aspect === 'h') {
 				if (isStretchingH) {
 					this.imgWidth = 'auto'
 					this.imgHeight = '100%'
