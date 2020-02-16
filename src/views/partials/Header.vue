@@ -1,10 +1,6 @@
 <template>
 	<div class="nb-header" role="navigation" :class="[$darkClass, shadow && 'shadow']">
-		<button
-			class="btn btn-icon-circle flat nb nb-header__menu"
-			@click="$emit('side-bar')"
-			type="button"
-		>
+		<button class="btn btn-thumb nb-header__menu" @click="$emit('side-bar')" type="button">
 			<i class="material-icons">menu</i>
 		</button>
 		<div class="nb-header__logo">
@@ -17,7 +13,7 @@
 			<router-link class="nb-header__link" to="photography">Photography</router-link>
 			<router-link class="nb-header__link" to="contact">Contact me</router-link>
 		</div>
-		<button class="nb-header__dark-mode btn btn-icon-circle flat nb" @click="$dark = !$dark">
+		<button class="nb-header__dark-mode btn btn-thumb" @click="$dark = !$dark">
 			<i class="material-icons">{{ !$dark ? 'brightness_low' : 'brightness_high' }}</i>
 		</button>
 	</div>
@@ -54,12 +50,6 @@ export default {
 
 	&__menu {
 		display: none !important;
-		width: 50px !important;
-		height: 50px !important;
-
-		i {
-			font-size: 2.25rem;
-		}
 	}
 	&__middle {
 		flex-grow: 1;
@@ -145,8 +135,7 @@ export default {
 		padding: 0 1.5rem 0 1rem;
 
 		&__menu {
-			display: block !important;
-			background-color: transparent;
+			display: flex !important;
 		}
 		&__links {
 			display: none;

@@ -8,10 +8,10 @@
 				:class="`size-${size}`"
 			>
 				<router-link
-					:to="{ path: 'photography', query: { tag: tag.id }}"
 					tag="button"
+					:to="{ path: 'photography', query: { tag: tag.id }}"
 					class="scrolling-wrapper__button card"
-					@click="$emit('tag', tag)"
+					@click="$emit('tag')"
 				>
 					<div class="scrolling-wrapper__img">
 						<!-- <img :src="tag.src" :alt="tag.label" /> -->
@@ -183,7 +183,7 @@ function clone(o) {
 		left: -1.5rem;
 	}
 	&.right {
-		right: -1.5rem;
+		right: -0.75rem;
 	}
 }
 @media only screen and (max-width: 768px) {

@@ -2,7 +2,7 @@
 	<div class="nb-sidebar" :class="[{ open: value }, $darkClass]" @click.self="$emit('input', false)">
 		<nav class="nb-sidebar__container">
 			<div class="nb-sidebar__header">
-				<button class="btn btn-icon-circle flat nb nb-sidebar__menu" @click="$emit('input', false)">
+				<button class="btn btn-thumb" @click="$emit('input', false)">
 					<i class="material-icons">close</i>
 				</button>
 				<button class="nb-sidebar__dark-mode btn btn-icon-circle flat nb" @click="$dark = !$dark">
@@ -64,9 +64,6 @@ export default {
 	}
 	&__dark-mode i {
 		font-size: 1.75rem !important;
-	}
-	&__menu i {
-		font-size: 2.25rem !important;
 	}
 	&__links {
 		display: flex;

@@ -6,13 +6,15 @@
 		<!-- header -->
 		<div class="page__header">
 			<div class="page__title-container">
-				<div class="title" v-if="!tagActive">
-					<h1>Photography</h1>
-				</div>
-				<div class="tag-title" v-else>
-					<h5 class="thin">Photography</h5>
-					<h1 v-text="tag.label"></h1>
-				</div>
+				<transition name="title" mode="out-in">
+					<div class="title" v-if="!tagActive" key="title">
+						<h1>Photography</h1>
+					</div>
+					<div class="tag-title" v-else key="tag">
+						<h5 class="thin">Photography</h5>
+						<h1 v-text="tag.label"></h1>
+					</div>
+				</transition>
 			</div>
 			<div class="page__buttons-container">
 				<router-link tag="button" class="btn btn-back with-icon" to="photography" v-if="tagActive">
@@ -26,7 +28,7 @@
 
 		<!-- slider -->
 		<div class="page__slider">
-			<photography-tag-slider v-if="!tagActive && !hideTags" :width="width$" />
+			<photography-tag-slider v-if="!tagActive && !hideTags" :width="width$" @tag="scrollToTop" />
 		</div>
 
 		<!-- gallery -->
@@ -74,6 +76,13 @@ export default {
 		setTag() {
 			this.tag = tags.find(t => t.id === this.$route.query.tag) || {}
 		},
+		scrollToTop() {
+			console.log('HERE')
+
+			this.$nextTick(() => {
+				window.scrollTo({ top: 0, behavior: 'smooth' })
+			})
+		},
 	},
 	watch: {
 		$route(to, from) {
@@ -120,6 +129,7 @@ export default {
 	&__slider {
 		padding: 0 4rem;
 		margin-bottom: 3rem;
+		transition: all 1s ease;
 	}
 	&__gallery {
 		padding: 0 4rem;
