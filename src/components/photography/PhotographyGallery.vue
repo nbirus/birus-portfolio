@@ -63,9 +63,6 @@ function clone(obj) {
 <style lang="scss">
 .photography-gallery {
 	display: grid;
-	grid-gap: 1.5rem;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(30, 4vw);
 	grid-auto-flow: dense;
 
 	&__link {
@@ -78,32 +75,17 @@ function clone(obj) {
 		height: 100%;
 		object-fit: cover;
 
-		&.h {
-			grid-column: span 2;
-			grid-row: span 5;
-
-			.img {
-				width: 100%;
-				height: auto;
-			}
+		&.h .img {
+			width: 100%;
+			height: auto;
 		}
-		&.v {
-			grid-column: span 1;
-			grid-row: span 5;
-
-			.img {
-				width: auto;
-				height: 100%;
-			}
+		&.v .img {
+			width: auto;
+			height: 100%;
 		}
-		&.s {
-			grid-column: span 1;
-			grid-row: span 4;
-
-			.img {
-				width: auto;
-				height: 110%;
-			}
+		&.s .img {
+			width: auto;
+			height: 110%;
 		}
 
 		&:after {
@@ -161,23 +143,74 @@ function clone(obj) {
 
 @media only screen and (max-width: 2065px) {
 	.photography-gallery {
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(8, 1fr);
+		grid-template-rows: repeat(30, calc(4vw - 5px));
+		grid-gap: 1rem;
+
+		.h {
+			grid-column: span 4;
+			grid-row: span 5;
+		}
+		.v {
+			grid-column: span 2;
+			grid-row: span 7;
+		}
+		.s {
+			grid-column: span 2;
+			grid-row: span 5;
+		}
 	}
 }
-@media only screen and (max-width: 1565px) {
+@media only screen and (max-width: 1665px) {
 	.photography-gallery {
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(6, 1fr);
+		grid-template-rows: repeat(20, calc(3vw - 1px));
+		grid-gap: 1.5rem;
+
+		.h {
+			grid-column: span 4;
+			grid-row: span 7;
+		}
+		.v {
+			grid-column: span 2;
+			grid-row: span 8;
+		}
+		.s {
+			grid-column: span 2;
+			grid-row: span 6;
+		}
 	}
 }
 @media only screen and (max-width: 1100px) {
 	.photography-gallery {
 		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(30, 5vw);
+		grid-gap: 1rem;
+
+		.h {
+			grid-column: span 2;
+			grid-row: span 5;
+		}
+		.v {
+			grid-column: span 1;
+			grid-row: span 5;
+		}
+		.s {
+			grid-column: span 1;
+			grid-row: span 4;
+		}
 	}
 }
 @media only screen and (max-width: 768px) {
 	.photography-gallery {
 		grid-template-columns: repeat(1, 1fr);
+		grid-template-rows: auto;
 		grid-gap: 0.5rem;
+
+		.img {
+			width: 100% !important;
+			height: auto !important;
+		}
 	}
 }
 
