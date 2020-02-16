@@ -77,8 +77,6 @@ export default {
 			this.tag = tags.find(t => t.id === this.$route.query.tag) || {}
 		},
 		scrollToTop() {
-			console.log('HERE')
-
 			this.$nextTick(() => {
 				window.scrollTo({ top: 0, behavior: 'smooth' })
 			})
@@ -114,7 +112,7 @@ export default {
 	&__title-container {
 		.tag-title {
 			h5 {
-				margin-bottom: 0.25rem;
+				margin-bottom: 0.35rem;
 			}
 		}
 	}

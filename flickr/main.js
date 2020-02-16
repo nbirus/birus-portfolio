@@ -80,7 +80,6 @@ async function processPhoto(photo) {
 }
 
 function getAspectRatio(w, h) {
-	// let ratio = calculateAspectRatios(w, h)
 	if (h > w) {
 		return 'vertical'
 	}

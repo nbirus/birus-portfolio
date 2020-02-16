@@ -126,7 +126,7 @@ export default {
 	mounted() {
 		this.getImage()
 		this.dOnResize = debounce(this.onResizeEvent, 100)
-		this.onResizeEvent()
+		this.$nextTick(this.onResizeEvent)
 		this.setEscKey()
 		this.photosLength = photos.length
 	},
