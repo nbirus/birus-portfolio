@@ -131,7 +131,6 @@ export default {
 	&__slider {
 		padding: 0 4rem;
 		margin-bottom: 3rem;
-		transition: all 1s ease;
 	}
 	&__gallery {
 		padding: 0 4rem;
@@ -181,7 +180,7 @@ export default {
 		&__buttons-container {
 			justify-content: flex-end;
 			order: 1;
-			margin-bottom: 0;
+			margin-bottom: 1rem;
 			width: 100%;
 		}
 		&__slider {
@@ -203,7 +202,7 @@ export default {
 			}
 			&__buttons-container {
 				justify-content: flex-start;
-				margin-bottom: 2.5rem;
+				margin-bottom: 2rem;
 			}
 			&__slider {
 				margin-bottom: 0;
