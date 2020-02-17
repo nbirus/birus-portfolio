@@ -166,6 +166,9 @@ export default {
 			document.body.removeChild(link)
 		},
 		onResizeEvent() {
+			if (this.width$ <= 768) {
+				return
+			}
 			let maxWidth = this.photo.width
 			let maxHeight = this.photo.height
 			let cWidth = this.$refs.container.offsetWidth
@@ -174,6 +177,14 @@ export default {
 			let isStretchingV = maxHeight < cHeight
 
 			if (this.photo.aspect === 'v') {
+				if (isStretchingV) {
+					this.imgWidth = '100%'
+					this.imgHeight = 'auto'
+				} else {
+					this.imgWidth = 'auto'
+					this.imgHeight = '100%'
+				}
+			} else if (this.photo.aspect === 's') {
 				if (isStretchingV) {
 					this.imgWidth = '100%'
 					this.imgHeight = 'auto'
@@ -409,10 +420,27 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			height: calc(100% - 80px);
 			position: relative;
 			pointer-events: none;
-			padding: 1rem;
+			padding: 1rem 0.75rem;
 		}
 		&__toolbar {
 			padding: 0 1rem;
+		}
+		&__img {
+			width: 100% !important;
+			height: auto !important;
+		}
+		.center {
+			flex: 1;
+		}
+		.left,
+		.right {
+			flex: 3;
+		}
+		.left {
+			transform: translateX(-20%);
+		}
+		.right {
+			transform: translateX(20%);
 		}
 	}
 }

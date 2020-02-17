@@ -203,13 +203,33 @@ function clone(obj) {
 }
 @media only screen and (max-width: 768px) {
 	.photography-gallery {
-		grid-template-columns: repeat(1, 1fr);
-		grid-template-rows: auto;
-		grid-gap: 0.5rem;
+		grid-template-columns: unset;
+		grid-template-rows: unset;
+		grid-gap: unset;
+		grid-auto-flow: unset;
+		display: block;
+
+		overflow-x: hidden;
+		width: 100% !important;
 
 		.img {
+			grid-column: unset !important;
+			grid-row: unset !important;
+			max-height: unset !important;
+			max-width: unset !important;
 			width: 100% !important;
 			height: auto !important;
+			margin-bottom: 1rem;
+
+			.progressive-image-wrapper {
+				padding: 0 !important;
+			}
+			.progressive-image-main {
+				position: relative;
+			}
+		}
+		&__info {
+			display: none;
 		}
 	}
 }

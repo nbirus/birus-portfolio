@@ -95,6 +95,10 @@ export default {
 <style lang="scss" scoped>
 .page {
 	padding: 0;
+	max-width: var(--max-width);
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
 
 	&__banner {
 		height: 0;
@@ -138,6 +142,9 @@ export default {
 		&__banner {
 			height: 175px;
 		}
+		&__slider {
+			margin-bottom: 0;
+		}
 	}
 }
 .photo-active {
@@ -159,7 +166,7 @@ export default {
 			height: 0px;
 		}
 		&__header {
-			padding: 2rem 1rem 1rem;
+			padding: 2rem 1rem 1.5rem;
 			margin-bottom: 0;
 			flex-direction: column;
 			align-items: flex-start;
@@ -174,7 +181,7 @@ export default {
 		&__buttons-container {
 			justify-content: flex-end;
 			order: 1;
-			margin-bottom: 1.5rem;
+			margin-bottom: 0;
 			width: 100%;
 		}
 		&__slider {
@@ -183,6 +190,7 @@ export default {
 		}
 		&__gallery {
 			padding: 0;
+			overflow-x: hidden;
 		}
 	}
 	.tag-active {
@@ -190,8 +198,15 @@ export default {
 			&__banner {
 				height: 150px;
 			}
+			&__header {
+				padding-bottom: 2rem;
+			}
 			&__buttons-container {
 				justify-content: flex-start;
+				margin-bottom: 2.5rem;
+			}
+			&__slider {
+				margin-bottom: 0;
 			}
 		}
 	}
