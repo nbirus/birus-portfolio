@@ -2,18 +2,19 @@
 	<div class="page photo-page">
 		<div class="photo-page__toolbar">
 			<div class="photo-page__count">
-				<div class="name" v-text="photo.name"></div>
-				<div class="location" v-text="photo.location"></div>
+				<div class="name" v-text="`${photoIndex + 1}/${photoLength}`"></div>
+				<!-- <div class="name" v-text="photo.name"></div> -->
+				<!-- <div class="location" v-text="photo.location"></div> -->
 			</div>
 			<div class="photo-page__actions">
-				<button
+				<!-- <button
 					id="info"
 					class="btn btn-icon-circle btn-action flat"
 					title="More Information"
 					@click="infoDialog = true"
 				>
 					<i class="material-icons small">info</i>
-				</button>
+				</button>-->
 				<button
 					id="download"
 					class="btn btn-icon-circle btn-action flat"
@@ -424,6 +425,7 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 		}
 		&__toolbar {
 			padding: 0 1rem;
+			background: fade-out(black, 0.1);
 		}
 		&__img {
 			width: 100% !important;

@@ -99,6 +99,7 @@ export default {
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
+	overflow-y: hidden;
 
 	&__banner {
 		height: 0;

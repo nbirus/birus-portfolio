@@ -1,5 +1,5 @@
 <template>
-	<div class="root" :class="aspect" :style="style">
+	<div class="root" :style="style">
 		<progressive-img
 			v-if="visible"
 			:class="aspect"
@@ -81,7 +81,7 @@ export default {
 
 <style lang="scss">
 .root {
-	// height: 100%;
+	height: 100%;
 	position: relative;
 
 	.progressive-image {
@@ -96,6 +96,9 @@ export default {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+	img {
+		height: 100%;
 	}
 }
 </style>

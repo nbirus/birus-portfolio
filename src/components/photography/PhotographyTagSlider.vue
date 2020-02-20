@@ -160,19 +160,25 @@ function clone(o) {
 
 		img {
 			background-color: lightgrey;
+			width: 100%;
+			height: auto;
+			filter: grayscale(1);
 		}
 	}
 	&__label {
 		height: 30%;
 		display: flex;
 		align-items: center;
-		padding-left: 1.25rem;
+		padding-left: 1rem;
 		width: 100%;
-		font-size: 1rem;
+		font-size: 0.95rem;
 		font-weight: var(--thin);
 	}
 	.after {
 		display: none;
+	}
+	&__item:hover &__img {
+		filter: grayscale(0);
 	}
 }
 .contain {

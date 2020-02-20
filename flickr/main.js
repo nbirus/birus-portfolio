@@ -50,8 +50,6 @@ function getPhotos() {
 
 // save json to photos.json
 function writeJSON(json) {
-	console.log(json);
-
 	fs.writeFile('src/assets/photos.json', JSON.stringify(json), err => {
 		if (err) throw err
 	})
@@ -71,7 +69,10 @@ async function processPhoto(photo) {
 	return {
 		id: photo.id,
 		name: photo.title,
-		date: photoInfo.dates.taken,
+		date: description.substring(
+			description.lastIndexOf("[") + 1,
+			description.lastIndexOf("]")
+		),
 		description,
 		width: photoSizes.Large.width,
 		height: photoSizes.Large.height,
