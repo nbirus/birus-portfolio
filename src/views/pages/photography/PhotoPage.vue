@@ -15,6 +15,7 @@
 				>
 					<i class="material-icons small">info</i>
 				</button>-->
+
 				<button
 					id="download"
 					class="btn btn-icon-circle btn-action flat"
@@ -41,7 +42,7 @@
 				</button>
 				<button
 					id="close"
-					class="btn btn-icon-circle btn-action flat"
+					class="btn btn-icon-circle btn-action flat close"
 					title="Close Image"
 					@click="close"
 				>
@@ -258,6 +259,16 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight)
 	return { width: srcWidth * ratio, height: srcHeight * ratio }
 }
+function getOffset(el) {
+	var _x = 0
+	var _y = 0
+	while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+		_x += el.offsetLeft - el.scrollLeft
+		_y += el.offsetTop - el.scrollTop
+		el = el.offsetParent
+	}
+	return { top: _y, left: _x }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -315,7 +326,11 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			border: none;
 			height: 55px;
 			width: 55px;
-			margin-left: 0.35rem;
+			margin-left: 0.5rem;
+
+			i {
+				font-size: 1.65rem;
+			}
 
 			&:hover {
 				background-color: fade-out(white, 0.9);
@@ -325,7 +340,12 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 				background: fade-out(white, 0.8);
 			}
 			.small {
-				font-size: 1.5rem;
+				font-size: 1.25rem !important;
+			}
+			&.close {
+				i {
+					font-size: 2rem !important;
+				}
 			}
 		}
 	}
@@ -374,10 +394,10 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 			color: white;
 
 			&:hover .i-c {
-				background: fade-out(white, 0.75);
+				background: fade-out(black, 0.15);
 			}
 			&:active .i-c {
-				background: fade-out(white, 0.65);
+				background: fade-out(black, 0.05);
 				@include active-shadow;
 			}
 		}

@@ -82,7 +82,8 @@ async function processPhoto(photo) {
 			description.lastIndexOf("(") + 1,
 			description.lastIndexOf(")")
 		),
-		urls: photoSizes
+		urls: photoSizes,
+		tags: photoInfo.tags.tag.map(t => t.raw)
 	}
 }
 

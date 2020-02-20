@@ -192,7 +192,7 @@ function clone(o) {
 		left: -1.5rem;
 	}
 	&.right {
-		right: -0.75rem;
+		right: -1.5rem;
 	}
 }
 @media only screen and (max-width: 768px) {

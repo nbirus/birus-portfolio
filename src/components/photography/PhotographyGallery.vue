@@ -35,40 +35,35 @@ import Photo from '@/components/Photo'
 import WidthMixin from '@/mixins/WidthMixin'
 
 let layout = require('image-layout/layouts/fixed-partition')
-let elements = photos.map(photo => ({
-	width: photo.width,
-	height: photo.height,
-}))
 
 export default {
 	name: 'photography-gallery',
 	components: { Photo },
 	mixins: [WidthMixin],
-	props: {
-		tag: {
-			type: String,
-			default: '',
-		},
-	},
-	computed: {
-		filteredPhotos() {
-			if (this.tags === '') {
-				return photos
-			}
-			return clone(photos).filter(photo => {
-				const searchString = photo.name + photo.date + photo.description
-				return searchString.includes(this.tag)
-			})
-		},
-	},
 	data() {
 		return {
 			positions: [],
 			pageStyle: {},
+			tag: '',
 		}
 	},
+	computed: {
+		elements() {
+			return this.filteredPhotos.map(photo => ({
+				width: photo.width,
+				height: photo.height,
+			}))
+		},
+		filteredPhotos() {
+			if (!this.tag) {
+				return photos
+			}
+			return clone(photos).filter(photo => photo.tags.includes(this.tag))
+		},
+	},
 	methods: {
-		fit(width) {
+		fit() {
+			let width = this.width$
 			let spacing = 8
 			let idealElementHeight = 400
 			let containerWidth = width - 16 * 8
@@ -86,7 +81,7 @@ export default {
 				return
 			}
 
-			let result = layout(elements, {
+			let result = layout(this.elements, {
 				idealElementHeight,
 				containerWidth,
 				spacing,
@@ -108,12 +103,21 @@ export default {
 				height: `${pos.height}px`,
 				top: `${pos.y}px`,
 				left: `${pos.x}px`,
-				backgroundColor: `rgb(${photo.placeholderColor})`,
+				backgroundColor: `rgba(${[...photo.placeholderColor, 0.5]})`,
 			}
 		},
 	},
 	watch: {
 		width$: 'fit',
+		elements: {
+			handler: 'fit',
+			deep: true,
+		},
+		$route(route) {
+			if (route.name === 'photography') {
+				this.tag = this.$route.query.tag
+			}
+		},
 	},
 }
 
