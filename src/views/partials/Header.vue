@@ -10,10 +10,11 @@
 		<div class="nb-header__links">
 			<router-link class="nb-header__link" to="/" exact>Home</router-link>
 			<router-link class="nb-header__link" to="design">Web Design</router-link>
+			<router-link class="nb-header__link" to="music">Music</router-link>
 			<router-link class="nb-header__link" to="photography">Photography</router-link>
 			<router-link class="nb-header__link" to="contact">Contact me</router-link>
 		</div>
-		<button class="nb-header__dark-mode btn btn-thumb" @click="$dark = !$dark">
+		<button class="nb-header__dark-mode btn btn-thumb" @click="$dark = !$dark" v-if="false">
 			<i class="material-icons">{{ !$dark ? 'brightness_low' : 'brightness_high' }}</i>
 		</button>
 	</div>
@@ -38,7 +39,7 @@ export default {
 
 .nb-header {
 	background: fade-out(#fff, 0.05);
-	padding: 0 2rem;
+	padding: 0 4rem 0 2rem;
 	transition: box-shadow 1s ease;
 
 	&:not(.shadow) {
@@ -63,7 +64,7 @@ export default {
 		text-transform: uppercase;
 		text-decoration: none !important;
 		font-weight: var(--thin);
-		font-size: 0.9rem;
+		font-size: 1rem;
 		text-decoration: underline;
 		opacity: 0.75;
 		letter-spacing: 1px;

@@ -31,6 +31,11 @@ const routes = [
 		],
 	},
 	{
+		path: '/music',
+		name: 'music',
+		component: () => import(/* webpackChunkName: "music" */ '../views/pages/music/MusicPage.vue'),
+	},
+	{
 		path: '/design',
 		name: 'design',
 		component: () => import(/* webpackChunkName: "design" */ '../views/pages/web-design/Design.vue'),

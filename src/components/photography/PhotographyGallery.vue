@@ -34,7 +34,7 @@ import photos from '@/assets/photos'
 import Photo from '@/components/Photo'
 import WidthMixin from '@/mixins/WidthMixin'
 
-let layout = require('image-layout/layouts/fixed-partition')
+import layout from './fixed-partition'
 
 export default {
 	name: 'photography-gallery',
