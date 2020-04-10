@@ -2,10 +2,10 @@
 	<li class="music-item card" :class="{ playing: isPlaying }">
 		<div class="music-item__bg" ref="wave"></div>
 		<div class="music-item__bg-wave">
-			<img src="wave-1.svg" alt="" />
+			<img src="wave-1.svg" alt />
 		</div>
 		<div class="music-item__bg-wave white">
-			<img src="wave-white.svg" alt="" />
+			<img src="wave-white.svg" alt />
 		</div>
 		<div class="music-item__container">
 			<div class="music-item__info">
@@ -53,7 +53,10 @@ export default {
 		this.player.on('audioprocess', this.audioprocess)
 		this.player.on('pause', () => (this.isPlaying = false))
 		this.player.on('play', () => (this.isPlaying = true))
-		this.player.on('ready', () => (this.duration = this.player.getDuration()))
+		this.player.on('ready', () => {
+			this.duration = this.player.getDuration()
+			this.player.setVolume(0.25)
+		})
 		this.player.load(this.src)
 	},
 	filters: {
