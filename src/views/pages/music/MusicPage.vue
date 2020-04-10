@@ -13,7 +13,7 @@ const songs = [
 	{
 		title: 'KENNY',
 		date: 'April 10, 2020',
-		src: 'test.mp3',
+		src: 'KENNY.wav',
 	},
 ]
 
