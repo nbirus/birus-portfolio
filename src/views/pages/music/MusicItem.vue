@@ -1,9 +1,15 @@
 <template>
 	<li class="music-item card" :class="{ playing: isPlaying }">
 		<div class="music-item__bg" ref="wave"></div>
+		<div class="music-item__bg-wave">
+			<img src="wave-1.svg" alt="" />
+		</div>
+		<div class="music-item__bg-wave white">
+			<img src="wave-white.svg" alt="" />
+		</div>
 		<div class="music-item__container">
 			<div class="music-item__info">
-				<h2 class="title" v-text="title"></h2>
+				<h3 class="title" v-text="title"></h3>
 				<div class="music-item__timer" v-if="isPlaying">
 					<span class="timer">{{ timer | time }}</span>
 					<span class="slash">/</span>
@@ -11,9 +17,6 @@
 				</div>
 			</div>
 			<div class="music-item__spacer"></div>
-			<!-- <button class="music-item__btn back" @click="stop" v-if="timer > 1">
-				<i class="material-icons">fast_rewind</i>
-			</button> -->
 			<button class="music-item__btn" @click="toggle">
 				<i class="material-icons">{{ !isPlaying ? 'play_arrow' : 'pause' }}</i>
 			</button>
@@ -39,10 +42,13 @@ export default {
 		this.player = WaveSurfer.create({
 			container: this.$refs.wave,
 			barRadius: 5,
-			barWidth: 4,
+			barWidth: 2,
+			barGap: 2,
 			barHeight: 0.75,
 			cursorWidth: 0,
+			height: 115,
 			progressColor: '#2296f3',
+			waveColor: 'rgba(0,0,0,.25)',
 		})
 		this.player.on('audioprocess', this.audioprocess)
 		this.player.on('pause', () => (this.isPlaying = false))
@@ -107,13 +113,14 @@ export default {
 		box-shadow: 0 10px 35px -2px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.1) !important;
 
 		.music-item {
-			&__container {
-				bottom: 5rem;
-			}
 			&__bg {
 				transform: translateY(6.5rem);
 				opacity: 1;
 				pointer-events: auto;
+				cursor: pointer;
+				height: 90px;
+				z-index: 9;
+				animation: opacity 0.3s ease;
 			}
 		}
 	}
@@ -124,38 +131,59 @@ export default {
 		left: 0;
 		bottom: 0;
 		right: 0;
-		z-index: 1;
-		min-height: 115px;
+		z-index: 2;
+		height: 115px;
 		pointer-events: none;
 		position: none;
-		opacity: 0.05;
 		transition: transform 0.2s ease, opacity 0.2s ease;
+		animation: opacity 2s;
 	}
-	&__container {
+	&__bg-wave {
 		position: absolute;
 		top: 0;
 		left: 0;
 		bottom: 0;
 		right: 0;
+		z-index: 1;
+		height: 115px;
+		pointer-events: none;
+		position: none;
+		transition: transform 0.2s ease, opacity 0.2s ease;
+
+		&.white {
+			z-index: 2;
+		}
+	}
+	&__container {
 		display: flex;
 		align-items: center;
 		z-index: 3;
-		transition: bottom 0.2s ease;
+		position: relative;
+		width: 100%;
+		height: 115px;
 	}
 	&__info {
 		flex: 0 1 auto;
 		pointer-events: none;
 		padding-left: 2rem;
+
+		h1 {
+			background-color: #fff;
+		}
 	}
 	&__btn {
 		flex: 0 0 90px;
 		width: 90px;
 		height: 90px;
-		background-color: transparent;
 		border-radius: 50%;
 		border: none;
 		pointer-events: auto;
 		margin-right: 1.5rem;
+		cursor: pointer;
+		user-select: none;
+		color: white;
+		background: rgb(34, 150, 243);
+		background: radial-gradient(circle, rgba(34, 150, 243, 1) 10%, rgba(34, 150, 243, 0) 40%);
 
 		i {
 			transform: scale(2);
@@ -167,7 +195,6 @@ export default {
 		&:hover {
 			background-color: fade-out(black, 0.95);
 		}
-
 		&.back {
 			width: 60px;
 			height: 60px;
@@ -186,6 +213,7 @@ export default {
 		z-index: 1;
 		pointer-events: none;
 		margin-top: 0.75rem;
+		position: absolute;
 
 		.timer {
 			font-size: 1.15rem;
@@ -197,6 +225,15 @@ export default {
 		.duration {
 			font-size: 0.8rem;
 		}
+	}
+}
+
+@keyframes opacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
 	}
 }
 </style>
