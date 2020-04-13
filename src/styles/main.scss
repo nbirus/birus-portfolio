@@ -27,7 +27,9 @@ body {
 .max-char {
 	max-width: var(--max-char);
 }
-
+.bold {
+	font-weight: 700;
+}
 .mb-1 {
 	margin-bottom: 0.25rem;
 }
@@ -128,6 +130,9 @@ hr {
 
 .text-secondary {
 	color: var(--c-text-light);
+}
+.text-secondary-2 {
+	color: var(--c-grey5);
 }
 
 .header {

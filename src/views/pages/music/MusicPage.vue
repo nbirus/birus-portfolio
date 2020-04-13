@@ -1,7 +1,15 @@
 <template>
 	<div class="music-page page">
 		<ul class="music-list">
-			<music-item v-for="(song, i) in songs" :id="i" v-bind="song" :key="i" />
+			<music-item
+				v-for="(song, i) in songs"
+				:key="i"
+				ref="item"
+				:id="i"
+				:index="i"
+				v-bind="song"
+				@play="play"
+			/>
 		</ul>
 	</div>
 </template>
@@ -15,6 +23,16 @@ const songs = [
 		date: 'April 10, 2020',
 		src: 'KENNY.wav',
 	},
+	{
+		title: 'REDD',
+		date: 'April 12, 2020',
+		src: 'KENNY.wav',
+	},
+	{
+		title: 'MAJOR',
+		date: 'April 12, 2020',
+		src: 'KENNY.wav',
+	},
 ]
 
 export default {
@@ -26,6 +44,15 @@ export default {
 		return {
 			songs,
 		}
+	},
+	methods: {
+		play(index) {
+			this.$refs.item.forEach((song, i) => {
+				if (index !== i) {
+					song.stop()
+				}
+			})
+		},
 	},
 }
 </script>

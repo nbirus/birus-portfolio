@@ -1,41 +1,51 @@
 <template>
-	<li class="music-item card" :class="{ playing: isPlaying }">
-		<div class="music-item__bg" ref="wave"></div>
-		<div class="music-item__bg-wave">
-			<img src="wave-1.svg" alt />
-		</div>
-		<div class="music-item__bg-wave white">
-			<img src="wave-white.svg" alt />
-		</div>
-		<div class="music-item__container">
-			<div class="music-item__info">
-				<h3 class="title" v-text="title"></h3>
-				<div class="music-item__timer" v-if="isPlaying">
-					<span class="timer">{{ timer | time }}</span>
-					<span class="slash">/</span>
-					<span class="duration">{{ duration | time }}</span>
-				</div>
+	<li class="music-item" :class="{ playing: isPlaying, loading }">
+		<div
+			class="music-item__top"
+			:class="{ playing: isPlaying }"
+			@click.self="!isPlaying ?  play() : () => {}"
+		>
+			<div class="music-item__index text-secondary" v-text="index + 1"></div>
+			<div class="music-item__play-pause">
+				<button class="music-item__btn" @click="toggle">
+					<i class="material-icons">{{ !isPlaying ? 'play_arrow' : 'pause' }}</i>
+				</button>
 			</div>
-			<div class="music-item__spacer"></div>
-			<button class="music-item__btn" @click="toggle">
-				<i class="material-icons">{{ !isPlaying ? 'play_arrow' : 'pause' }}</i>
-			</button>
+			<div class="music-item__title-date">
+				<h6 class="text title" v-text="title"></h6>
+				<span class="text-secondary date" v-text="date"></span>
+			</div>
+			<div class="spacer"></div>
+			<div class="music-item__loading" v-if="loading">
+				<spinner :size="60" :width="5" />
+			</div>
+			<div class="music-item__duration" :class="isPlaying ? 'text' : 'text-secondary'" v-else>
+				<span class="timer" v-if="isPlaying || timer > 1">{{ timer | time }}</span>
+				<span class="slash" v-if="isPlaying || timer > 1">/</span>
+				<span class="duration">{{ duration | time }}</span>
+			</div>
+		</div>
+		<div class="music-item__bottom">
+			<div class="music-item__bg" ref="wave"></div>
 		</div>
 	</li>
 </template>
 
 <script>
 import WaveSurfer from 'wavesurfer.js'
+import Spinner from '@/components/Spinner'
 
 export default {
 	name: 'music-item',
-	props: ['src', 'title', 'date', 'id'],
+	components: { Spinner },
+	props: ['src', 'title', 'date', 'id', 'index'],
 	data() {
 		return {
 			player: null,
 			isPlaying: false,
 			timer: 0,
 			duration: 0,
+			loading: true,
 		}
 	},
 	mounted() {
@@ -46,14 +56,18 @@ export default {
 			barGap: 2,
 			barHeight: 0.75,
 			cursorWidth: 0,
-			height: 115,
+			height: 100,
 			progressColor: '#2296f3',
 			waveColor: 'rgba(0,0,0,.25)',
 		})
 		this.player.on('audioprocess', this.audioprocess)
 		this.player.on('pause', () => (this.isPlaying = false))
-		this.player.on('play', () => (this.isPlaying = true))
+		this.player.on('play', () => {
+			this.isPlaying = true
+			this.$emit('play', this.index)
+		})
 		this.player.on('ready', () => {
+			this.loading = false
 			this.duration = this.player.getDuration()
 			this.player.setVolume(0.25)
 		})
@@ -106,11 +120,124 @@ export default {
 	width: 100%;
 	overflow: hidden;
 	position: relative;
-	height: 115px;
+	height: 106px;
+	border-bottom: solid thin var(--c-border);
 
 	transition: transform 0.2s ease, box-shadow 0.2s ease, height 0.2s ease;
 
+	&__top {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		height: 106px;
+		padding: 0 1rem;
+
+		&:hover:not(.playing) {
+			background-color: var(--c-grey1);
+			cursor: pointer;
+		}
+	}
+	&__index {
+		flex: 0 0 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	&__btn {
+		display: none;
+		flex: 0 0 50px;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		border: none;
+		pointer-events: auto;
+		cursor: pointer;
+		user-select: none;
+		background-color: transparent;
+
+		i {
+			transform: scale(1.25);
+		}
+
+		&:focus {
+			outline: none;
+		}
+		&:hover {
+			background-color: fade-out(black, 0.95);
+		}
+	}
+	&__title-date {
+		flex: 0 0 auto;
+		padding-left: 1rem;
+
+		.title {
+			margin-bottom: 0.5rem;
+		}
+		.date {
+			font-size: 0.9rem;
+		}
+	}
+	&__loading {
+		flex: 0 0 50px;
+	}
+	&__duration {
+		flex: 0 0 50px;
+
+		.timer {
+			font-size: 0.8rem;
+		}
+		.slash {
+			margin-left: 0.5rem;
+			font-size: 0.8rem;
+		}
+		.duration {
+			margin-left: 0.5rem;
+			font-size: 1rem;
+		}
+	}
+	&__bottom {
+		display: flex;
+		opacity: 0;
+	}
+	&__bg {
+		z-index: 2;
+		height: 115px;
+		width: 100%;
+		padding-left: calc(50px + 1rem);
+	}
+
+	&.loading {
+		pointer-events: none;
+		opacity: 0.75;
+	}
+
+	&:hover,
 	&.playing {
+		.music-item {
+			&__index {
+				display: none;
+			}
+			&__btn {
+				display: block;
+			}
+		}
+	}
+
+	&.playing {
+		height: calc(106px + 115px);
+		.music-item {
+			&__bottom {
+				height: 115px;
+				opacity: 1;
+			}
+		}
+	}
+
+	.spacer {
+		flex: 0 1 100%;
+	}
+
+	&.playing2 {
 		height: 220px;
 		transform: scale(1.1);
 		box-shadow: 0 10px 35px -2px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.1) !important;
@@ -128,20 +255,7 @@ export default {
 		}
 	}
 
-	&__bg {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 2;
-		height: 115px;
-		pointer-events: none;
-		position: none;
-		transition: transform 0.2s ease, opacity 0.2s ease;
-		animation: opacity 2s;
-	}
-	&__bg-wave {
+	&__bg-wave2 {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -174,41 +288,7 @@ export default {
 			background-color: #fff;
 		}
 	}
-	&__btn {
-		flex: 0 0 90px;
-		width: 90px;
-		height: 90px;
-		border-radius: 50%;
-		border: none;
-		pointer-events: auto;
-		margin-right: 1.5rem;
-		cursor: pointer;
-		user-select: none;
-		color: white;
-		background: rgb(34, 150, 243);
-		background: radial-gradient(circle, rgba(34, 150, 243, 1) 10%, rgba(34, 150, 243, 0) 40%);
 
-		i {
-			transform: scale(2);
-		}
-
-		&:focus {
-			outline: none;
-		}
-		&:hover {
-			background-color: fade-out(black, 0.95);
-		}
-		&.back {
-			width: 60px;
-			height: 60px;
-			flex: 0 0 60px;
-			margin-right: 0.25rem;
-
-			i {
-				transform: scale(1.5);
-			}
-		}
-	}
 	&__spacer {
 		flex: 0 1 100%;
 	}
