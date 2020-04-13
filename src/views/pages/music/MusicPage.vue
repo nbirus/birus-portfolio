@@ -24,14 +24,9 @@ const songs = [
 		src: 'KENNY.wav',
 	},
 	{
-		title: 'REDD',
-		date: 'April 12, 2020',
-		src: 'KENNY.wav',
-	},
-	{
-		title: 'MAJOR',
-		date: 'April 12, 2020',
-		src: 'KENNY.wav',
+		title: 'AROUND',
+		date: 'April 13, 2020',
+		src: 'AROUND.wav',
 	},
 ]
 
