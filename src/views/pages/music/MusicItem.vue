@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div class="music-item__bottom">
-			<div class="music-item__bg" ref="wave"></div>
+			<div class="music-item__wave" ref="wave"></div>
 		</div>
 	</li>
 </template>
@@ -38,7 +38,7 @@ import Spinner from '@/components/Spinner'
 export default {
 	name: 'music-item',
 	components: { Spinner },
-	props: ['src', 'title', 'date', 'id', 'index'],
+	props: ['src', 'title', 'date', 'id', 'index', 'volume'],
 	data() {
 		return {
 			player: null,
@@ -69,7 +69,7 @@ export default {
 		this.player.on('ready', () => {
 			this.loading = false
 			this.duration = this.player.getDuration()
-			this.player.setVolume(0.25)
+			this.player.setVolume(this.volume)
 		})
 		this.player.load(this.src)
 	},
@@ -109,6 +109,13 @@ export default {
 			this.timer = Math.round(timer).toFixed(0)
 		},
 	},
+	watch: {
+		volume(volume) {
+			if (this.player) {
+				this.player.setVolume(volume)
+			}
+		},
+	},
 }
 </script>
 
@@ -121,7 +128,10 @@ export default {
 	overflow: hidden;
 	position: relative;
 	height: 106px;
-	border-bottom: solid thin var(--c-border);
+
+	&:not(:last-child) {
+		border-bottom: solid thin var(--c-border);
+	}
 
 	transition: transform 0.2s ease, box-shadow 0.2s ease, height 0.2s ease;
 
@@ -130,11 +140,13 @@ export default {
 		align-items: center;
 		width: 100%;
 		height: 106px;
-		padding: 0 1rem;
 
 		&:hover:not(.playing) {
-			background-color: var(--c-grey1);
 			cursor: pointer;
+
+			.music-item__btn {
+				background-color: fade-out(black, 0.95);
+			}
 		}
 	}
 	&__index {
@@ -171,10 +183,11 @@ export default {
 		padding-left: 1rem;
 
 		.title {
+			font-size: 1.2rem;
 			margin-bottom: 0.5rem;
 		}
 		.date {
-			font-size: 0.9rem;
+			font-size: 0.8rem;
 		}
 	}
 	&__loading {
@@ -182,6 +195,7 @@ export default {
 	}
 	&__duration {
 		flex: 0 0 50px;
+		margin-right: 1rem;
 
 		.timer {
 			font-size: 0.8rem;
@@ -192,18 +206,18 @@ export default {
 		}
 		.duration {
 			margin-left: 0.5rem;
-			font-size: 1rem;
+			font-size: 0.9rem;
 		}
 	}
 	&__bottom {
 		display: flex;
 		opacity: 0;
 	}
-	&__bg {
+	&__wave {
 		z-index: 2;
 		height: 115px;
 		width: 100%;
-		padding-left: calc(50px + 1rem);
+		cursor: pointer;
 	}
 
 	&.loading {
@@ -235,79 +249,6 @@ export default {
 
 	.spacer {
 		flex: 0 1 100%;
-	}
-
-	&.playing2 {
-		height: 220px;
-		transform: scale(1.1);
-		box-shadow: 0 10px 35px -2px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.1) !important;
-
-		.music-item {
-			&__bg {
-				transform: translateY(6.5rem);
-				opacity: 1;
-				pointer-events: auto;
-				cursor: pointer;
-				height: 90px;
-				z-index: 9;
-				animation: opacity 0.3s ease;
-			}
-		}
-	}
-
-	&__bg-wave2 {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 1;
-		height: 115px;
-		pointer-events: none;
-		position: none;
-		transition: transform 0.2s ease, opacity 0.2s ease;
-
-		&.white {
-			z-index: 2;
-		}
-	}
-	&__container {
-		display: flex;
-		align-items: center;
-		z-index: 3;
-		position: relative;
-		width: 100%;
-		height: 115px;
-	}
-	&__info {
-		flex: 0 1 auto;
-		pointer-events: none;
-		padding-left: 2rem;
-
-		h1 {
-			background-color: #fff;
-		}
-	}
-
-	&__spacer {
-		flex: 0 1 100%;
-	}
-	&__timer {
-		z-index: 1;
-		pointer-events: none;
-		margin-top: 0.75rem;
-		position: absolute;
-
-		.timer {
-			font-size: 1.15rem;
-		}
-		.slash {
-			margin: 0 0.5rem;
-			font-size: 0.9rem;
-		}
-		.duration {
-			font-size: 0.8rem;
-		}
 	}
 }
 

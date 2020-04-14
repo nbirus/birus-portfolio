@@ -1,3 +1,26 @@
+$transition: cubic-bezier(0.78, 0.02, 0.33, 1);
+$transition-in: cubic-bezier(0, 0.68, 0.3, 1);
+$transition-out: cubic-bezier(0.96, 0.01, 1, 0.51);
+
+// page
+.page-enter-active {
+	transition: transform 0.35s $transition-in, opacity 0.35s ease;
+}
+
+.page-leave-active {
+	transition: transform 0.35s $transition-out, opacity 0.35s ease;
+}
+
+.page-enter {
+	transform: translateY(40px);
+	opacity: 0;
+}
+
+.page-leave-to {
+	transform: translateY(-40px);
+	opacity: 0;
+}
+
 // fade
 .fade-enter-active,
 .fade-leave-active {

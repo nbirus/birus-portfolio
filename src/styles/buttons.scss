@@ -1,126 +1,127 @@
 @import '@/styles/component';
 
 .btn {
-	margin: 0;
-	text-decoration: none;
-	background: none;
-	border: solid thin var(--c-border);
-	color: var(--c-text);
-	font-size: 1.05rem;
-	cursor: pointer;
-	text-align: center;
-	border-radius: 4px;
-	padding: 0.75rem 1.25rem;
-	outline: none;
-	transition: box-shadow 0.3s ease, border 0.2s ease;
+  margin: 0;
+  text-decoration: none;
+  background: none;
+  border: solid thin var(--c-border);
+  color: var(--c-text);
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 0;
+  padding: 0.75rem 1.25rem;
+  outline: none;
+  transition: box-shadow 0.3s ease, border 0.2s ease;
 
-	&:hover {
-		border-color: var(--c-border-dark);
-		background-color: var(--c-grey1);
-	}
+  &:hover {
+    border-color: var(--c-border-dark);
+    background-color: var(--c-grey1);
+  }
 
-	&:active,
-	&:focus {
-		background-color: white;
-		border-color: var(--c-blue);
-		@include active-shadow;
-	}
+  &:active,
+  &:focus {
+    background-color: white;
+    border-color: var(--c-blue);
+    @include active-shadow;
+  }
 
-	&:active {
-		background-color: var(--c-grey2);
-	}
+  &:active {
+    background-color: var(--c-grey2);
+  }
 
-	&.disabled {
-		pointer-events: none;
-		opacity: 0.5;
-	}
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
-	&.with-icon {
-		display: flex;
-		align-items: center;
-		padding-left: 1.1rem;
+  &.with-icon {
+    display: flex;
+    align-items: center;
+    padding-left: 1.1rem;
 
-		i {
-			font-size: 1.25rem;
-			margin-right: 0.35rem;
-		}
-	}
+    i {
+      font-size: 1.25rem;
+      margin-right: 0.35rem;
+    }
+  }
 }
 
 .btn.btn-icon-circle {
-	background-color: white;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 
-	i {
-		font-size: 2rem;
-	}
+  i {
+    font-size: 2rem;
+  }
 
-	&.nb {
-		border: none !important;
-	}
+  &.nb {
+    border: none !important;
+  }
 
-	&:not(.flat) {
-		box-shadow: 0 1px 3px fade-out(black, 0.75);
-	}
+  &:not(.flat) {
+    box-shadow: 0 1px 3px fade-out(black, 0.75);
+  }
 
-	&:active,
-	&:focus {
-		background-color: white;
-		border-color: var(--c-blue);
-		@include active-shadow;
-	}
+  &:active,
+  &:focus {
+    background-color: white;
+    border-color: var(--c-blue);
+    @include active-shadow;
+  }
 
-	&:active {
-		background-color: var(--c-grey2);
-	}
+  &:active {
+    background-color: var(--c-grey2);
+  }
 }
 
 .btn.btn-thumb {
-	border: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-	min-width: 50px;
-	min-height: 50px;
-	padding: 0;
-	background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  min-width: 50px;
+  min-height: 50px;
+  padding: 0;
+  background-color: transparent;
 
-	i {
-		font-size: 2rem;
-	}
+  i {
+    font-size: 2rem;
+  }
 }
 
 .dark {
-	.btn {
-		color: white;
-		border-color: var(--c-border-dm);
+  .btn {
+    color: white;
+    border-color: var(--c-border-dm);
 
-		&:hover {
-			background-color: fade-out(white, 0.9);
-		}
-		&:active,
-		&:focus {
-			background-color: fade-out(white, 0.8);
-		}
-	}
-	.btn-icon-circle {
-		color: white !important;
-		background-color: var(--c-grey8);
-		border-color: var(--c-grey7);
+    &:hover {
+      background-color: fade-out(white, 0.9);
+    }
+    &:active,
+    &:focus {
+      background-color: fade-out(white, 0.8);
+    }
+  }
+  .btn-icon-circle {
+    color: white !important;
+    background-color: var(--c-grey8);
+    border-color: var(--c-grey7);
 
-		&:hover {
-			background-color: var(--c-grey7);
-		}
-		&:active,
-		&:focus {
-			background-color: var(--c-grey6);
-		}
-	}
+    &:hover {
+      background-color: var(--c-grey7);
+    }
+    &:active,
+    &:focus {
+      background-color: var(--c-grey6);
+    }
+  }
 }

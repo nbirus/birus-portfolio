@@ -1,9 +1,11 @@
-<template>
+8<template>
 	<div class="nb-app" id="app" ref="scroll" :class="$darkClass">
 		<header-bar @side-bar="sideBar=true" />
 		<side-bar v-model="sideBar" />
 		<main class="nb-main">
-			<router-view />
+			<transition name="page" mode="out-in">
+				<router-view :key="$route.name" />
+			</transition>
 			<share-dialog />
 		</main>
 	</div>

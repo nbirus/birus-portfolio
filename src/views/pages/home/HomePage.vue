@@ -1,12 +1,17 @@
 <template>
 	<div class="home-page page">
-		<div class="identity mb-6">
-			<h4 class="thin mb-1 text">Hello, I am</h4>
-			<h1 class="text header mb-4">Nathan Birus</h1>
-			<div class="text block-seperator mb-4"></div>
-			<h5 class="text thin">a web developer</h5>
+		<div class="header">
+			<div class="contain">
+				<div class="header__id">
+					<h5 class="thin mb-1 text">Hello, I Am</h5>
+					<h1 class="text mb-4">Nathan Birus</h1>
+					<div class="text block-seperator mb-4"></div>
+					<h5 class="text thin">a web developer</h5>
+				</div>
+				<div class="header__img"></div>
+			</div>
 		</div>
-		<!-- <hr class="mb-5" /> -->
+		<div class="body"></div>
 		<div class="about-container max-char">
 			<!-- <h6 class="italic mb-2">About me</h6> -->
 			<!-- eslint-disable-next-line -->
@@ -28,6 +33,21 @@ export default {
 
 <style lang="scss" scoped>
 .home-page {
-	padding-top: 3rem;
+	padding: 0;
+}
+
+.contain {
+	min-width: 800px;
+	margin: 0 auto;
+	padding: 0 2rem;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	min-height: 400px;
+	background-color: var(--c-grey1);
+}
+.body {
 }
 </style>
