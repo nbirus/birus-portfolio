@@ -4,7 +4,7 @@
       <i class="material-icons">menu</i>
     </button>
     <div class="nb-header__logo">
-      <img src="/favicon.png" height="42px" alt="nbirus" />
+      <!-- <img src="/favicon.png" height="42px" alt="nbirus" /> -->
     </div>
     <div class="nb-header__middle"></div>
     <div class="nb-header__links">
@@ -72,6 +72,17 @@ export default {
     display: flex;
     align-items: center;
 
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: -2px;
+      right: -2px;
+      height: 1px;
+      border-radius: 25px;
+      z-index: -1;
+    }
+
     &.router-link-active {
       color: var(--c-text);
       // font-weight: var(--bold);
@@ -81,17 +92,7 @@ export default {
       position: relative;
 
       &:after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: -2px;
-        right: -2px;
-        height: 1px;
-        border-radius: 25px;
-        // background-color: fade-out(#2296f3, 0.65);
         background-color: black;
-        z-index: -1;
-        animation: under 0.3s ease;
       }
     }
     &:not(:last-child) {
@@ -100,6 +101,12 @@ export default {
     &:hover:not(.router-link-active) {
       color: var(--c-link);
       opacity: 1;
+      position: relative;
+
+      &:after {
+        background-color: #2296f3;
+        animation: under 0.3s ease;
+      }
     }
   }
   &__dark-mode {
