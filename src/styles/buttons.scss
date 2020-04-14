@@ -7,10 +7,10 @@
   border: solid thin var(--c-border);
   color: var(--c-text);
   font-size: 1rem;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   cursor: pointer;
   text-align: center;
-  border-radius: 0;
+  border-radius: 3px;
   padding: 0.75rem 1.25rem;
   outline: none;
   transition: box-shadow 0.3s ease, border 0.2s ease;
@@ -42,8 +42,8 @@
     padding-left: 1.1rem;
 
     i {
-      font-size: 1.25rem;
-      margin-right: 0.35rem;
+      font-size: 1rem;
+      margin-right: 0.45rem;
     }
   }
 }
