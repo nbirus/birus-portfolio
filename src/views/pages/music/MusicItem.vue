@@ -71,7 +71,7 @@ export default {
       this.duration = this.player.getDuration()
       this.player.setVolume(this.volume)
     })
-    this.player.load(this.src)
+    this.player.load(`songs/${this.src}`)
   },
   filters: {
     time(time) {

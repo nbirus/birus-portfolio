@@ -36,9 +36,34 @@ const songs = [
     src: 'KENNY.wav',
   },
   {
+    title: 'CAMEL',
+    date: 'April 11, 2020',
+    src: 'CAMEL.wav',
+  },
+  {
+    title: 'KIT3',
+    date: 'April 12, 2020',
+    src: 'KIT3.wav',
+  },
+  {
     title: 'AROUND',
     date: 'April 13, 2020',
     src: 'AROUND.wav',
+  },
+  {
+    title: 'RED2',
+    date: 'April 13, 2020',
+    src: 'RED2.wav',
+  },
+  {
+    title: 'RMAC',
+    date: 'April 13, 2020',
+    src: 'RMAC.wav',
+  },
+  {
+    title: 'KEYZONE',
+    date: 'April 14, 2020',
+    src: 'RMAC.wav',
   },
 ]
 
