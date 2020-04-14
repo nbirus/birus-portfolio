@@ -51,9 +51,9 @@ const songs = [
     src: 'AROUND.wav',
   },
   {
-    title: 'RED2',
+    title: 'REDD2',
     date: 'April 13, 2020',
-    src: 'RED2.wav',
+    src: 'REDD2.wav',
   },
   {
     title: 'RMAC',
@@ -63,7 +63,7 @@ const songs = [
   {
     title: 'KEYZONE',
     date: 'April 14, 2020',
-    src: 'RMAC.wav',
+    src: 'KEYZONE.wav',
   },
 ]
 
@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      songs,
+      songs: songs.reverse(),
       volume: 75,
     }
   },
