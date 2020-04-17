@@ -19,11 +19,7 @@
       <div class="music-item__loading" v-if="loading">
         <spinner :size="60" :width="5" />
       </div>
-      <div
-        class="music-item__duration"
-        :class="isPlaying ? 'text' : 'text-secondary'"
-        v-else-if="duration > 1"
-      >
+      <div class="music-item__duration" :class="isPlaying ? 'text' : 'text-secondary'" v-else>
         <span class="timer" v-if="isPlaying || timer > 1">{{ timer | time }}</span>
         <span class="slash" v-if="isPlaying || timer > 1">/</span>
         <span class="duration">{{ duration | time }}</span>
@@ -49,8 +45,7 @@ export default {
       isPlaying: false,
       timer: 0,
       duration: 0,
-      loading: false,
-      loaded: false,
+      loading: true,
     }
   },
   mounted() {
@@ -67,7 +62,6 @@ export default {
     })
     this.player.on('audioprocess', this.audioprocess)
     this.player.on('pause', () => (this.isPlaying = false))
-    this.player.on('loading', () => (this.loading = true))
     this.player.on('play', () => {
       this.isPlaying = true
       this.$emit('play', this.index)
@@ -77,6 +71,7 @@ export default {
       this.duration = this.player.getDuration()
       this.player.setVolume(this.volume)
     })
+    this.player.load(`songs/${this.src}`)
   },
   filters: {
     time(time) {
@@ -99,15 +94,9 @@ export default {
   },
   methods: {
     toggle() {
-      if (!this.loaded) {
-        this.load()
-      }
       this.player.playPause()
     },
     play() {
-      if (!this.loaded) {
-        this.load()
-      }
       this.player.play()
     },
     pause() {
@@ -118,9 +107,6 @@ export default {
     },
     audioprocess(timer) {
       this.timer = Math.round(timer).toFixed(0)
-    },
-    load() {
-      this.player.load(`songs/${this.src}`)
     },
   },
   watch: {
@@ -183,6 +169,7 @@ export default {
     pointer-events: auto;
     cursor: pointer;
     user-select: none;
+    background-color: transparent !important;
 
     &:after {
       content: '';
