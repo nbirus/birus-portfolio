@@ -65,6 +65,11 @@ const songs = [
     date: 'April 14, 2020',
     src: 'KEYZONE.wav',
   },
+  {
+    title: 'PROGRESSION',
+    date: 'April 14, 2020',
+    src: 'PROGRESSION.wav',
+  },
 ]
 
 export default {
