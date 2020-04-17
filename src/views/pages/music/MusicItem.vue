@@ -16,7 +16,8 @@
         <button style="width: 100px" class="btn btn--sm" @click="load">Load Song</button>
       </div>
       <div class="music-item__loading" v-else-if="loading">
-        <spinner :size="60" :width="5" />
+        <spinner :size="95" :width="3" />
+        <span class="percent" v-text="`${loadingTime}%`"></span>
       </div>
       <div class="music-item__duration" :class="playing ? 'text' : 'text-secondary'" v-else>
         <span class="timer" v-if="playing || timer > 1">{{ timer | time }}</span>
@@ -223,6 +224,13 @@ export default {
   }
   &__loading {
     flex: 0 0 50px;
+
+    .percent {
+      position: absolute;
+      font-size: 0.7rem;
+      right: 1rem;
+      top: 2.9rem;
+    }
   }
   &__duration {
     flex: 0 0 50px;
