@@ -1,14 +1,10 @@
 <template>
-  <li class="music-item" :class="{ playing: isPlaying, loading }">
-    <div
-      class="music-item__top"
-      :class="{ playing: isPlaying }"
-      @click.self="!isPlaying ?  play() : () => {}"
-    >
+  <li class="music-item" :class="{ playing, loading, loaded }">
+    <div class="music-item__top" :class="{ playing, loaded }" @click.self="containerClick">
       <div class="music-item__index text-secondary" v-text="index + 1"></div>
-      <div class="music-item__play-pause">
+      <div class="music-item__play-pause" v-if="loaded">
         <button class="music-item__btn" @click="toggle">
-          <i class="material-icons">{{ !isPlaying ? 'play_arrow' : 'pause' }}</i>
+          <i class="material-icons">{{ !playing ? 'play_arrow' : 'pause' }}</i>
         </button>
       </div>
       <div class="music-item__title-date">
@@ -16,12 +12,15 @@
         <span class="text-secondary date" v-text="date"></span>
       </div>
       <div class="spacer"></div>
-      <div class="music-item__loading" v-if="loading">
+      <div v-if="!loaded && !loading">
+        <button style="width: 100px" class="btn btn--sm" @click="load">Load Song</button>
+      </div>
+      <div class="music-item__loading" v-else-if="loading">
         <spinner :size="60" :width="5" />
       </div>
-      <div class="music-item__duration" :class="isPlaying ? 'text' : 'text-secondary'" v-else>
-        <span class="timer" v-if="isPlaying || timer > 1">{{ timer | time }}</span>
-        <span class="slash" v-if="isPlaying || timer > 1">/</span>
+      <div class="music-item__duration" :class="playing ? 'text' : 'text-secondary'" v-else>
+        <span class="timer" v-if="playing || timer > 1">{{ timer | time }}</span>
+        <span class="slash" v-if="playing || timer > 1">/</span>
         <span class="duration">{{ duration | time }}</span>
       </div>
     </div>
@@ -41,11 +40,14 @@ export default {
   props: ['src', 'title', 'date', 'id', 'index', 'volume'],
   data() {
     return {
+      playing: false,
+      loading: false,
+      loaded: false,
+
       player: null,
-      isPlaying: false,
       timer: 0,
       duration: 0,
-      loading: true,
+      loadingTime: 0,
     }
   },
   mounted() {
@@ -61,17 +63,18 @@ export default {
       waveColor: 'rgba(0,0,0,.25)',
     })
     this.player.on('audioprocess', this.audioprocess)
-    this.player.on('pause', () => (this.isPlaying = false))
+    this.player.on('loading', loadingTime => (this.loadingTime = loadingTime))
+    this.player.on('pause', () => (this.playing = false))
     this.player.on('play', () => {
-      this.isPlaying = true
+      this.playing = true
       this.$emit('play', this.index)
     })
     this.player.on('ready', () => {
+      this.loaded = true
       this.loading = false
       this.duration = this.player.getDuration()
       this.player.setVolume(this.volume)
     })
-    this.player.load(`songs/${this.src}`)
   },
   filters: {
     time(time) {
@@ -93,6 +96,15 @@ export default {
     },
   },
   methods: {
+    containerClick() {
+      if (!this.playing && this.loaded) {
+        this.play()
+      }
+    },
+    load() {
+      this.loading = true
+      this.player.load(`songs/${this.src}`)
+    },
     toggle() {
       this.player.playPause()
     },
@@ -141,7 +153,7 @@ export default {
     width: 100%;
     height: 106px;
 
-    &:hover:not(.playing) {
+    &:hover:not(.playing).loaded {
       cursor: pointer;
 
       .music-item__btn {
@@ -244,7 +256,7 @@ export default {
     opacity: 0.75;
   }
 
-  &:hover,
+  &.loaded:hover,
   &.playing {
     .music-item {
       &__index {

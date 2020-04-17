@@ -58,6 +58,7 @@ export default {
   &__links {
     display: flex;
     align-items: center;
+    padding-top: 0.5rem;
   }
   &__link {
     color: var(--c-text-light);
@@ -85,15 +86,11 @@ export default {
 
     &.router-link-active {
       color: var(--c-text);
-      // font-weight: var(--bold);
+      font-weight: var(--bold);
       text-decoration: none;
       opacity: 1;
       cursor: default;
       position: relative;
-
-      &:after {
-        background-color: black;
-      }
     }
     &:not(:last-child) {
       margin-right: 2.5rem;
