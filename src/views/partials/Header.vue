@@ -39,7 +39,7 @@ export default {
 
 .nb-header {
   background: fade-out(#fff, 0.05);
-  padding: 0 4rem 0 2rem;
+  padding: 0 4rem 0.5rem 2rem;
   transition: box-shadow 1s ease;
 
   &:not(.shadow) {

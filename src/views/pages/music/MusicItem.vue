@@ -130,7 +130,7 @@ export default {
   height: 106px;
 
   &:not(:last-child) {
-    border-bottom: solid thin var(--c-border);
+    border-bottom: solid thin var(--c-border-light);
   }
 
   transition: transform 0.2s ease, box-shadow 0.2s ease, height 0.2s ease;
@@ -202,7 +202,7 @@ export default {
 
     .title {
       font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
     .date {
       font-size: 0.8rem;
@@ -216,15 +216,15 @@ export default {
     margin-right: 1rem;
 
     .timer {
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
     .slash {
       margin-left: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
     .duration {
       margin-left: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
   }
   &__bottom {

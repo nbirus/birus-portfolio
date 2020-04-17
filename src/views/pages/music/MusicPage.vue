@@ -124,7 +124,7 @@ export default {
       flex: 0 0 auto;
       display: flex;
       align-items: center;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1rem 0.5rem 0.75rem;
       justify-content: flex-end;
       background-color: var(--c-grey1);
       border-radius: var(--r);
