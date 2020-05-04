@@ -6,7 +6,7 @@
   background: none;
   border: solid thin var(--c-border);
   color: var(--c-text);
-  font-size: 1rem;
+  font-size: 1.05rem;
   // text-transform: uppercase;
   cursor: pointer;
   text-align: center;
@@ -111,11 +111,13 @@
     &:hover {
       background-color: fade-out(white, 0.9);
     }
+
     &:active,
     &:focus {
       background-color: fade-out(white, 0.8);
     }
   }
+
   .btn-icon-circle {
     color: white !important;
     background-color: var(--c-grey8);
@@ -124,6 +126,7 @@
     &:hover {
       background-color: var(--c-grey7);
     }
+
     &:active,
     &:focus {
       background-color: var(--c-grey6);

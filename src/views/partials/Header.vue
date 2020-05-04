@@ -12,7 +12,12 @@
       <router-link class="nb-header__link" to="design">Web Design</router-link>
       <router-link class="nb-header__link" to="music">Music</router-link>
       <router-link class="nb-header__link" to="photography">Photography</router-link>
-      <router-link class="nb-header__link" to="contact">Contact me</router-link>
+      <a
+        href="#"
+        @click.prevent="$contactDialog=true"
+        class="nb-header__link"
+        to="contact"
+      >Contact me</a>
     </div>
     <button class="nb-header__dark-mode btn btn-thumb" @click="$dark = !$dark" v-if="false">
       <i class="material-icons">{{ !$dark ? 'brightness_low' : 'brightness_high' }}</i>

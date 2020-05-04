@@ -7,6 +7,7 @@
         <router-view :key="key" />
       </transition>
       <share-dialog />
+      <contact-dialog />
     </main>
   </div>
 </template>
@@ -16,10 +17,11 @@ import HeaderBar from '@/views/partials/Header'
 import SideBar from '@/views/partials/SideBar'
 
 import ShareDialog from '@/views/dialogs/ShareDialog'
+import ContactDialog from '@/views/dialogs/ContactDialog'
 
 export default {
   name: 'app',
-  components: { HeaderBar, SideBar, ShareDialog },
+  components: { HeaderBar, SideBar, ShareDialog, ContactDialog },
   data() {
     return {
       sideBar: false,
@@ -34,6 +36,9 @@ export default {
   watch: {
     $shareDialog(shareDialog) {
       this.$fullscreen = shareDialog
+    },
+    $contactDialog(contactDialog) {
+      this.$fullscreen = contactDialog
     },
     $route(to, from) {
       this.sideBar = false

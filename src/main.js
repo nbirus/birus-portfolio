@@ -21,6 +21,7 @@ let globalData = new Vue({
 		$dark: false,
 		$fullscreen: false,
 		$shareDialog: false,
+		$contactDialog: false,
 	},
 })
 Vue.mixin({
@@ -52,6 +53,14 @@ Vue.mixin({
 			},
 			set(shareDialog) {
 				globalData.$data.$shareDialog = shareDialog
+			},
+		},
+		$contactDialog: {
+			get() {
+				return globalData.$data.$contactDialog
+			},
+			set(contactDialog) {
+				globalData.$data.$contactDialog = contactDialog
 			},
 		},
 	},
