@@ -1,6 +1,16 @@
 <template>
-  <div class="photo-gallery" v-if="positions.length" :style="width$ > 768 ? pageStyle : ''">
-    <div v-for="(photo, i) in filteredPhotos" :key="i" class="photo-gallery__thumbnail" :style="getStyle(i)">
+  <div
+    class="photo-gallery"
+    v-if="positions.length"
+    :style="width$ > 768 ? pageStyle : ''"
+    :class="{ loading }"
+  >
+    <div
+      v-for="(photo, i) in filteredPhotos"
+      :key="i"
+      class="photo-gallery__thumbnail"
+      :style="getStyle(i)"
+    >
       <router-link
         tag="a"
         :to="`/photography/${photo.id}`"
@@ -35,6 +45,7 @@ export default {
   name: 'photography-gallery',
   components: { Photo },
   mixins: [WidthMixin],
+  props: ['loading'],
   data() {
     return {
       positions: [],
@@ -127,6 +138,12 @@ function clone(obj) {
 .photo-gallery {
   position: relative;
 
+  &.loading {
+    .photo-gallery__img {
+      opacity: 0;
+    }
+  }
+
   &__thumbnail {
     position: absolute;
     display: inline-block;
@@ -160,7 +177,8 @@ function clone(obj) {
     position: relative;
     width: auto;
     height: 100%;
-    transition: transform 0.35s ease;
+    transition: transform 0.35s ease, opacity 1s ease;
+    opacity: 1;
   }
 }
 

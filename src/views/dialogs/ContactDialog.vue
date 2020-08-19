@@ -5,8 +5,12 @@
         <div class="modal">
           <div class="modal__container">
             <div class="modal__header">
-              <h4 class="text">Contact Me</h4>
-              <button class="btn btn-icon-circle flat nb close" @click="$contactDialog = false" title="Close Share">
+              <h3 class="text mb-3">Contact Me</h3>
+              <button
+                class="btn btn-icon-circle flat nb close"
+                @click="$contactDialog = false"
+                title="Close Share"
+              >
                 <i class="material-icons">close</i>
               </button>
             </div>
@@ -56,7 +60,7 @@
 
                 <fieldset class="bottom">
                   <button
-                    class="btn btn-primary with-icon submit"
+                    class="btn btn-dark with-icon submit"
                     tabindex="5"
                     :disabled="sending"
                     :class="{disabled: sending}"
@@ -128,8 +132,8 @@ export default {
 
 .modal {
   &__container {
-    width: 400px;
-    padding: 2rem;
+    width: 500px;
+    padding: 3rem 3rem;
   }
   &__header {
     display: flex;

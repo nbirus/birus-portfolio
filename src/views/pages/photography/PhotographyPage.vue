@@ -4,7 +4,7 @@
     <!-- <div class="page__banner">
       <div class="overlay"></div>
       <img :src="tag.srcLrg" :alt="tag.label" />
-    </div> -->
+    </div>-->
 
     <!-- header -->
     <!-- <div class="page__header" v-if="tagActive">
@@ -25,7 +25,7 @@
         </router-link>
         <button class="share-btn btn with-icon mr-2" @click="$shareDialog = true"><i class="material-icons">share</i>Share</button>
       </div>
-    </div> -->
+    </div>-->
 
     <!-- slider -->
     <div class="page__slider" v-if="!hideTags">
@@ -34,7 +34,14 @@
 
     <!-- gallery -->
     <div class="page__gallery">
-      <photography-gallery />
+      <!-- <transition name="loader" mode="out-in">
+        <div class="loader" :key="pageKey">
+          <spinner size="60" width="5" />
+        </div>
+      </transition>-->
+      <!-- <transition name="fade-down" mode="out-in"> -->
+      <photography-gallery :loading="loading" />
+      <!-- </transition> -->
     </div>
 
     <!-- photo -->
@@ -47,11 +54,13 @@
 <script>
 import WidthMixin from '@/mixins/WidthMixin'
 import tags from '@/assets/tags.json'
+import Spinner from '@/components/Spinner'
 
 export default {
   name: 'photography-page',
   mixins: [WidthMixin],
   components: {
+    Spinner,
     PhotographyTagSlider: () => import('@/components/photography/PhotographyTagSlider'),
     PhotographyGallery: () => import('@/components/photography/PhotographyGallery'),
   },
@@ -60,6 +69,7 @@ export default {
       hideTags: false,
       scrollY: 0,
       tag: {},
+      loading: false,
     }
   },
   computed: {
@@ -71,6 +81,9 @@ export default {
     },
     tagActive() {
       return !!this.tag.id && !this.hideTags
+    },
+    pageKey() {
+      return this.$route.query.tag
     },
   },
   methods: {
@@ -88,6 +101,12 @@ export default {
       if (to.params.id === undefined) {
         this.setTag()
       }
+    },
+    pageKey() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 1250)
     },
   },
 }
@@ -155,6 +174,7 @@ export default {
   }
   &__gallery {
     padding: 0 4rem;
+    position: relative;
   }
 }
 .tag-active {
@@ -179,6 +199,17 @@ export default {
       pointer-events: all;
     }
   }
+}
+.loader {
+  top: 0;
+  left: 4rem;
+  right: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  position: absolute;
+  opacity: 0;
 }
 @media only screen and (max-width: 768px) {
   .page {

@@ -63,6 +63,18 @@
       box-shadow: 0 0 0 2px var(--c-blue-dark);
     }
   }
+
+  &.btn-dark {
+    border-color: var(--c-dark);
+    background-color: var(--c-dark);
+    color: white;
+
+    &:active,
+    &:focus {
+      // background-color: darken(#2296f3, 10);
+      // box-shadow: 0 0 0 2px var(--c-blue-dark);
+    }
+  }
 }
 
 .btn.btn-icon-circle {

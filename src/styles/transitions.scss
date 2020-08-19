@@ -45,15 +45,42 @@ $transition-out: cubic-bezier(0.96, 0.01, 1, 0.51);
 }
 
 // fade-down
-.fade-down-enter-active,
-.fade-down-leave-active {
-	transition: all 0.75s ease;
+.fade-down-enter-active {
+	transition-delay: .5s !important;
+	transition: transform 0.75s cubic-bezier(.79, 0, .18, 1.01)
 }
 
-.fade-down-enter,
+.fade-down-leave-active {
+	transition: transform 0.5s cubic-bezier(.79, 0, .18, 1.01)
+}
+
+.fade-down-enter {
+	transform: translateY(8rem);
+}
+
 .fade-down-leave-to {
-	opacity: 0;
-	transform: translateY(-2rem);
+	transform: translateY(8rem);
+}
+
+// fade-down
+.loader-enter-active {
+	transition-delay: .5s !important;
+	transition: all 0.65s cubic-bezier(.58, 0, .27, 1), opacity .55s ease;
+}
+
+.loader-leave-active {
+	transition: all 0.5s cubic-bezier(.58, 0, .27, 1),
+		opacity .45s ease;
+}
+
+.loader-enter {
+	transform: translateY(3rem);
+	opacity: 1 !important;
+}
+
+.loader-leave-to {
+	transform: translateY(3rem);
+	opacity: 1 !important;
 }
 
 // fade-down
