@@ -34,14 +34,7 @@
 
     <!-- gallery -->
     <div class="page__gallery">
-      <!-- <transition name="loader" mode="out-in">
-        <div class="loader" :key="pageKey">
-          <spinner size="60" width="5" />
-        </div>
-      </transition>-->
-      <!-- <transition name="fade-down" mode="out-in"> -->
       <photography-gallery :loading="loading" />
-      <!-- </transition> -->
     </div>
 
     <!-- photo -->
@@ -199,17 +192,6 @@ export default {
       pointer-events: all;
     }
   }
-}
-.loader {
-  top: 0;
-  left: 4rem;
-  right: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: auto;
-  position: absolute;
-  opacity: 0;
 }
 @media only screen and (max-width: 768px) {
   .page {

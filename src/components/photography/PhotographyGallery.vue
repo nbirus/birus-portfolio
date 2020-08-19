@@ -6,7 +6,7 @@
     :class="{ loading }"
   >
     <div
-      v-for="(photo, i) in filteredPhotos"
+      v-for="(photo, i) in activePhotos"
       :key="i"
       class="photo-gallery__thumbnail"
       :style="getStyle(i)"
@@ -48,6 +48,7 @@ export default {
   props: ['loading'],
   data() {
     return {
+      activePhotos: [],
       positions: [],
       pageStyle: {},
       tag: '',
@@ -55,7 +56,7 @@ export default {
   },
   computed: {
     elements() {
-      return this.filteredPhotos.map(photo => ({
+      return this.activePhotos.map(photo => ({
         width: photo.width,
         height: photo.height,
       }))
@@ -100,7 +101,7 @@ export default {
     },
     getStyle(i) {
       let pos = this.positions[i]
-      let photo = this.filteredPhotos[i]
+      let photo = this.activePhotos[i]
       if (this.width$ < 768) {
         return {}
       }
@@ -115,9 +116,18 @@ export default {
   },
   watch: {
     width$: 'fit',
-    elements: {
+    activePhotos: {
       handler: 'fit',
       deep: true,
+    },
+    filteredPhotos: {
+      handler(photos) {
+        this.activePhotos = photos
+        // setTimeout(() => {
+        // }, 250)
+      },
+      deep: true,
+      immediate: true,
     },
     $route(route) {
       if (route.name === 'photography') {
@@ -135,10 +145,27 @@ function clone(obj) {
 <style lang="scss">
 @import '@/styles/component';
 
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .photo-gallery {
   position: relative;
 
   &.loading {
+    animation: loading 1.75s;
+
     .photo-gallery__img {
       opacity: 0;
     }

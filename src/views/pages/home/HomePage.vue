@@ -5,7 +5,7 @@
         <div class="header__id">
           <h1 class="text mb-4">Nathan Birus</h1>
           <div class="text block-seperator mb-4"></div>
-          <h5 class="text thin">web developer</h5>
+          <h4 class="text thin">web developer</h4>
         </div>
         <div class="header__img"></div>
       </div>
@@ -48,7 +48,8 @@ export default {
   background-color: var(--c-grey1);
 
   h1 {
-    font-size: 3rem;
+    font-size: 4rem;
+    font-family: 'Permanent Marker', cursive;
   }
 }
 </style>

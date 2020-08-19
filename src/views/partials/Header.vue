@@ -3,9 +3,9 @@
     <button class="btn btn-thumb nb-header__menu" @click="$emit('side-bar')" type="button">
       <i class="material-icons">menu</i>
     </button>
-    <div class="nb-header__logo">
-      <!-- <img src="/favicon.png" height="42px" alt="nbirus" /> -->
-    </div>
+    <transition name="fade" mode="out-in" appear>
+      <div class="nb-header__logo" v-if="$route.name !== 'home'">nbirus</div>
+    </transition>
     <div class="nb-header__middle"></div>
     <div class="nb-header__links">
       <router-link class="nb-header__link" to="/" exact>Home</router-link>
@@ -54,6 +54,12 @@ export default {
     box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.1), 0 2px 14px 2px rgba(60, 64, 67, 0.2);
   }
 
+  &__logo {
+    font-weight: var(--bold);
+    font-size: 1.85rem;
+    margin-bottom: -0.5rem;
+    font-family: 'Permanent Marker', cursive;
+  }
   &__menu {
     display: none !important;
   }
@@ -142,7 +148,7 @@ export default {
   .nb-header {
     border-bottom: solid thin var(--c-border-dm);
     &__logo {
-      filter: invert(1);
+      // filter: invert(1);
     }
     &__link {
       color: var(--c-text-light-dm);
