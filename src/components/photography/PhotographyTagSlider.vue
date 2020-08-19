@@ -5,10 +5,23 @@
     </button>
 
     <ul class="scrolling-wrapper" :class="{ showRight, showLeft }">
-      <li class="scrolling-wrapper__item" v-for="tag in visibleTags" :key="`tag-${tag.id}`" :class="`size-${size} new-${tag.new}`">
-        <router-link tag="button" :to="{ path: 'photography', query: { tag: tag.id } }" class="btn scrolling-wrapper__button " @click="$emit('tag')">
+      <li
+        class="scrolling-wrapper__item"
+        v-for="tag in visibleTags"
+        :key="`tag-${tag.id}`"
+        :class="`size-${size} new-${tag.new} active-${activeTag === tag.id}`"
+      >
+        <router-link
+          tag="button"
+          :to="activeTag !== tag.id ? { path: 'photography', query: { tag: tag.id } } : { path: 'photography' }"
+          class="btn scrolling-wrapper__button "
+          @click="$emit('tag')"
+        >
           <div class="scrolling-wrapper__img">
             <!-- <img :src="tag.src" :alt="tag.label" /> -->
+            <div class="icon" v-if="activeTag === tag.id">
+              <i class="material-icons">check</i>
+            </div>
           </div>
           <div class="scrolling-wrapper__label text">
             <span v-text="tag.label"></span>
@@ -42,7 +55,7 @@ export default {
       if (this.width < 768) {
         return tags.length
       } else if (this.width > 1600) {
-        return 7
+        return 6
       } else if (this.width > 1300) {
         return 6
       } else if (this.width > 1150) {
@@ -64,6 +77,9 @@ export default {
     },
     showRight() {
       return this.to < this.tags.length
+    },
+    activeTag() {
+      return this.$route.query.tag
     },
   },
   methods: {
@@ -111,31 +127,37 @@ function clone(o) {
   &__item {
     padding: 0 0.75rem 0 0;
 
+    &.active-true {
+      .scrolling-wrapper__button {
+        background-color: fade-out(#2296f3, 0.85);
+      }
+      .scrolling-wrapper__label {
+        color: darken(#2296f3, 25);
+      }
+      img {
+        opacity: 0.95;
+      }
+    }
+
     &.size-10 {
-      // height: 9vw;
       flex: 0 0 10%;
     }
     &.size-9 {
       flex: 0 0 11.111%;
     }
     &.size-8 {
-      // height: 140px;
       flex: 0 0 12.5%;
     }
     &.size-7 {
-      // height: 10vw;
       flex: 0 0 14.2857%;
     }
     &.size-6 {
-      // height: 12vw;
       flex: 0 0 16.666%;
     }
     &.size-5 {
-      // height: 14vw;
       flex: 0 0 20%;
     }
     &.size-4 {
-      // height: 17vw;
       flex: 0 0 25%;
     }
     &.size-3 {
@@ -145,7 +167,7 @@ function clone(o) {
   &__button {
     width: 100%;
     height: auto;
-    padding: 0.3rem;
+    padding: 0.4rem;
     display: flex;
     align-items: center;
     border: none;
@@ -165,12 +187,24 @@ function clone(o) {
     background-color: var(--c-grey1);
     width: 4rem;
     height: 4rem;
-    margin-right: 1rem;
+    margin-right: 0.75rem;
     border-radius: 0.5rem;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .icon {
+      position: absolute;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 0.5rem;
+      background-color: fade-out(#2296f3, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
   }
   &__label {
     display: flex;
@@ -190,38 +224,43 @@ function clone(o) {
 }
 @media only screen and (max-width: 768px) {
   .scrolling-wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 1rem 1.5rem;
-    &::-webkit-scrollbar {
+
+    .btn-icon-circle {
       display: none;
     }
-    .after {
-      min-width: 2.5rem;
-      height: 100px;
-      position: relative;
-      display: block;
-    }
 
-    &__item {
-      height: 120px;
-      flex: 0 0 135px;
-      padding: 0 0.5rem;
-    }
-    &__img {
-      height: 70%;
-    }
-    &__label {
-      height: 30%;
-      padding-left: 0.75rem;
-      font-size: 0.9rem;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      font-weight: var(--bold);
-    }
+    // display: flex;
+    // flex-wrap: nowrap;
+    // overflow-x: auto;
+    // -webkit-overflow-scrolling: touch;
+    // padding: 1rem 1.5rem;
+    // &::-webkit-scrollbar {
+    //   display: none;
+    // }
+    // .after {
+    //   min-width: 2.5rem;
+    //   height: 100px;
+    //   position: relative;
+    //   display: block;
+    // }
+
+    // &__item {
+    //   height: 120px;
+    //   flex: 0 0 135px;
+    //   padding: 0 0.5rem;
+    // }
+    // &__img {
+    //   height: 70%;
+    // }
+    // &__label {
+    //   height: 30%;
+    //   padding-left: 0.75rem;
+    //   font-size: 0.9rem;
+    //   text-overflow: ellipsis;
+    //   white-space: nowrap;
+    //   overflow: hidden;
+    //   font-weight: var(--bold);
+    // }
   }
 }
 </style>

@@ -7,13 +7,9 @@
     </div> -->
 
     <!-- header -->
-    <div class="page__header" v-if="tagActive">
+    <!-- <div class="page__header" v-if="tagActive">
       <div class="page__title-container">
-        <div class="tag-title text">
-          <h5 class="thin">Photography</h5>
-          <h1 v-text="tag.label"></h1>
-        </div>
-        <!-- <transition name="title" mode="out-in">
+        <transition name="title" mode="out-in">
           <div class="title text" v-if="!tagActive" key="title">
             <h1>Photography</h1>
           </div>
@@ -21,7 +17,7 @@
             <h5 class="thin">Photography</h5>
             <h1 v-text="tag.label"></h1>
           </div>
-        </transition> -->
+        </transition>
       </div>
       <div class="page__buttons-container">
         <router-link tag="button" class="btn btn-back with-icon" to="photography" v-if="tagActive">
@@ -29,10 +25,10 @@
         </router-link>
         <button class="share-btn btn with-icon mr-2" @click="$shareDialog = true"><i class="material-icons">share</i>Share</button>
       </div>
-    </div>
+    </div> -->
 
     <!-- slider -->
-    <div class="page__slider" v-if="!tagActive && !hideTags">
+    <div class="page__slider" v-if="!hideTags">
       <photography-tag-slider :width="width$" @tag="scrollToTop" />
     </div>
 
@@ -99,7 +95,7 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-  padding: 2rem 0 0;
+  padding: 0;
   max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
@@ -155,8 +151,7 @@ export default {
     }
   }
   &__slider {
-    padding: 0 4rem;
-    margin-bottom: 2rem;
+    padding: 2rem 4rem;
   }
   &__gallery {
     padding: 0 4rem;
