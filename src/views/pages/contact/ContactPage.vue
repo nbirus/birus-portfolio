@@ -22,12 +22,12 @@
 
       <fieldset class="bottom">
         <!-- <recaptcha
-					tabindex="4"
-					class="recaptcha mb-3"
-					:sitekey="capatchKey"
-					type="3"
-					:loadRecaptchaScript="true"
-					@verify="verified = true"
+          tabindex="4"
+          class="recaptcha mb-3"
+          :sitekey="capatchKey"
+          type="3"
+          :loadRecaptchaScript="true"
+          @verify="verified = true"
         ></recaptcha>-->
         <button
           class="btn with-icon submit"
@@ -71,6 +71,12 @@ export default {
   methods: {
     onSubmit() {
       this.sending = true
+      console.log({
+        name: this.name,
+        email: this.email,
+        message: this.message,
+      })
+
       fetch('https://nbirus-portfolio-api.herokuapp.com/', {
         method: 'post',
         body: JSON.stringify({
@@ -102,6 +108,7 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  border: solid thin red;
 
   .input-field {
     position: relative;
@@ -121,6 +128,8 @@ export default {
     width: 100%;
     justify-content: center;
     position: relative;
+    border: solid thin red;
+    display: none;
 
     i {
       margin-right: 0.65rem;

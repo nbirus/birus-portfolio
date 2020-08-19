@@ -1,32 +1,27 @@
 <template>
-	<div class="photo-gallery" v-if="positions.length" :style="width$ > 768 ? pageStyle : ''">
-		<div
-			v-for="(photo, i) in filteredPhotos"
-			:key="i"
-			class="photo-gallery__thumbnail"
-			:style="getStyle(i)"
-		>
-			<router-link
-				tag="a"
-				:to="`/photography/${photo.id}`"
-				:id="photo.id"
-				class="photo-gallery__link"
-				:class="`delay-${i} ${photo.aspect}`"
-				:aria-label="`Open photo ${photo.name}`"
-			>
-				<photo
-					class="photo-gallery__img"
-					:id="`photo-${photo.id}`"
-					:height="photo.height"
-					:width="photo.width"
-					:src="photo.urls.Large.source"
-					:placeholder="photo.urls.Medium.source"
-					:alt="photo.name"
-					:aspect="photo.aspect"
-				/>
-			</router-link>
-		</div>
-	</div>
+  <div class="photo-gallery" v-if="positions.length" :style="width$ > 768 ? pageStyle : ''">
+    <div v-for="(photo, i) in filteredPhotos" :key="i" class="photo-gallery__thumbnail" :style="getStyle(i)">
+      <router-link
+        tag="a"
+        :to="`/photography/${photo.id}`"
+        :id="photo.id"
+        class="photo-gallery__link"
+        :class="`delay-${i} ${photo.aspect}`"
+        :aria-label="`Open photo ${photo.name}`"
+      >
+        <photo
+          class="photo-gallery__img"
+          :id="`photo-${photo.id}`"
+          :height="photo.height"
+          :width="photo.width"
+          :src="photo.urls.Large.source"
+          :placeholder="photo.urls.Medium.source"
+          :alt="photo.name"
+          :aspect="photo.aspect"
+        />
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -37,154 +32,165 @@ import WidthMixin from '@/mixins/WidthMixin'
 import layout from './fixed-partition'
 
 export default {
-	name: 'photography-gallery',
-	components: { Photo },
-	mixins: [WidthMixin],
-	data() {
-		return {
-			positions: [],
-			pageStyle: {},
-			tag: '',
-		}
-	},
-	computed: {
-		elements() {
-			return this.filteredPhotos.map(photo => ({
-				width: photo.width,
-				height: photo.height,
-			}))
-		},
-		filteredPhotos() {
-			if (!this.tag) {
-				return photos
-			}
-			return clone(photos).filter(photo => photo.tags.includes(this.tag))
-		},
-	},
-	methods: {
-		fit() {
-			let width = this.width$
-			let spacing = 8
-			let idealElementHeight = 400
-			let containerWidth = width - 16 * 8
+  name: 'photography-gallery',
+  components: { Photo },
+  mixins: [WidthMixin],
+  data() {
+    return {
+      positions: [],
+      pageStyle: {},
+      tag: '',
+    }
+  },
+  computed: {
+    elements() {
+      return this.filteredPhotos.map(photo => ({
+        width: photo.width,
+        height: photo.height,
+      }))
+    },
+    filteredPhotos() {
+      if (!this.tag) {
+        return photos
+      }
+      return clone(photos).filter(photo => photo.tags.includes(this.tag))
+    },
+  },
+  methods: {
+    fit() {
+      let width = this.width$
+      let spacing = 8
+      let idealElementHeight = 400
+      let containerWidth = width - 16 * 8
 
-			if (width > 1600) {
-				spacing = 16
-				containerWidth = 1600 - 16 * 8
-			} else if (width > 1200) {
-				spacing = 8
-				idealElementHeight = 300
-			} else if (width > 900) {
-				spacing = 8
-				idealElementHeight = 300
-			} else if (width < 768) {
-				return
-			}
+      if (width > 1600) {
+        spacing = 16
+        containerWidth = 1600 - 16 * 8
+      } else if (width > 1200) {
+        spacing = 8
+        idealElementHeight = 300
+      } else if (width > 900) {
+        spacing = 8
+        idealElementHeight = 300
+      } else if (width < 768) {
+        return
+      }
 
-			let result = layout(this.elements, {
-				idealElementHeight,
-				containerWidth,
-				spacing,
-			})
-			this.pageStyle = {
-				width: `${result.width}px`,
-				height: `${result.height + 64}px`,
-			}
-			this.positions = result.positions
-		},
-		getStyle(i) {
-			let pos = this.positions[i]
-			let photo = this.filteredPhotos[i]
-			if (this.width$ < 768) {
-				return {}
-			}
-			return {
-				width: `${pos.width}px`,
-				height: `${pos.height}px`,
-				top: `${pos.y}px`,
-				left: `${pos.x}px`,
-				backgroundColor: `rgba(${[...photo.placeholderColor, 0.5]})`,
-			}
-		},
-	},
-	watch: {
-		width$: 'fit',
-		elements: {
-			handler: 'fit',
-			deep: true,
-		},
-		$route(route) {
-			if (route.name === 'photography') {
-				this.tag = this.$route.query.tag
-			}
-		},
-	},
+      let result = layout(this.elements, {
+        idealElementHeight,
+        containerWidth,
+        spacing,
+      })
+      this.pageStyle = {
+        width: `${result.width}px`,
+        height: `${result.height + 64}px`,
+      }
+      this.positions = result.positions
+    },
+    getStyle(i) {
+      let pos = this.positions[i]
+      let photo = this.filteredPhotos[i]
+      if (this.width$ < 768) {
+        return {}
+      }
+      return {
+        width: `${pos.width}px`,
+        height: `${pos.height}px`,
+        top: `${pos.y}px`,
+        left: `${pos.x}px`,
+        backgroundColor: `rgba(${[...photo.placeholderColor, 0.5]})`,
+      }
+    },
+  },
+  watch: {
+    width$: 'fit',
+    elements: {
+      handler: 'fit',
+      deep: true,
+    },
+    $route(route) {
+      if (route.name === 'photography') {
+        this.tag = this.$route.query.tag
+      }
+    },
+  },
 }
 
 function clone(obj) {
-	return JSON.parse(JSON.stringify(obj))
+  return JSON.parse(JSON.stringify(obj))
 }
 </script>
 
 <style lang="scss">
+@import '@/styles/component';
+
 .photo-gallery {
-	position: relative;
+  position: relative;
 
-	&__thumbnail {
-		position: absolute;
-		display: inline-block;
-		overflow: hidden;
-		opacity: 1;
-		background-color: #eeeff2;
+  &__thumbnail {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    opacity: 1;
+    background-color: #eeeff2;
 
-		&:hover {
-			.photo-gallery {
-				&__img {
-					transform: scale(1.05);
-				}
-			}
-		}
-	}
-	&__link {
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-	&__img {
-		position: relative;
-		width: auto;
-		height: 100%;
-		transition: transform 0.25s ease;
-	}
+    &:hover {
+      .photo-gallery {
+        &__img {
+          transform: scale(1.025);
+          box-shadow: 0 0 0 -2px var(--c-blue);
+        }
+      }
+    }
+    &:active {
+      .photo-gallery {
+        &__img {
+          transform: scale(1);
+          box-shadow: 0 0 0 -2px var(--c-blue);
+        }
+      }
+    }
+  }
+  &__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  &__img {
+    position: relative;
+    width: auto;
+    height: 100%;
+    transition: transform 0.35s ease;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-	.photo-gallery {
-		&__thumbnail {
-			position: relative;
-		}
-		&__link {
-			position: relative;
-		}
-		&__img {
-			transform: scale(1) !important;
-			position: relative;
-			grid-column: unset !important;
-			grid-row: unset !important;
-			max-height: unset !important;
-			max-width: unset !important;
-			width: 100% !important;
-			height: auto !important;
-			margin-bottom: 1rem;
+  .photo-gallery {
+    &__thumbnail {
+      position: relative;
+    }
+    &__link {
+      position: relative;
+    }
+    &__img {
+      transform: scale(1) !important;
+      position: relative;
+      grid-column: unset !important;
+      grid-row: unset !important;
+      max-height: unset !important;
+      max-width: unset !important;
+      width: 100% !important;
+      height: auto !important;
+      margin-bottom: 1rem;
 
-			.progressive-image-wrapper {
-				padding: 0 !important;
-			}
-			.progressive-image-main {
-				position: relative;
-			}
-		}
-	}
+      .progressive-image-wrapper {
+        padding: 0 !important;
+      }
+      .progressive-image-main {
+        position: relative;
+      }
+    }
+  }
 }
 
 // .photography-gallery {
@@ -361,16 +367,16 @@ function clone(obj) {
 // }
 
 @for $i from 0 through 25 {
-	.delay-#{$i} {
-		animation: down 0.25s + 0.2s * $i ease-in !important;
-	}
+  .delay-#{$i} {
+    animation: down 0.25s + 0.2s * $i ease-in !important;
+  }
 }
 @keyframes down {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>

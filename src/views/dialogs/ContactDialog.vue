@@ -6,11 +6,7 @@
           <div class="modal__container">
             <div class="modal__header">
               <h4 class="text">Contact Me</h4>
-              <button
-                class="btn btn-icon-circle flat nb close"
-                @click="$contactDialog = false"
-                title="Close Share"
-              >
+              <button class="btn btn-icon-circle flat nb close" @click="$contactDialog = false" title="Close Share">
                 <i class="material-icons">close</i>
               </button>
             </div>
@@ -60,7 +56,7 @@
 
                 <fieldset class="bottom">
                   <button
-                    class="btn with-icon submit"
+                    class="btn btn-primary with-icon submit"
                     tabindex="5"
                     :disabled="sending"
                     :class="{disabled: sending}"
@@ -113,13 +109,14 @@ export default {
           return response.json()
         })
         .then(() => {
-          alert('Your message has been sent!  I will get back to you ASAP!')
+          alert('Your message has been sent!  I will get back to you ASAP')
         })
         .catch(e => {
           alert(e)
         })
         .finally(() => {
           this.sending = false
+          this.$contactDialog = false
         })
     },
   },
@@ -132,6 +129,7 @@ export default {
 .modal {
   &__container {
     width: 400px;
+    padding: 2rem;
   }
   &__header {
     display: flex;
@@ -141,7 +139,6 @@ export default {
 
     .btn {
       color: var(--c-grey5);
-      border: solid thin red;
 
       &:hover {
         color: var(--c-grey8);
@@ -181,6 +178,10 @@ export default {
 }
 #contact-submit {
   width: calc(100% - 0.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   img {
     margin-right: 0.5rem;
   }

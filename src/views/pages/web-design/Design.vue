@@ -1,17 +1,48 @@
 <template>
   <div class="design-page page">
     <ul class="design-list">
-      <a href="https://covidash.com/" target="_blank">
-        <div class="design-list__card">
-          <div class="design-list__title">
-            <h3>Covidash</h3>
-            <p>Data analytics dashboard for the COVID-19 pandemic</p>
+      <li>
+        <a href="https://covidash.com/" target="_blank">
+          <div class="design-list__card">
+            <div class="design-list__title">
+              <h3>Covidash</h3>
+              <p>Data analytics dashboard for the COVID-19 pandemic</p>
+            </div>
+            <div class="design-list__icon"></div>
+            <!-- <div class="design-list__img">
+              <img src="covid-img.png" height="132" alt />
+            </div> -->
           </div>
-          <div class="design-list__img">
-            <img src="covid-img.png" height="132" alt />
+        </a>
+      </li>
+      <li>
+        <a href="https://covidash.com/" target="_blank">
+          <div class="design-list__card">
+            <div class="design-list__title">
+              <h3>Deep Ocean Commotion</h3>
+              <p>A fun game</p>
+            </div>
+            <div class="design-list__icon"></div>
+            <!-- <div class="design-list__img">
+              <img src="covid-img.png" height="132" alt />
+            </div> -->
           </div>
-        </div>
-      </a>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/nbirus/portfolio" target="_blank">
+          <div class="design-list__card">
+            <div class="design-list__title">
+              <h3>My Portfolio</h3>
+              <p>Take a look at how this portfolio was built</p>
+            </div>
+            <div class="design-list__icon"></div>
+            <!-- <div class="design-list__img">
+              <img src="covid-img.png" height="132" alt />
+            </div> -->
+          </div>
+        </a>
+      </li>
     </ul>
   </div>
 </template>
@@ -25,12 +56,15 @@ export default {
 <style lang="scss" scoped>
 .design-page {
   min-height: 90vh;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .design-list {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
 
+  li {
+    margin-bottom: 1.5rem;
+  }
   a {
     text-decoration: none !important;
   }
@@ -40,6 +74,10 @@ export default {
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease, height 0.2s ease;
     border-radius: var(--r);
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    border: solid thin var(--c-grey1);
 
     &:hover {
       transform: scale(1.05);
@@ -47,13 +85,19 @@ export default {
     }
   }
   &__title {
-    h3 {
-    }
-
+    flex: 0 1 100%;
     color: #000;
+
     p {
       margin-top: 0.5rem;
     }
+  }
+  &__icon {
+    flex: 0 1 65px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--c-grey1);
+    border-radius: 50%;
   }
   &__img {
     position: absolute;

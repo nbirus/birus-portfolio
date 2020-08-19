@@ -1,66 +1,82 @@
-[{
-		"id": "landscapes",
-		"label": "Landscapes",
-		"src": "https://live.staticflickr.com/65535/49554330817_9459b3cf41_m.jpg"
-	},
-	{
-		"id": "urban",
-		"label": "Urban",
-		"src": ""
-	},
-	{
-		"id": "nature",
-		"label": "Nature",
-		"src": ""
-	},
-	{
-		"id": "stars",
-		"label": "Stars",
-		"src": ""
-	},
-	{
-		"id": "japan",
-		"label": "Japan",
-		"src": ""
-	},
-	{
-		"id": "san-francisco",
-		"label": "San Francisco",
-		"src": ""
-	},
-	{
-		"id": "new-york",
-		"label": "New York",
-		"src": ""
-	},
-	{
-		"id": "peru",
-		"label": "Peru",
-		"src": ""
-	},
-	{
-		"id": "amazon",
-		"label": "Amazon",
-		"src": ""
-	},
-	{
-		"id": "chile",
-		"label": "Chile",
-		"src": ""
-	},
-	{
-		"id": "patagonia",
-		"label": "Patagonia",
-		"src": ""
-	},
-	{
-		"id": "outter-banks",
-		"label": "Outter Banks",
-		"src": ""
-	},
-	{
-		"id": "chesapeake",
-		"label": "Chesapeake",
-		"src": ""
-	}
+[
+  {
+    "id": "outter-banks",
+    "label": "Outter Banks",
+    "new": true,
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "landscapes",
+    "label": "Landscapes",
+    "src": "https://live.staticflickr.com/65535/49554330817_9459b3cf41_m.jpg",
+    "srcLrg": "https://live.staticflickr.com/65535/49554330817_9459b3cf41_b.jpg",
+    "count": 12
+  },
+  {
+    "id": "urban",
+    "label": "Urban",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "nature",
+    "label": "Nature",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "stars",
+    "label": "Stars",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "japan",
+    "label": "Japan",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "san-francisco",
+    "label": "San Francisco",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "new-york",
+    "label": "New York",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "peru",
+    "label": "Peru",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "amazon",
+    "label": "Amazon",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "chile",
+    "label": "Chile",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "patagonia",
+    "label": "Patagonia",
+    "count": 10,
+    "src": ""
+  },
+  {
+    "id": "chesapeake",
+    "label": "Chesapeake",
+    "count": 10,
+    "src": ""
+  }
 ]

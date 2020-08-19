@@ -51,6 +51,18 @@
     font-size: 0.9rem;
     padding: 0.35rem 0.75rem;
   }
+
+  &.btn-primary {
+    border-color: var(--c-blue);
+    background-color: var(--c-blue);
+    color: white;
+
+    &:active,
+    &:focus {
+      background-color: darken(#2296f3, 10);
+      box-shadow: 0 0 0 2px var(--c-blue-dark);
+    }
+  }
 }
 
 .btn.btn-icon-circle {
