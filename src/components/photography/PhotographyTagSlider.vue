@@ -14,11 +14,11 @@
         <router-link
           tag="button"
           :to="activeTag !== tag.id ? { path: 'photography', query: { tag: tag.id } } : { path: 'photography' }"
-          class="btn scrolling-wrapper__button "
+          class="btn scrolling-wrapper__button"
           @click="$emit('tag')"
         >
           <div class="scrolling-wrapper__img">
-            <!-- <img :src="tag.src" :alt="tag.label" /> -->
+            <img :src="tag.src" :alt="tag.label" />
             <div class="icon" v-if="activeTag === tag.id">
               <i class="material-icons">check</i>
             </div>
@@ -224,7 +224,6 @@ function clone(o) {
 }
 @media only screen and (max-width: 768px) {
   .scrolling-wrapper {
-
     .btn-icon-circle {
       display: none;
     }

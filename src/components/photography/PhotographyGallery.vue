@@ -63,7 +63,7 @@ export default {
     },
     filteredPhotos() {
       if (!this.tag) {
-        return photos
+        return clone(photos).sort(sortPhotos)
       }
       return clone(photos).filter(photo => photo.tags.includes(this.tag))
     },
@@ -137,6 +137,13 @@ export default {
   },
 }
 
+const sort = ['(Outer Banks, US)', '(San Francisco, US)', '(Patagonia, Chile)', '(Atacama, Chile)']
+
+function sortPhotos(a, b) {
+  let aSort = sort.findIndex(s => a.description.includes(s))
+  let bSort = sort.findIndex(s => b.description.includes(s))
+  return aSort - bSort
+}
 function clone(obj) {
   return JSON.parse(JSON.stringify(obj))
 }
@@ -164,11 +171,11 @@ function clone(obj) {
   position: relative;
 
   &.loading {
-    animation: loading 1.75s;
+    // animation: loading 1.75s;
 
-    .photo-gallery__img {
-      opacity: 0;
-    }
+    // .photo-gallery__img {
+    //   opacity: 0;
+    // }
   }
 
   &__thumbnail {

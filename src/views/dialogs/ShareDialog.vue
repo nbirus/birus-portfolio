@@ -1,24 +1,42 @@
 <template>
   <transition name="modal">
     <div class="modal-mask" v-show="$shareDialog" @click.self="$shareDialog = false">
-      <transition name="popover" mode="out-in" &#x26;#x26;#x26;#x26;#x26;#x26;#x26;#x60;>
+      <transition name="popover" mode="out-in" &#x26;#x26;#x26;#x26;#x26;#x26;#x26;#x26;#x26;#x60;>
         <div class="modal">
           <div class="modal__container">
             <div class="modal__header">
               <h4 class="text" v-text="label"></h4>
-              <button class="btn btn-icon-circle flat nb close" @click="$shareDialog = false" title="Close Share">
+              <button
+                class="btn btn-icon-circle flat nb close"
+                @click="$shareDialog = false"
+                title="Close Share"
+              >
                 <i class="material-icons">close</i>
               </button>
             </div>
             <div class="modal__body">
               <ul class="modal__share-list">
                 <li v-for="(link, i) in shareLinks" :key="i" class="modal__share-list-item">
-                  <a class="link" :href="link.url" target="_blank" :class="link.class" :title="`Share on ${link.name}`">
+                  <a
+                    class="link"
+                    :href="link.url"
+                    target="_blank"
+                    :class="link.class"
+                    :title="`Share on ${link.name}`"
+                  >
                     <img :src="`/${link.id}.svg`" :alt="`Share on ${link.name}`" />
                   </a>
                 </li>
               </ul>
-              <input ref="copy" class="modal__share_url" type="text" readonly :value="shareLink" onclick="this.select()" @click="copy" />
+              <input
+                ref="copy"
+                class="modal__share_url"
+                type="text"
+                readonly
+                :value="shareLink"
+                onclick="this.select()"
+                @click="copy"
+              />
               <transition name="popover" mode="out-in">
                 <div class="modal__share_url_popover" v-if="copyPopover">
                   <i class="material-icons">check</i>
@@ -113,7 +131,8 @@ export default {
 
 .modal {
   &__container {
-    width: 350px;
+    width: 375px;
+    padding: 2rem;
   }
   &__header {
     display: flex;

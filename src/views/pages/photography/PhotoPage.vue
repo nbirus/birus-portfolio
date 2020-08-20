@@ -1,5 +1,5 @@
 <template>
-  <div class="page photo-page">
+  <div class="page photo-page" @click.self.prevent.stop="close">
     <div class="photo-page__toolbar">
       <div class="photo-page__count">
         <div class="name" v-text="`${photoIndex + 1}/${photoLength}`"></div>
@@ -14,12 +14,22 @@
 					@click="infoDialog = true"
 				>
 					<i class="material-icons small">info</i>
-				</button>-->
+        </button>-->
 
-        <button id="download" class="btn btn-icon-circle btn-action flat" title="Download" @click="download">
+        <button
+          id="download"
+          class="btn btn-icon-circle btn-action flat"
+          title="Download"
+          @click="download"
+        >
           <i class="material-icons small">open_in_new</i>
         </button>
-        <button id="share" class="btn btn-icon-circle btn-action flat" title="Share Image" @click="$shareDialog = true">
+        <button
+          id="share"
+          class="btn btn-icon-circle btn-action flat"
+          title="Share Image"
+          @click="$shareDialog = true"
+        >
           <i class="material-icons small">share</i>
         </button>
         <!-- <button
@@ -29,8 +39,13 @@
 					@click="isExpanded = !isExpanded"
 				>
 					<i class="material-icons">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
-				</button> -->
-        <button id="close" class="btn btn-icon-circle btn-action flat close" title="Close Image" @click="close">
+        </button>-->
+        <button
+          id="close"
+          class="btn btn-icon-circle btn-action flat close"
+          title="Close Image"
+          @click="close"
+        >
           <i class="material-icons">close</i>
         </button>
       </div>
@@ -48,15 +63,15 @@
         />
       </div>
       <div class="photo-page__main-controls">
-        <div class="left" @click.self.prevent.stop="close">
+        <div class="left">
           <router-link class="link" :to="prevLink" ref="prev">
             <div class="i-c">
               <i class="material-icons">chevron_left</i>
             </div>
           </router-link>
         </div>
-        <div class="center" @click.self.prevent.stop="close"></div>
-        <div class="right" @click.self.prevent.stop="close">
+        <div class="center"></div>
+        <div class="right">
           <router-link class="link" :to="nextLink" ref="next">
             <div class="i-c">
               <i class="material-icons">chevron_right</i>
@@ -360,7 +375,7 @@ function getOffset(el) {
     max-height: 100%;
     max-width: 100%;
     animation: pop-in 0.75s ease;
-    pointer-events: none;
+    pointer-events: auto;
   }
 
   // controls
@@ -370,8 +385,10 @@ function getOffset(el) {
     right: 0;
     left: 0;
     display: flex;
+    align-items: center;
     height: 100%;
     z-index: 2;
+    pointer-events: none;
 
     a {
       display: block;
@@ -383,12 +400,13 @@ function getOffset(el) {
       color: white;
       width: 200px;
       height: 200px;
+      pointer-events: auto;
 
       &:hover .i-c {
-        background: fade-out(white, 0.85);
+        background: fade-out(black, 0.35);
       }
       &:active .i-c {
-        background: fade-out(white, 0.7);
+        background: fade-out(black, 0.15);
         @include active-shadow;
       }
     }
@@ -407,11 +425,12 @@ function getOffset(el) {
     .left,
     .right {
       flex: 1;
-      height: 100%;
-      pointer-events: auto;
+      height: 200px;
+      pointer-events: none;
       display: flex;
       align-items: center;
       justify-content: center;
+      pointer-events: auto;
     }
     .center {
       flex: 2;

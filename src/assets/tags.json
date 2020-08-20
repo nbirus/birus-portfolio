@@ -1,16 +1,14 @@
-[
-  {
-    "id": "outter-banks",
+[{
+    "id": "outer-banks",
     "label": "Outter Banks",
     "new": true,
     "count": 10,
-    "src": ""
+    "src": "https://live.staticflickr.com/65535/50245859768_527eec9344_m.jpg"
   },
   {
     "id": "landscapes",
     "label": "Landscapes",
     "src": "https://live.staticflickr.com/65535/49554330817_9459b3cf41_m.jpg",
-    "srcLrg": "https://live.staticflickr.com/65535/49554330817_9459b3cf41_b.jpg",
     "count": 12
   },
   {
