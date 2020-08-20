@@ -5,15 +5,7 @@
       <div class="overlay"></div>
       <img :src="tag.srcLrg" :alt="tag.label" />
     </div>-->
-    <div class="page__header">
-      <div class="page__title-container">
-        <transition name="title" mode="out-in">
-          <div class="tag-title text" key="tag">
-            <h1 v-text="tag.label || 'Photography'"></h1>
-          </div>
-        </transition>
-      </div>
-    </div>
+
     <!-- header -->
     <!-- <div class="page__header" v-if="tagActive">
       <div class="page__title-container">
@@ -35,6 +27,15 @@
       </div>
     </div>-->
 
+    <!-- <div class="page__title-container" :class="{open: tag.label}">
+      <transition name="title" mode="out-in">
+        <div class="tag-title text" v-if="tag.label" :key="pageKey">
+          <h1 class="mr-1" v-text="tag.label || ''"></h1>
+          <h6 class="thin text-secondary" v-text="`${tag.count} photos`"></h6>
+        </div>
+      </transition>
+    </div>-->
+
     <!-- slider -->
     <div class="page__slider" v-if="!hideTags">
       <photography-tag-slider :width="width$" @tag="scrollToTop" />
@@ -42,7 +43,7 @@
 
     <!-- gallery -->
     <div class="page__gallery">
-      <photography-gallery :loading="loading" />
+      <photography-gallery :key="pageKey" :pageKey="pageKey" />
     </div>
 
     <!-- photo -->
@@ -69,6 +70,7 @@ export default {
     return {
       hideTags: false,
       scrollY: 0,
+      pageKey: 0,
       tag: {},
       loading: false,
     }
@@ -82,9 +84,6 @@ export default {
     },
     tagActive() {
       return !!this.tag.id && !this.hideTags
-    },
-    pageKey() {
-      return this.$route.query.tag
     },
   },
   methods: {
@@ -102,12 +101,9 @@ export default {
       if (to.params.id === undefined) {
         this.setTag()
       }
-    },
-    pageKey() {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 1250)
+      if (to.name === 'photography' && from.name !== 'photo') {
+        this.pageKey++
+      }
     },
   },
 }
@@ -122,47 +118,21 @@ export default {
   flex-direction: column;
   overflow-y: hidden;
 
-  &__banner {
-    height: 0;
-    background-color: var(--c-grey1);
-    transition: height var(--t) ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-
-    img {
-      width: 100%;
-      height: auto;
-    }
-    .overlay {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      height: 300px;
-      background: rgb(0, 0, 0);
-      background: radial-gradient(circle, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 100%);
-      z-index: 1;
-    }
-  }
-  &__header {
-    padding: 3rem 4rem 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
   &__title-container {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 2rem;
+    padding: 2rem 4.5rem 0;
+    height: 0;
+    transition: height 0.5s ease;
+    overflow: hidden;
 
     .tag-title {
-      h5 {
-        margin-bottom: 0.35rem;
-      }
+      display: flex;
+      align-items: flex-end;
+    }
+
+    &.open {
+      height: 130px;
     }
   }
   &__buttons-container {
@@ -174,7 +144,7 @@ export default {
     }
   }
   &__slider {
-    padding: 0 4rem;
+    padding: 2rem 4rem 0;
     margin-bottom: 2rem;
   }
   &__gallery {

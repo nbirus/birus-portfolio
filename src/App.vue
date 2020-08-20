@@ -15,6 +15,8 @@
 <script>
 import HeaderBar from '@/views/partials/Header'
 import SideBar from '@/views/partials/SideBar'
+import photos from '@/assets/photos'
+import tags from '@/assets/tags.json'
 
 import ShareDialog from '@/views/dialogs/ShareDialog'
 import ContactDialog from '@/views/dialogs/ContactDialog'
@@ -32,6 +34,21 @@ export default {
     hideNav() {
       return this.$route.params.id
     },
+  },
+  mounted() {
+    let obj = {}
+    photos.forEach(photo => {
+      photo.tags.forEach(tag => {
+        if (obj[tag] === undefined) {
+          obj[tag] = 1
+        } else {
+          obj[tag] = obj[tag] + 1
+        }
+      })
+    })
+    tags.forEach(tag => {
+      tag.count = obj[tag.id]
+    })
   },
   watch: {
     $shareDialog(shareDialog) {

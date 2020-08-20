@@ -45,13 +45,12 @@ export default {
   name: 'photography-gallery',
   components: { Photo },
   mixins: [WidthMixin],
-  props: ['loading'],
+  props: ['loading', 'pageKey'],
   data() {
     return {
       activePhotos: [],
       positions: [],
       pageStyle: {},
-      tag: '',
     }
   },
   computed: {
@@ -61,16 +60,15 @@ export default {
         height: photo.height,
       }))
     },
-    filteredPhotos() {
-      if (!this.tag) {
-        return clone(photos).sort(sortPhotos)
-      }
-      return clone(photos)
-        .filter(photo => photo.tags.includes(this.tag))
-        .sort(sortPhotos)
-    },
   },
   methods: {
+    filterPhotos() {
+      let activePhotos = clone(photos)
+      if (this.$route.query.tag) {
+        activePhotos = activePhotos.filter(photo => photo.tags.includes(this.$route.query.tag))
+      }
+      this.activePhotos = activePhotos.sort(sortPhotos)
+    },
     fit() {
       let width = this.width$
       let spacing = 8
@@ -117,24 +115,14 @@ export default {
     },
   },
   watch: {
+    pageKey: {
+      handler: 'filterPhotos',
+      immediate: true,
+    },
     width$: 'fit',
     activePhotos: {
       handler: 'fit',
       deep: true,
-    },
-    filteredPhotos: {
-      handler(photos) {
-        this.activePhotos = photos
-        // setTimeout(() => {
-        // }, 250)
-      },
-      deep: true,
-      immediate: true,
-    },
-    $route(route) {
-      if (route.name === 'photography') {
-        this.tag = this.$route.query.tag
-      }
     },
   },
 }

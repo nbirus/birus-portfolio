@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="scrolling-wrapper__label text">
-            <span v-text="tag.label"></span>
+            <span class="label" v-text="tag.label"></span>
             <span class="count text-secondary">{{ tag.count }} photos</span>
           </div>
         </router-link>
@@ -39,6 +39,7 @@
 
 <script>
 import tags from '@/assets/tags.json'
+import photos from '@/assets/photos'
 
 export default {
   name: 'photography-tag-slider',
@@ -129,6 +130,7 @@ function clone(o) {
 
     &.active-true {
       .scrolling-wrapper__button {
+        box-shadow: 0 0 0 2px #2296f3;
         background-color: fade-out(#2296f3, 0.85);
       }
       .scrolling-wrapper__label {
@@ -206,7 +208,10 @@ function clone(o) {
       color: white;
 
       i {
-        transform: scale(2);
+        background-color: fade-out(black, 0.7);
+        border-radius: 50%;
+        transform: scale(1.1);
+        padding: 0.75rem;
         // color: #2296f3;
       }
     }
@@ -218,6 +223,9 @@ function clone(o) {
 
     .count {
       font-size: 0.7rem;
+    }
+    .label {
+      font-size: 1.05rem;
     }
   }
   .after {

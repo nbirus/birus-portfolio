@@ -6,7 +6,9 @@
     <transition name="fade" mode="out-in" appear>
       <div class="nb-header__logo" v-if="$route.name !== 'home'">nbirus</div>
     </transition>
-    <div class="nb-header__middle"></div>
+    <div class="nb-header__middle">
+      <!-- <div>Landscapes</div> -->
+    </div>
     <div class="nb-header__links">
       <router-link class="nb-header__link" to="/" exact>Home</router-link>
       <router-link class="nb-header__link" to="design">Projects</router-link>
@@ -65,6 +67,14 @@ export default {
   }
   &__middle {
     flex-grow: 1;
+    font-size: 1.25rem;
+    // font-weight: 900;
+    padding: 1rem 4.5rem 0;
+
+    div {
+      padding: 0.5rem 1.5rem;
+      border-left: solid thin var(--c-grey3);
+    }
   }
   &__links {
     display: flex;
