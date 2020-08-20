@@ -17,7 +17,12 @@
         <router-link class="nb-sidebar__link" to="/" exact>Home</router-link>
         <router-link class="nb-sidebar__link" to="photography">Photography</router-link>
         <router-link class="nb-sidebar__link" to="design">Projects</router-link>
-        <router-link class="nb-sidebar__link" to="contact">Contact me</router-link>
+        <a
+          href="#"
+          @click.prevent="$contactDialog = true"
+          class="nb-sidebar__link"
+          to="contact"
+        >Contact me</a>
       </div>
     </nav>
   </div>

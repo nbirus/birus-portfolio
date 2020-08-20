@@ -78,7 +78,6 @@
 }
 
 .btn.btn-icon-circle {
-  background-color: white;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -89,6 +88,7 @@
 
   i {
     font-size: 2rem;
+    // color: white;
   }
 
   &.nb {
@@ -99,6 +99,9 @@
     box-shadow: 0 1px 3px fade-out(black, 0.75);
   }
 
+  &:hover {
+    background-color: fade-out(black, 0.9);
+  }
   &:active,
   &:focus {
     background-color: white;

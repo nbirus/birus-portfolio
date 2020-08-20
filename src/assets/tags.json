@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": "outer-banks",
     "label": "Outer Banks",
     "new": true,
@@ -27,6 +28,7 @@
     "id": "stars",
     "label": "Stars",
     "count": 3,
+    "vertical": true,
     "src": "https://live.staticflickr.com/65535/50245935568_c07cb9affa_m.jpg"
   },
 
@@ -45,12 +47,14 @@
   {
     "id": "new-york",
     "label": "New York",
+    "vertical": true,
     "count": 10,
     "src": "https://live.staticflickr.com/65535/50246609101_a0fc9e2898_m.jpg"
   },
   {
     "id": "peru",
     "label": "Peru",
+    "vertical": true,
     "count": 10,
     "src": "https://live.staticflickr.com/65535/49878391083_5e045a3401_m.jpg"
   },

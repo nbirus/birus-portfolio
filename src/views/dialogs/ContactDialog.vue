@@ -202,4 +202,14 @@ export default {
 .modal-leave-active .modal-container {
   transform: scale(0.8);
 }
+
+@media only screen and (max-width: 768px) {
+  .modal {
+    &__container {
+      width: 100%;
+      padding: 2rem 2rem;
+      font-size: 0.9rem;
+    }
+  }
+}
 </style>

@@ -1,15 +1,15 @@
 <template>
-  <div class="contain">
-    <button class="btn btn-icon-circle nb flat mr-3" v-if="showLeft" @click="prevPage">
+  <div class="contain" :class="{ showRight, showLeft }">
+    <button class="btn btn-icon-circle nb left flat mr-3" v-if="showLeft" @click="prevPage">
       <i class="material-icons">chevron_left</i>
     </button>
 
-    <ul class="scrolling-wrapper" :class="{ showRight, showLeft }">
+    <transition-group tag="ul" name="list" class="scrolling-wrapper">
       <li
         class="scrolling-wrapper__item"
         v-for="tag in visibleTags"
         :key="`tag-${tag.id}`"
-        :class="`size-${size} new-${tag.new} active-${activeTag === tag.id}`"
+        :class="`size-${size} new-${tag.new} vertical-${tag.vertical} active-${activeTag === tag.id}`"
       >
         <router-link
           tag="button"
@@ -29,9 +29,9 @@
           </div>
         </router-link>
       </li>
-    </ul>
+    </transition-group>
 
-    <button class="btn btn-icon-circle nb flat" v-if="showRight" @click="nextPage">
+    <button class="btn btn-icon-circle right nb flat" v-if="showRight" @click="nextPage">
       <i class="material-icons">chevron_right</i>
     </button>
   </div>
@@ -56,10 +56,10 @@ export default {
       if (this.width < 768) {
         return tags.length
       } else if (this.width > 1600) {
-        return 6
+        return 7
       } else if (this.width > 1300) {
         return 6
-      } else if (this.width > 1150) {
+      } else if (this.width > 1200) {
         return 5
       } else if (this.width > 975) {
         return 4
@@ -106,32 +106,33 @@ function clone(o) {
   display: flex;
   align-items: center;
   height: auto;
+  padding: 0 4rem;
+
+  &.showLeft {
+    padding: 0 4rem 0 2rem;
+  }
+  &.showRight {
+    padding: 0 2rem 0 4rem;
+  }
+  &.showLeft.showRight {
+    padding: 0 2rem;
+  }
 }
 .scrolling-wrapper {
   display: flex;
   flex-wrap: nowrap;
   max-width: 100%;
   height: auto;
-
   flex: 0 1 100%;
-
-  &.showLeft {
-    max-width: calc(100% - 50px);
-  }
-  &.showRight {
-    max-width: calc(100% - 50px);
-  }
-  &.showLeft.showRight {
-    max-width: calc(100% - 100px);
-  }
 
   &__item {
     padding: 0 1rem 0 0;
 
     &.active-true {
       .scrolling-wrapper__button {
-        box-shadow: 0 0 0 3px #2296f3;
+        box-shadow: 0 0 0 2px #2296f3;
         background-color: fade-out(#2296f3, 0.85);
+        border-color: var(--c-blue);
       }
       .scrolling-wrapper__label {
         color: darken(#2296f3, 25);
@@ -160,10 +161,20 @@ function clone(o) {
       flex: 0 0 20%;
     }
     &.size-4 {
+      .scrolling-wrapper__img {
+        height: 4rem;
+        width: 4rem;
+      }
       flex: 0 0 25%;
     }
     &.size-3 {
       flex: 0 0 33.333%;
+    }
+    &.vertical-true {
+      img {
+        height: auto;
+        width: 5rem;
+      }
     }
   }
   &__button {
@@ -204,7 +215,7 @@ function clone(o) {
 
     img {
       width: auto;
-      height: 5rem;
+      height: 5.5rem;
     }
 
     .icon {
@@ -243,6 +254,16 @@ function clone(o) {
     display: none;
   }
 }
+.right {
+  // right: -1.5rem;
+}
+.left {
+  // left: -1.5rem;
+}
+.btn-icon-circle {
+  min-width: 40px;
+  // position: absolute;
+}
 .contain {
   position: relative;
 }
@@ -265,7 +286,12 @@ function clone(o) {
 }
 
 @media only screen and (max-width: 768px) {
+  .contain {
+    padding: 0 !important;
+  }
   .scrolling-wrapper {
+    padding: 0.5rem 1rem !important;
+
     .btn-icon-circle {
       display: none;
     }
