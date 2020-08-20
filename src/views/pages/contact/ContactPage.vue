@@ -71,11 +71,6 @@ export default {
   methods: {
     onSubmit() {
       this.sending = true
-      console.log({
-        name: this.name,
-        email: this.email,
-        message: this.message,
-      })
 
       fetch('https://nbirus-portfolio-api.herokuapp.com/', {
         method: 'post',
