@@ -85,7 +85,8 @@ export default {
         spacing = 8
         idealElementHeight = 300
       } else if (width < 768) {
-        return
+        spacing = 8
+        idealElementHeight = 300
       }
 
       let result = layout(this.elements, {

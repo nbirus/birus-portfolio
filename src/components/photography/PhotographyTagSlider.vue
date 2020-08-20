@@ -126,18 +126,18 @@ function clone(o) {
   }
 
   &__item {
-    padding: 0 0.75rem 0 0;
+    padding: 0 1rem 0 0;
 
     &.active-true {
       .scrolling-wrapper__button {
-        box-shadow: 0 0 0 2px #2296f3;
+        box-shadow: 0 0 0 3px #2296f3;
         background-color: fade-out(#2296f3, 0.85);
       }
       .scrolling-wrapper__label {
         color: darken(#2296f3, 25);
       }
-      img {
-        opacity: 0.95;
+      .scrolling-wrapper__img {
+        border-radius: 0.5rem 0 0 0.5rem;
       }
     }
 
@@ -169,37 +169,48 @@ function clone(o) {
   &__button {
     width: 100%;
     height: auto;
-    padding: 0.5rem;
+    padding: 0;
     display: flex;
     align-items: center;
     border: none;
     background-color: #fff;
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
+    border: solid thin transparent;
 
     &:hover {
-      box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0px 3px 1rem rgba(0, 0, 0, 0.1);
+      border-color: var(--c-blue);
+
+      .scrolling-wrapper__img {
+        border-radius: 0.5rem 0 0 0.5rem;
+      }
     }
     &:active,
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px var(--c-blue);
     }
   }
   &__img {
     background-color: var(--c-grey1);
     width: 5rem;
-    height: 5rem;
+    height: 4.5rem;
     margin-right: 0.75rem;
     border-radius: 0.5rem;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: border-radius 0.2s ease;
+
+    img {
+      width: auto;
+      height: 5rem;
+    }
 
     .icon {
       position: absolute;
       width: 5rem;
-      height: 5rem;
+      height: 4.5rem;
       border-radius: 0.5rem;
       background-color: fade-out(darken(#2296f3, 20), 0.75);
       display: flex;
@@ -208,11 +219,11 @@ function clone(o) {
       color: white;
 
       i {
+        animation: icon 0.2s ease;
         background-color: fade-out(black, 0.7);
         border-radius: 50%;
         transform: scale(1.1);
         padding: 0.75rem;
-        // color: #2296f3;
       }
     }
   }
@@ -225,7 +236,7 @@ function clone(o) {
       font-size: 0.7rem;
     }
     .label {
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
   }
   .after {
@@ -235,44 +246,73 @@ function clone(o) {
 .contain {
   position: relative;
 }
+
+@keyframes icon {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes iconsm {
+  0% {
+    transform: scale(0.2);
+  }
+  100% {
+    transform: scale(0.7);
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .scrolling-wrapper {
     .btn-icon-circle {
       display: none;
     }
 
-    // display: flex;
-    // flex-wrap: nowrap;
-    // overflow-x: auto;
-    // -webkit-overflow-scrolling: touch;
-    // padding: 1rem 1.5rem;
-    // &::-webkit-scrollbar {
-    //   display: none;
-    // }
-    // .after {
-    //   min-width: 2.5rem;
-    //   height: 100px;
-    //   position: relative;
-    //   display: block;
-    // }
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 2rem 1.5rem 0;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .after {
+      min-width: 2.5rem;
+      height: 100px;
+      position: relative;
+      display: block;
+    }
 
-    // &__item {
-    //   height: 120px;
-    //   flex: 0 0 135px;
-    //   padding: 0 0.5rem;
-    // }
-    // &__img {
-    //   height: 70%;
-    // }
-    // &__label {
-    //   height: 30%;
-    //   padding-left: 0.75rem;
-    //   font-size: 0.9rem;
-    //   text-overflow: ellipsis;
-    //   white-space: nowrap;
-    //   overflow: hidden;
-    //   font-weight: var(--bold);
-    // }
+    &__item {
+      flex: 1 0 auto;
+      padding: 0 1rem 0 0;
+      min-width: 150px;
+    }
+    &__button {
+      padding-right: 1rem;
+    }
+    &__img {
+      width: 3rem;
+      height: 3rem;
+
+      .icon {
+        width: 3rem;
+        height: 3rem;
+
+        i {
+          animation: iconsm 0.2s ease;
+          transform: scale(0.7);
+        }
+      }
+    }
+    &__label {
+      font-size: 0.9rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 }
 </style>

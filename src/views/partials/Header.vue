@@ -1,8 +1,5 @@
 <template>
   <div class="nb-header" role="navigation" :class="[$darkClass, shadow && 'shadow']">
-    <button class="btn btn-thumb nb-header__menu" @click="$emit('side-bar')" type="button">
-      <i class="material-icons">menu</i>
-    </button>
     <transition name="fade" mode="out-in" appear>
       <div class="nb-header__logo" v-if="$route.name !== 'home'">nbirus</div>
     </transition>
@@ -23,6 +20,9 @@
     </div>
     <button class="nb-header__dark-mode btn btn-thumb" @click="$dark = !$dark" v-if="false">
       <i class="material-icons">{{ !$dark ? 'brightness_low' : 'brightness_high' }}</i>
+    </button>
+    <button class="btn btn-thumb nb-header__menu" @click="$emit('side-bar')" type="button">
+      <i class="material-icons">menu</i>
     </button>
   </div>
 </template>
@@ -185,8 +185,10 @@ export default {
       display: none !important;
     }
     &__logo {
-      width: 100%;
-      text-align: right;
+      position: absolute;
+      left: 1.5rem;
+      top: 1rem;
+      // text-align: right;
     }
   }
 }

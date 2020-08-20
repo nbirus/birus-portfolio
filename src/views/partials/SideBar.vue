@@ -1,13 +1,17 @@
 <template>
-  <div class="nb-sidebar" :class="[{ open: value }, $darkClass]" @click.self="$emit('input', false)">
+  <div
+    class="nb-sidebar"
+    :class="[{ open: value }, $darkClass]"
+    @click.self="$emit('input', false)"
+  >
     <nav class="nb-sidebar__container">
       <div class="nb-sidebar__header">
         <button class="btn btn-thumb" @click="$emit('input', false)">
           <i class="material-icons">close</i>
         </button>
-        <button class="nb-sidebar__dark-mode btn btn-icon-circle flat nb" @click="$dark = !$dark">
+        <!-- <button class="nb-sidebar__dark-mode btn btn-icon-circle flat nb" @click="$dark = !$dark">
           <i class="material-icons">{{ !$dark ? 'brightness_low' : 'brightness_high' }}</i>
-        </button>
+        </button>-->
       </div>
       <div class="nb-sidebar__links">
         <router-link class="nb-sidebar__link" to="/" exact>Home</router-link>
@@ -47,18 +51,18 @@ export default {
     max-width: 268px;
     background-color: #fff;
     height: 100%;
-    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
-    transform: translateX(-110%);
+    box-shadow: none;
+    transform: translateX(140%);
     display: flex;
     flex-direction: column;
-    will-change: transform;
-    transition: transform 0.25s ease-in-out;
+    will-change: transform, box-shadow;
+    transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
   }
   &__header {
     padding: 1rem;
     border-bottom: solid thin var(--c-border);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     height: var(--header-height);
   }
@@ -101,7 +105,8 @@ export default {
   }
   .nb-sidebar {
     &__container {
-      transform: translateX(0%);
+      transform: translateX(40%);
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
     }
   }
 }
