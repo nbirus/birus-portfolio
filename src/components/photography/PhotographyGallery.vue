@@ -148,7 +148,7 @@ const sort = [
   '(Peru, Chile)',
   '(Atacama, Chile)',
   '(Jamaica)',
-  '(Chesapeake, Chile)',
+  '(Chesapeake, US)',
   '(Maryland, US)',
 ]
 
