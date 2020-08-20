@@ -137,7 +137,20 @@ export default {
   },
 }
 
-const sort = ['(Outer Banks, US)', '(San Francisco, US)', '(Patagonia, Chile)', '(Atacama, Chile)']
+const sort = [
+  '(Outer Banks, US)',
+  '(San Francisco, US)',
+  '(New York, US)',
+  '(Maine, US)',
+  '(Patagonia, Chile)',
+  '(Easter Island, Chile)',
+  '(Vina del Mar, Chile)',
+  '(Peru, Chile)',
+  '(Atacama, Chile)',
+  '(Jamaica)',
+  '(Chesapeake, Chile)',
+  '(Maryland, US)',
+]
 
 function sortPhotos(a, b) {
   let aSort = sort.findIndex(s => a.description.includes(s))
