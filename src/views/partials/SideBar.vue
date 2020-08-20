@@ -31,6 +31,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media only screen and (min-width: 768px) {
+  .nb-sidebar {
+    display: none;
+  }
+}
 .nb-sidebar {
   &:before {
     content: '';
@@ -48,11 +53,11 @@ export default {
   &__container {
     position: relative;
     width: 90%;
-    max-width: 268px;
+    width: 268px;
     background-color: #fff;
     height: 100%;
     box-shadow: none;
-    transform: translateX(140%);
+    right: -100vw;
     display: flex;
     flex-direction: column;
     will-change: transform, box-shadow;
@@ -105,7 +110,7 @@ export default {
   }
   .nb-sidebar {
     &__container {
-      transform: translateX(40%);
+      transform: translateX(-268px);
       box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
     }
   }
