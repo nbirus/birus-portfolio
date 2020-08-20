@@ -167,7 +167,7 @@ function clone(o) {
   &__button {
     width: 100%;
     height: auto;
-    padding: 0.4rem;
+    padding: 0.5rem;
     display: flex;
     align-items: center;
     border: none;
@@ -185,8 +185,8 @@ function clone(o) {
   }
   &__img {
     background-color: var(--c-grey1);
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
     margin-right: 0.75rem;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -196,14 +196,18 @@ function clone(o) {
 
     .icon {
       position: absolute;
-      width: 4rem;
-      height: 4rem;
+      width: 5rem;
+      height: 5rem;
       border-radius: 0.5rem;
-      background-color: fade-out(#2296f3, 0.5);
+      background-color: fade-out(darken(#2296f3, 20), 0.75);
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
+
+      i {
+        transform: scale(2);
+      }
     }
   }
   &__label {

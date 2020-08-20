@@ -33,7 +33,7 @@ export default {
   mixins: [ScrollMixin],
   computed: {
     shadow() {
-      return this.$route.query.tag !== undefined || this.scroll$ > 32
+      return this.scroll$ > 32
     },
   },
 }

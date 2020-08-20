@@ -5,7 +5,19 @@
       <div class="overlay"></div>
       <img :src="tag.srcLrg" :alt="tag.label" />
     </div>-->
-
+    <div class="page__header">
+      <div class="page__title-container">
+        <transition name="title" mode="out-in">
+          <div class="title text" v-if="!tagActive" key="title">
+            <h1>Photography</h1>
+          </div>
+          <div class="tag-title text" v-else key="tag">
+            <!-- <h5 class="thin">Photography</h5> -->
+            <h1 v-text="tag.label"></h1>
+          </div>
+        </transition>
+      </div>
+    </div>
     <!-- header -->
     <!-- <div class="page__header" v-if="tagActive">
       <div class="page__title-container">
@@ -140,14 +152,17 @@ export default {
     }
   }
   &__header {
-    padding: 2rem 4rem 0;
-    margin-bottom: 3rem;
+    padding: 3rem 4rem 0;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
   &__title-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+
     .tag-title {
       h5 {
         margin-bottom: 0.35rem;
@@ -163,21 +178,12 @@ export default {
     }
   }
   &__slider {
-    padding: 2rem 4rem;
+    padding: 0 4rem;
+    margin-bottom: 2rem;
   }
   &__gallery {
     padding: 0 4rem;
     position: relative;
-  }
-}
-.tag-active {
-  .page {
-    &__banner {
-      height: 300px;
-    }
-    &__slider {
-      margin-bottom: 0;
-    }
   }
 }
 .photo-active {

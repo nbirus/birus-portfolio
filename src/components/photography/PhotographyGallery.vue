@@ -65,7 +65,9 @@ export default {
       if (!this.tag) {
         return clone(photos).sort(sortPhotos)
       }
-      return clone(photos).filter(photo => photo.tags.includes(this.tag))
+      return clone(photos)
+        .filter(photo => photo.tags.includes(this.tag))
+        .sort(sortPhotos)
     },
   },
   methods: {

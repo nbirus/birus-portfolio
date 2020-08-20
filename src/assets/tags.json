@@ -2,7 +2,7 @@
     "id": "outer-banks",
     "label": "Outer Banks",
     "new": true,
-    "count": 10,
+    "count": 5,
     "src": "https://live.staticflickr.com/65535/50245859768_527eec9344_m.jpg"
   },
   {
@@ -20,26 +20,26 @@
   {
     "id": "nature",
     "label": "Nature",
-    "count": 10,
+    "count": 6,
     "src": "https://live.staticflickr.com/65535/50246115146_2029bcdd14_m.jpg"
   },
   {
     "id": "stars",
     "label": "Stars",
-    "count": 10,
+    "count": 3,
     "src": "https://live.staticflickr.com/65535/50245935568_c07cb9affa_m.jpg"
   },
 
   {
     "id": "san-francisco",
     "label": "San Francisco",
-    "count": 10,
+    "count": 6,
     "src": "https://live.staticflickr.com/65535/50246116931_103dfea6a7_m.jpg"
   },
   {
     "id": "jamaica",
     "label": "Jamaica",
-    "count": 10,
+    "count": 11,
     "src": "https://live.staticflickr.com/65535/50245931813_4d178f6f71_m.jpg"
   },
   {
