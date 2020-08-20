@@ -8,12 +8,8 @@
     <div class="page__header">
       <div class="page__title-container">
         <transition name="title" mode="out-in">
-          <div class="title text" v-if="!tagActive" key="title">
-            <h1>Photography</h1>
-          </div>
-          <div class="tag-title text" v-else key="tag">
-            <!-- <h5 class="thin">Photography</h5> -->
-            <h1 v-text="tag.label"></h1>
+          <div class="tag-title text" key="tag">
+            <h1 v-text="tag.label || 'Photography'"></h1>
           </div>
         </transition>
       </div>

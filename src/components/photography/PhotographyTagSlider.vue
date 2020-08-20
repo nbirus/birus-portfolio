@@ -207,6 +207,7 @@ function clone(o) {
 
       i {
         transform: scale(2);
+        // color: #2296f3;
       }
     }
   }

@@ -133,12 +133,12 @@ $transition-out: cubic-bezier(0.96, 0.01, 1, 0.51);
 
 .title-enter {
 	opacity: 0;
-	transform: translateY(2rem);
+	transform: translateY(1rem);
 }
 
 .title-leave-to {
 	opacity: 0;
-	transform: translateY(-2rem);
+	transform: translateY(-1rem);
 }
 
 // fade-down-left
