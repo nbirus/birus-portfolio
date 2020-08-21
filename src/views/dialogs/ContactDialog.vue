@@ -205,9 +205,11 @@ export default {
 
 @media only screen and (max-width: 768px) {
   .modal {
+    width: calc(100% - 1rem);
+
     &__container {
       width: 100%;
-      padding: 2rem 2rem;
+      padding: 2rem;
       font-size: 0.9rem;
     }
   }

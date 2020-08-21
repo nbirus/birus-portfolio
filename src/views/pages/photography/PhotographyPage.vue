@@ -212,7 +212,8 @@ export default {
     color: white;
     border: none;
     font-size: 0.8rem;
-    border-radius: 0.5rem;
+    border-radius: 25px;
+    padding: 0.75rem 1rem;
 
     &:hover {
       background-color: lighten(black, 15);
@@ -301,11 +302,14 @@ export default {
       margin: 0;
 
       .text-secondary {
-        margin-top: 0.35rem;
+        margin-top: 0.5rem;
+        font-size: 0.8rem;
       }
     }
     .btn-clear {
       flex: 0 1 auto;
+      border-radius: 0.3rem;
+      padding: 0.75rem 1.25rem;
     }
   }
 }

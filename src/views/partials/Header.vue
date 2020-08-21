@@ -58,7 +58,7 @@ export default {
 
   &__logo {
     font-weight: var(--bold);
-    font-size: 1.85rem;
+    font-size: 1.75rem;
     margin-bottom: -0.5rem;
     font-family: 'Permanent Marker', cursive;
   }
