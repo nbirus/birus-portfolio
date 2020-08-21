@@ -126,20 +126,6 @@ export default {
         this.pageKey++
       }
     },
-    tag(tag) {
-      if (tag.label) {
-        if (snackbarTimeout !== null) {
-          clearTimeout(snackbarTimeout)
-        }
-        this.snackbar.show = true
-        this.snackbar.message = `Filtering by <strong>${tag.label}</strong> (${tag.count})`
-        snackbarTimeout = setTimeout(() => {
-          this.snackbar.show = false
-        }, 4000)
-      } else {
-        this.snackbar.show = false
-      }
-    },
   },
 }
 </script>

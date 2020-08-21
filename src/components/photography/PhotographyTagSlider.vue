@@ -4,32 +4,34 @@
       <i class="material-icons">chevron_left</i>
     </button>
 
-    <transition-group tag="ul" name="list" class="scrolling-wrapper">
-      <li
-        class="scrolling-wrapper__item"
-        v-for="tag in visibleTags"
-        :key="`tag-${tag.id}`"
-        :class="`size-${size} new-${tag.new} vertical-${tag.vertical} active-${activeTag === tag.id}`"
-      >
-        <router-link
-          tag="button"
-          :to="activeTag !== tag.id ? { path: 'photography', query: { tag: tag.id } } : { path: 'photography' }"
-          class="btn scrolling-wrapper__button"
-          @click="$emit('tag')"
+    <transition :name="`slider-${direction}`" mode="out-in">
+      <ul :key="page" class="scrolling-wrapper">
+        <li
+          class="scrolling-wrapper__item"
+          v-for="(tag, i) in visibleTags"
+          :key="`tag-${tag.id}`"
+          :class="`size-${size} new-${tag.new} vertical-${tag.vertical} active-${activeTag === tag.id} delay-${i}`"
         >
-          <div class="scrolling-wrapper__img">
-            <img :src="tag.src" :alt="tag.label" />
-            <div class="icon" v-if="activeTag === tag.id">
-              <i class="material-icons">check</i>
+          <router-link
+            tag="button"
+            :to="activeTag !== tag.id ? { path: 'photography', query: { tag: tag.id } } : { path: 'photography' }"
+            class="btn scrolling-wrapper__button"
+            @click="$emit('tag')"
+          >
+            <div class="scrolling-wrapper__img">
+              <img :src="tag.src" :alt="tag.label" />
+              <div class="icon" v-if="activeTag === tag.id">
+                <i class="material-icons">check</i>
+              </div>
             </div>
-          </div>
-          <div class="scrolling-wrapper__label text">
-            <span class="label" v-text="tag.label"></span>
-            <span class="count text-secondary">{{ tag.count }} photos</span>
-          </div>
-        </router-link>
-      </li>
-    </transition-group>
+            <div class="scrolling-wrapper__label text">
+              <span class="label" v-text="tag.label"></span>
+              <span class="count text-secondary">{{ tag.count }} photos</span>
+            </div>
+          </router-link>
+        </li>
+      </ul>
+    </transition>
 
     <button class="btn btn-icon-circle right nb flat" v-if="showRight" @click="nextPage">
       <i class="material-icons">chevron_right</i>
@@ -49,6 +51,7 @@ export default {
       page: 0,
       from: 0,
       tags,
+      direction: 'right',
     }
   },
   computed: {
@@ -85,10 +88,12 @@ export default {
   },
   methods: {
     prevPage() {
+      this.direction = 'left'
       this.page--
       this.from = this.size * this.page
     },
     nextPage() {
+      this.direction = 'right'
       this.page++
       this.from = this.size * this.page
     },
@@ -107,6 +112,7 @@ function clone(o) {
   align-items: center;
   height: auto;
   padding: 0 4rem;
+  position: relative;
 
   &.showLeft {
     padding: 0 4rem 0 2rem;
@@ -124,6 +130,11 @@ function clone(o) {
   max-width: 100%;
   height: auto;
   flex: 0 1 100%;
+  min-height: 84px;
+  position: relative;
+  backface-visibility: hidden;
+  z-index: 1;
+  transition: all 0.25s ease-in-out;
 
   &__item {
     padding: 0 1rem 0 0;
@@ -132,7 +143,6 @@ function clone(o) {
       .scrolling-wrapper__button {
         box-shadow: 0 0 0 2px darken(#2296f3, 5);
         background-color: fade-out(#2296f3, 0.85);
-        // border-color: var(--c-blue);
       }
       .scrolling-wrapper__label {
         color: darken(#2296f3, 25);
