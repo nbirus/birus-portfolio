@@ -130,15 +130,12 @@ function clone(o) {
 
     &.active-true {
       .scrolling-wrapper__button {
-        box-shadow: 0 0 0 3px #2296f3;
+        box-shadow: 0 0 0 2px darken(#2296f3, 5);
         background-color: fade-out(#2296f3, 0.85);
         // border-color: var(--c-blue);
       }
       .scrolling-wrapper__label {
         color: darken(#2296f3, 25);
-      }
-      .scrolling-wrapper__img {
-        border-radius: 0.5rem 0 0 0.5rem;
       }
     }
 
@@ -180,19 +177,21 @@ function clone(o) {
   &__button {
     width: 100%;
     height: auto;
-    padding: 0;
+    padding: 0.5rem;
     display: flex;
     align-items: center;
     border: none;
     background-color: #fff;
     border-radius: 0.5rem;
+    border: solid thin var(--c-grey2);
 
     &:hover {
-      box-shadow: 0px 3px 1rem rgba(0, 0, 0, 0.1);
-      // border-color: var(--c-blue);
+      // box-shadow: 0px 3px 1rem rgba(0, 0, 0, 0.1);
+      border-color: var(--c-blue);
+      background-color: fade-out(#2296f3, 0.975);
 
-      .scrolling-wrapper__img {
-        border-radius: 0.5rem 0 0 0.5rem;
+      .label {
+        color: darken(#2296f3, 15);
       }
     }
     &:active,
@@ -202,8 +201,8 @@ function clone(o) {
   }
   &__img {
     background-color: var(--c-grey1);
-    width: 5rem;
-    height: 4.5rem;
+    width: 4rem;
+    height: 4rem;
     margin-right: 0.75rem;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -211,6 +210,7 @@ function clone(o) {
     align-items: center;
     justify-content: center;
     transition: border-radius 0.2s ease;
+    // border-radius: 0.5rem 0 0 0.5rem;
 
     img {
       width: auto;
@@ -219,8 +219,8 @@ function clone(o) {
 
     .icon {
       position: absolute;
-      width: 5rem;
-      height: 4.5rem;
+      width: 4rem;
+      height: 4rem;
       border-radius: 0.5rem;
       background-color: fade-out(darken(#2296f3, 20), 0.75);
       display: flex;

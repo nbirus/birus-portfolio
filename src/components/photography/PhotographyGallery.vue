@@ -78,10 +78,10 @@ export default {
       if (width > 1600) {
         spacing = 16
         containerWidth = 1600 - 16 * 8
-        idealElementHeight = 275
+        idealElementHeight = 300
       } else if (width > 1200) {
         spacing = 8
-        idealElementHeight = 250
+        idealElementHeight = 275
       } else if (width > 900) {
         spacing = 8
         idealElementHeight = 200
