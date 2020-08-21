@@ -130,9 +130,9 @@ function clone(o) {
 
     &.active-true {
       .scrolling-wrapper__button {
-        box-shadow: 0 0 0 2px #2296f3;
+        box-shadow: 0 0 0 3px #2296f3;
         background-color: fade-out(#2296f3, 0.85);
-        border-color: var(--c-blue);
+        // border-color: var(--c-blue);
       }
       .scrolling-wrapper__label {
         color: darken(#2296f3, 25);
@@ -186,11 +186,10 @@ function clone(o) {
     border: none;
     background-color: #fff;
     border-radius: 0.5rem;
-    border: solid thin transparent;
 
     &:hover {
       box-shadow: 0px 3px 1rem rgba(0, 0, 0, 0.1);
-      border-color: var(--c-blue);
+      // border-color: var(--c-blue);
 
       .scrolling-wrapper__img {
         border-radius: 0.5rem 0 0 0.5rem;
