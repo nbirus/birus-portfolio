@@ -7,6 +7,10 @@
 @import './modal.scss';
 @import './range.scss';
 
+:root {
+  font-size: 16px !important;
+}
+
 body {
   overflow-x: hidden;
   overflow-y: auto;
