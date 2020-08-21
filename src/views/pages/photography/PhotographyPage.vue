@@ -53,10 +53,10 @@
 
     <div class="snackbar" v-if="tag.label">
       <div class="snackbar__container">
-        <span class="mr-5">
+        <span class="mr-6">
           Filtering by
-          <strong>{{tag.label}}</strong>
-          ({{tag.count}})
+          <strong class="mr-1">{{tag.label}}</strong>
+          <span class="text-secondary">{{tag.count}} photos</span>
         </span>
         <router-link tag="button" :to="{ path: 'photography' }" class="btn btn-clear">CLEAR</router-link>
       </div>
@@ -194,10 +194,10 @@ export default {
     width: auto;
     background-color: black;
     box-shadow: 0 2px 1rem fade-out(black, 0.7);
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     color: white;
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
   .btn-clear {
     background-color: lighten(black, 5);

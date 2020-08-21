@@ -57,13 +57,21 @@ export default {
     $contactDialog(contactDialog) {
       this.$fullscreen = contactDialog
     },
-    $route(to, from) {
-      this.sideBar = false
-      this.$fullscreen = to.name === 'photo'
+    $route: {
+      handler(to, from) {
+        this.sideBar = false
 
-      if (to.name !== 'photo' && from.name !== 'photo' && to.name !== from.name) {
-        this.key++
-      }
+        if (to.name !== 'photo' && from.name !== 'photo' && to.name !== from.name) {
+          this.key++
+        }
+
+        if (to.name === 'photo') {
+          disableScroll()
+        } else {
+          enableScroll()
+        }
+      },
+      immediate: true,
     },
     $fullscreen(fullscreen) {
       if (fullscreen) {
@@ -73,6 +81,19 @@ export default {
       }
     },
   },
+}
+
+function disableScroll() {
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop
+  let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
+
+  window.onscroll = function() {
+    window.scrollTo(scrollLeft, scrollTop)
+  }
+}
+
+function enableScroll() {
+  window.onscroll = function() {}
 }
 </script>
 
