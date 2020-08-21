@@ -11,7 +11,7 @@
             <div class="design-list__icon"></div>
             <!-- <div class="design-list__img">
               <img src="covid-img.png" height="132" alt />
-            </div> -->
+            </div>-->
           </div>
         </a>
       </li>
@@ -25,7 +25,7 @@
             <div class="design-list__icon"></div>
             <!-- <div class="design-list__img">
               <img src="covid-img.png" height="132" alt />
-            </div> -->
+            </div>-->
           </div>
         </a>
       </li>
@@ -39,7 +39,7 @@
             <div class="design-list__icon"></div>
             <!-- <div class="design-list__img">
               <img src="covid-img.png" height="132" alt />
-            </div> -->
+            </div>-->
           </div>
         </a>
       </li>
@@ -69,7 +69,7 @@ export default {
     text-decoration: none !important;
   }
   &__card {
-    padding: 2rem;
+    padding: 1rem 1rem 1rem 1.5rem;
     position: relative;
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease, height 0.2s ease;
@@ -80,8 +80,9 @@ export default {
     border: solid thin var(--c-grey1);
 
     &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 35px -2px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.1) !important;
+      transform: scale(1.015);
+      border-color: var(--c-blue);
+      box-shadow: 0 5px 1rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
     }
   }
   &__title {
@@ -89,15 +90,16 @@ export default {
     color: #000;
 
     p {
-      margin-top: 0.5rem;
+      margin-top: 0.35rem;
+      font-size: 1rem;
     }
   }
   &__icon {
-    flex: 0 1 65px;
-    width: 60px;
-    height: 60px;
+    flex: 0 1 auto;
+    width: 80px;
+    height: 80px;
     background-color: var(--c-grey1);
-    border-radius: 50%;
+    border-radius: 0.5rem;
   }
   &__img {
     position: absolute;

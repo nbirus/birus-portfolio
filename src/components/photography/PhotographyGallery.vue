@@ -84,7 +84,7 @@ export default {
         idealElementHeight = 275
       } else if (width > 900) {
         spacing = 8
-        idealElementHeight = 200
+        idealElementHeight = 275
       } else if (width < 768) {
         spacing = 8
         idealElementHeight = 300

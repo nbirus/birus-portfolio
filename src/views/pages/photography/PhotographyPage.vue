@@ -212,7 +212,8 @@ export default {
     color: white;
     border: none;
     font-size: 0.8rem;
-    border-radius: 25px;
+    border-radius: 0.4rem;
+
     padding: 0.75rem 1rem;
 
     &:hover {

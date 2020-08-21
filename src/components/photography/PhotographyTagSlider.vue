@@ -186,9 +186,9 @@ function clone(o) {
     border: solid thin var(--c-grey2);
 
     &:hover {
-      // box-shadow: 0px 3px 1rem rgba(0, 0, 0, 0.1);
       border-color: var(--c-blue);
       background-color: fade-out(#2296f3, 0.975);
+      box-shadow: 0 5px 1rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
 
       .label {
         color: darken(#2296f3, 15);
@@ -197,6 +197,7 @@ function clone(o) {
     &:active,
     &:focus {
       outline: none;
+      box-shadow: none;
     }
   }
   &__img {
