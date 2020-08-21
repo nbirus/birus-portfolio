@@ -159,6 +159,21 @@ $transition-out: cubic-bezier(0.96, 0.01, 1, 0.51);
   transform: translateX(-3rem);
 }
 
+// snackbar
+.snackbarleave-active {
+  transition: transform 0.5s cubic-bezier(0.42, 0.02, 1, 0.4);
+}
+
+.snackbar-enter-active {
+  transition: transform 0.75s cubic-bezier(0, 0.48, 0.28, 0.99);
+  transition-delay: 0.5s;
+}
+
+.snackbar-enter,
+.snackbar-leave-to {
+  transform: translateY(8rem);
+}
+
 // photo
 .photo-enter-active {
   transition: all 0.1s ease;

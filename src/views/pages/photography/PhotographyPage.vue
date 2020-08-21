@@ -51,16 +51,20 @@
       <router-view :key="$route.params.id !== undefined" />
     </div>
 
-    <div class="snackbar" v-if="tag.label">
-      <div class="snackbar__container">
-        <span class="mr-6">
-          Filtering by
-          <strong class="mr-1">{{tag.label}}</strong>
-          <span class="text-secondary">{{tag.count}} photos</span>
-        </span>
-        <router-link tag="button" :to="{ path: 'photography' }" class="btn btn-clear">CLEAR</router-link>
+    <transition name="snackbar" mode="out-in">
+      <div class="snackbar" v-if="tag.label">
+        <div class="snackbar__container">
+          <div class="snackbar__text">
+            <span>
+              Filtering by
+              <strong class="mr-1">{{tag.label}}</strong>
+            </span>
+            <span class="body-2 text-secondary">{{tag.count}} photos</span>
+          </div>
+          <router-link tag="button" :to="{ path: 'photography' }" class="btn btn-clear">CLEAR</router-link>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -184,7 +188,7 @@ export default {
 }
 .snackbar {
   position: fixed;
-  bottom: 4rem;
+  bottom: 2rem;
   display: flex;
   justify-content: center;
   z-index: 9;
@@ -197,17 +201,25 @@ export default {
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     color: white;
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  &__text {
+    margin-right: 3rem;
   }
   .btn-clear {
     background-color: lighten(black, 5);
     color: white;
     border: none;
     font-size: 0.8rem;
+    border-radius: 0.5rem;
 
     &:hover {
       background-color: lighten(black, 15);
     }
+  }
+  .text-secondary {
+    font-size: 0.9rem;
   }
 }
 .photo-active {
@@ -269,6 +281,31 @@ export default {
         justify-content: flex-start;
         margin-bottom: 2rem;
       }
+    }
+  }
+  .snackbar {
+    bottom: 0rem;
+
+    &__container {
+      border-radius: 0;
+      font-size: 0.9rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    &__text {
+      flex: 0 1 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 0;
+
+      .text-secondary {
+        margin-top: 0.35rem;
+      }
+    }
+    .btn-clear {
+      flex: 0 1 auto;
     }
   }
 }

@@ -253,15 +253,8 @@ function clone(o) {
     display: none;
   }
 }
-.right {
-  // right: -1.5rem;
-}
-.left {
-  // left: -1.5rem;
-}
 .btn-icon-circle {
   min-width: 40px;
-  // position: absolute;
 }
 .contain {
   position: relative;
@@ -289,8 +282,6 @@ function clone(o) {
     padding: 0 !important;
   }
   .scrolling-wrapper {
-    padding: 0.5rem 1rem !important;
-
     .btn-icon-circle {
       display: none;
     }
@@ -299,7 +290,8 @@ function clone(o) {
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 2rem 1.5rem 0;
+    padding: 0.5rem 1rem;
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -316,15 +308,16 @@ function clone(o) {
       min-width: 150px;
     }
     &__button {
-      padding-right: 1rem;
+      padding: 0.5rem;
+      padding-right: 1.5rem;
     }
     &__img {
-      width: 3rem;
-      height: 3rem;
+      width: 2.75rem;
+      height: 2.75rem;
 
       .icon {
-        width: 3rem;
-        height: 3rem;
+        width: 2.5rem;
+        height: 2.5rem;
 
         i {
           animation: iconsm 0.2s ease;
