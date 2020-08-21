@@ -50,6 +50,17 @@
     <div class="page__photo-overlay">
       <router-view :key="$route.params.id !== undefined" />
     </div>
+
+    <div class="snackbar" v-if="tag.label">
+      <div class="snackbar__container">
+        <span class="mr-5">
+          Filtering by
+          <strong>{{tag.label}}</strong>
+          ({{tag.count}})
+        </span>
+        <router-link tag="button" :to="{ path: 'photography' }" class="btn btn-clear">CLEAR</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -57,6 +68,8 @@
 import WidthMixin from '@/mixins/WidthMixin'
 import tags from '@/assets/tags.json'
 import Spinner from '@/components/Spinner'
+
+let snackbarTimeout = null
 
 export default {
   name: 'photography-page',
@@ -72,6 +85,10 @@ export default {
       scrollY: 0,
       pageKey: 0,
       tag: {},
+      snackbar: {
+        show: false,
+        message: '',
+      },
       loading: false,
     }
   },
@@ -103,6 +120,20 @@ export default {
       }
       if (to.name === 'photography' && from.name !== 'photo') {
         this.pageKey++
+      }
+    },
+    tag(tag) {
+      if (tag.label) {
+        if (snackbarTimeout !== null) {
+          clearTimeout(snackbarTimeout)
+        }
+        this.snackbar.show = true
+        this.snackbar.message = `Filtering by <strong>${tag.label}</strong> (${tag.count})`
+        snackbarTimeout = setTimeout(() => {
+          this.snackbar.show = false
+        }, 4000)
+      } else {
+        this.snackbar.show = false
       }
     },
   },
@@ -149,6 +180,34 @@ export default {
   &__gallery {
     padding: 0 4rem;
     position: relative;
+  }
+}
+.snackbar {
+  position: fixed;
+  bottom: 4rem;
+  display: flex;
+  justify-content: center;
+  z-index: 9;
+  width: 100%;
+
+  &__container {
+    width: auto;
+    background-color: black;
+    box-shadow: 0 2px 1rem fade-out(black, 0.7);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 1.05rem;
+  }
+  .btn-clear {
+    background-color: lighten(black, 5);
+    color: white;
+    border: none;
+    font-size: 0.8rem;
+
+    &:hover {
+      background-color: lighten(black, 15);
+    }
   }
 }
 .photo-active {

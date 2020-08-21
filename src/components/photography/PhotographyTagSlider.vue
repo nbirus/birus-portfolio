@@ -56,9 +56,9 @@ export default {
       if (this.width < 768) {
         return tags.length
       } else if (this.width > 1600) {
-        return 7
-      } else if (this.width > 1300) {
         return 6
+      } else if (this.width > 1300) {
+        return 5
       } else if (this.width > 1200) {
         return 5
       } else if (this.width > 975) {
