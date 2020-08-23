@@ -48,6 +48,8 @@ export default {
   background: fade-out(#fff, 0.05);
   padding: 0 4rem 0.5rem 2rem;
   transition: box-shadow 1s ease;
+  margin-left: -1.1rem;
+  width: calc(100% + 1.1rem);
 
   &:not(.shadow) {
     border-bottom: solid thin var(--c-border);

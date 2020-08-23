@@ -175,6 +175,8 @@ export default {
 .snackbar {
   position: fixed;
   bottom: 2rem;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   z-index: 9;

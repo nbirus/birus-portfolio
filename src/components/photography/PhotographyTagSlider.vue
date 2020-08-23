@@ -212,26 +212,25 @@ function clone(o) {
   }
   &__img {
     background-color: var(--c-grey1);
-    width: 4rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.5rem;
     margin-right: 0.75rem;
-    border-radius: 0.5rem;
+    border-radius: 0.35rem;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: border-radius 0.2s ease;
-    // border-radius: 0.5rem 0 0 0.5rem;
 
     img {
       width: auto;
-      height: 5.5rem;
+      height: 3.5rem;
     }
 
     .icon {
       position: absolute;
-      width: 4rem;
-      height: 4rem;
+      width: 3.5rem;
+      height: 3.5rem;
       border-radius: 0.5rem;
       background-color: fade-out(darken(#2296f3, 20), 0.75);
       display: flex;
@@ -243,7 +242,7 @@ function clone(o) {
         animation: icon 0.2s ease;
         background-color: fade-out(black, 0.7);
         border-radius: 50%;
-        transform: scale(1.1);
+        transform: scale(0.9);
         padding: 0.75rem;
       }
     }
@@ -276,7 +275,7 @@ function clone(o) {
     transform: scale(0.5);
   }
   100% {
-    transform: scale(1);
+    transform: scale(0.9);
   }
 }
 @keyframes iconsm {
