@@ -1,6 +1,6 @@
 8<template>
   <div class="nb-app" id="app" ref="scroll" :class="$darkClass">
-    <header-bar @side-bar="sideBar=true" />
+    <!-- <header-bar @side-bar="sideBar=true" /> -->
     <side-bar v-model="sideBar" />
     <main class="nb-main">
       <transition name="page" mode="out-in">
@@ -37,8 +37,8 @@ export default {
   },
   mounted() {
     let obj = {}
-    photos.forEach(photo => {
-      photo.tags.forEach(tag => {
+    photos.forEach((photo) => {
+      photo.tags.forEach((tag) => {
         if (obj[tag] === undefined) {
           obj[tag] = 1
         } else {
@@ -46,7 +46,7 @@ export default {
         }
       })
     })
-    tags.forEach(tag => {
+    tags.forEach((tag) => {
       tag.count = obj[tag.id]
     })
   },
@@ -87,13 +87,13 @@ function disableScroll() {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop
   let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft
 
-  window.onscroll = function() {
+  window.onscroll = function () {
     window.scrollTo(scrollLeft, scrollTop)
   }
 }
 
 function enableScroll() {
-  window.onscroll = function() {}
+  window.onscroll = function () {}
 }
 </script>
 
@@ -137,7 +137,7 @@ function enableScroll() {
   z-index: 300;
 }
 .nb-main {
-  margin-top: var(--header-height);
+  // margin-top: var(--header-height);
   min-height: calc(100vh - var(--header-height));
 }
 

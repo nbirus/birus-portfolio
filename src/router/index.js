@@ -11,13 +11,13 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
 	{
 		path: '*',
-		redirect: '/',
+		redirect: '/photography',
 	},
-	{
-		path: '/',
-		name: 'home',
-		component: () => import(/* webpackChunkName: "home" */ '../views/pages/home/HomePage.vue'),
-	},
+	// {
+	// 	path: '/',
+	// 	name: 'home',
+	// 	component: () => import(/* webpackChunkName: "home" */ '../views/pages/home/HomePage.vue'),
+	// },
 	{
 		path: '/photography',
 		name: 'photography',
@@ -30,21 +30,21 @@ const routes = [
 			},
 		],
 	},
-	{
-		path: '/music',
-		name: 'music',
-		component: () => import(/* webpackChunkName: "music" */ '../views/pages/music/MusicPage.vue'),
-	},
-	{
-		path: '/design',
-		name: 'design',
-		component: () => import(/* webpackChunkName: "design" */ '../views/pages/web-design/Design.vue'),
-	},
-	{
-		path: '/contact',
-		name: 'contact',
-		component: () => import(/* webpackChunkName: "contact" */ '../views/pages/contact/ContactPage.vue'),
-	},
+	// {
+	// 	path: '/music',
+	// 	name: 'music',
+	// 	component: () => import(/* webpackChunkName: "music" */ '../views/pages/music/MusicPage.vue'),
+	// },
+	// {
+	// 	path: '/design',
+	// 	name: 'design',
+	// 	component: () => import(/* webpackChunkName: "design" */ '../views/pages/web-design/Design.vue'),
+	// },
+	// {
+	// 	path: '/contact',
+	// 	name: 'contact',
+	// 	component: () => import(/* webpackChunkName: "contact" */ '../views/pages/contact/ContactPage.vue'),
+	// },
 ]
 const router = new VueRouter({
 	mode: 'history',

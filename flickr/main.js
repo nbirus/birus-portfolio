@@ -3,7 +3,8 @@ require('dotenv').config()
 const key = process.env.VUE_APP_KEY
 const secret = process.env.VUE_APP_SECRET
 const user = '138936915@N05'
-const album = '72157705881479424'
+// const album = '72157705881479424'
+const album = '72157719332947172'
 
 // imports
 const ColorThief = require('colorthief')
@@ -154,3 +155,31 @@ var download = function (uri, filename, callback) {
 			.on('close', callback)
 	})
 }
+
+const sortOrder = [
+	"japan",
+	"outer-banks",
+	"new-york",
+	"maine",
+	"san-francisco",
+	"jamaica",
+	"chesapeake",
+	"peru",
+	"amazon",
+	"chile",
+	"vina-del-mar",
+	"patagonia",
+	"landscapes",
+	"urban",
+	"nature",
+	"stars",
+]
+
+function sortPhotos(a, b) {
+	let aIndex = sortOrder.indexOf(a.tags[0])
+	let bIndex = sortOrder.indexOf(b.tags[0])
+	if (aIndex < bIndex) return -1;
+  if (aIndex > bIndex) return 1;
+  return 0;
+}
+

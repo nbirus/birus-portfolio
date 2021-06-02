@@ -1,16 +1,6 @@
 <template>
-  <div
-    class="photo-gallery"
-    v-if="positions.length"
-    :style="width$ > 768 ? pageStyle : ''"
-    :class="{ loading }"
-  >
-    <div
-      v-for="(photo, i) in activePhotos"
-      :key="i"
-      class="photo-gallery__thumbnail"
-      :style="getStyle(i)"
-    >
+  <div class="photo-gallery" v-if="positions.length" :style="width$ > 768 ? pageStyle : ''" :class="{ loading }">
+    <div v-for="(photo, i) in activePhotos" :key="i" class="photo-gallery__thumbnail" :style="getStyle(i)">
       <router-link
         tag="a"
         :to="`/photography/${photo.id}`"
@@ -55,7 +45,7 @@ export default {
   },
   computed: {
     elements() {
-      return this.activePhotos.map(photo => ({
+      return this.activePhotos.map((photo) => ({
         width: photo.width,
         height: photo.height,
       }))
@@ -65,9 +55,10 @@ export default {
     filterPhotos() {
       let activePhotos = clone(photos)
       if (this.$route.query.tag) {
-        activePhotos = activePhotos.filter(photo => photo.tags.includes(this.$route.query.tag))
+        activePhotos = activePhotos.filter((photo) => photo.tags.includes(this.$route.query.tag))
       }
-      this.activePhotos = activePhotos.sort(sortPhotos)
+      // this.activePhotos = activePhotos.sort(sortPhotos)
+      this.activePhotos = activePhotos
     },
     fit() {
       let width = this.width$
@@ -149,8 +140,8 @@ const sort = [
 ]
 
 function sortPhotos(a, b) {
-  let aSort = sort.findIndex(s => a.description.includes(s))
-  let bSort = sort.findIndex(s => b.description.includes(s))
+  let aSort = sort.findIndex((s) => a.description.includes(s))
+  let bSort = sort.findIndex((s) => b.description.includes(s))
   return aSort - bSort
 }
 function clone(obj) {

@@ -25,7 +25,7 @@
         </router-link>
         <button class="share-btn btn with-icon mr-2" @click="$shareDialog = true"><i class="material-icons">share</i>Share</button>
       </div>
-    </div>-->
+    </div> -->
 
     <!-- <div class="page__title-container" :class="{open: tag.label}">
       <transition name="title" mode="out-in">
@@ -35,6 +35,13 @@
         </div>
       </transition>
     </div>-->
+
+    <!-- <div class="page__header">
+      <transition name="title" mode="out-in">
+        <h1 v-if="!tagActive">All Photos</h1>
+        <h1 v-else v-text="tag.label"></h1>
+      </transition>
+    </div> -->
 
     <!-- slider -->
     <div class="page__slider" v-if="!hideTags">
@@ -56,12 +63,11 @@
         <div class="snackbar__container">
           <div class="snackbar__text">
             <span>
-              Filtering by
-              <strong class="mr-1">{{tag.label}}</strong>
+              <strong class="mr-1">{{ tag.label }}</strong>
             </span>
-            <span class="body-2 text-secondary">{{tag.count}} photos</span>
+            <span class="body-2 text-secondary">{{ tag.count }} photos</span>
           </div>
-          <router-link tag="button" :to="{ path: 'photography' }" class="btn btn-clear">CLEAR</router-link>
+          <router-link tag="button" :to="{ path: 'photography' }" class="btn btn-clear"><i class="material-icons">reply</i>All Photos</router-link>
         </div>
       </div>
     </transition>
@@ -109,7 +115,7 @@ export default {
   },
   methods: {
     setTag() {
-      this.tag = tags.find(t => t.id === this.$route.query.tag) || {}
+      this.tag = tags.find((t) => t.id === this.$route.query.tag) || {}
     },
     scrollToTop() {
       this.$nextTick(() => {
@@ -167,6 +173,10 @@ export default {
   &__slider {
     margin: 2rem 0;
   }
+  &__header {
+    padding: 0 4rem;
+    position: relative;
+  }
   &__gallery {
     padding: 0 4rem;
     position: relative;
@@ -182,11 +192,18 @@ export default {
   z-index: 9;
   width: 100%;
 
+  i {
+    font-size: 1rem;
+    line-height: 0;
+    margin-right: 0.35rem;
+    transform: translateY(3px);
+  }
+
   &__container {
     width: auto;
     background-color: black;
     box-shadow: 0 2px 1rem fade-out(black, 0.7);
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     color: white;
     display: flex;
