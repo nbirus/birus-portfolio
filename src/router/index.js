@@ -19,7 +19,7 @@ const routes = [
 	// 	component: () => import(/* webpackChunkName: "home" */ '../views/pages/home/HomePage.vue'),
 	// },
 	{
-		path: '/',
+		path: '/photography',
 		name: 'photography',
 		component: () => import(/* webpackChunkName: "photography" */ '../views/pages/photography/PhotographyPage.vue'),
 		children: [
