@@ -70,9 +70,9 @@
             <span>
               <strong class="mr-1">{{ tag.label }}</strong>
             </span>
-            <span class="body-2 text-secondary">{{ tag.count }} photos</span>
           </div>
-          <button @click="backToTop" class="btn btn-clear"><i class="material-icons">arrow-up</i></button>
+          <span class="body-2 text-secondary">{{ tag.count }} photos</span>
+          <!-- <button @click="scrollToTop" class="btn btn-clear"><i class="material-icons">arrow-up</i></button> -->
         </div>
       </div>
     </transition>
@@ -245,6 +245,7 @@ export default {
   }
   .text-secondary {
     font-size: 0.9rem;
+    flex: 0 0 auto;
   }
 }
 .photo-active {
@@ -283,6 +284,7 @@ export default {
       width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
     }
     &__text {
       flex: 0 1 100%;
