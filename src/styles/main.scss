@@ -266,3 +266,9 @@ hr {
     border-color: var(--c-border-dm) !important;
   }
 }
+
+@for $i from 0 through 25 {
+  .delay-#{$i} {
+    animation: down 0.15s + 0.1s * $i ease-in !important;
+  }
+}

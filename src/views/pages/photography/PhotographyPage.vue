@@ -53,7 +53,8 @@
 
     <!-- gallery -->
     <div class="page__gallery">
-      <photography-gallery :key="pageKey" :pageKey="pageKey" />
+      <photography-gallery :key="pageKey" :pageKey="pageKey" v-if="width$ > 768" />
+      <photography-mobile-gallery :key="pageKey" :pageKey="pageKey" v-else />
     </div>
 
     <!-- photo -->
@@ -92,6 +93,7 @@ export default {
     Spinner,
     PhotographyTagSlider: () => import('@/components/photography/PhotographyTagSlider'),
     PhotographyGallery: () => import('@/components/photography/PhotographyGallery'),
+    PhotographyMobileGallery: () => import('@/components/photography/PhotographyMobileGallery'),
   },
   data() {
     return {
