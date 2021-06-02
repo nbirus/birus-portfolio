@@ -4,7 +4,7 @@
     <!-- <side-bar v-model="sideBar" /> -->
     <main class="nb-main">
       <transition name="page" mode="out-in">
-        <router-view :key="key" />
+        <!-- <router-view :key="key" /> -->
       </transition>
       <share-dialog />
       <!-- <contact-dialog /> -->
