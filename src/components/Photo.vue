@@ -64,7 +64,6 @@ export default {
   },
   methods: {
     intersected(intersected) {
-      console.log('HERe', intersected)
       if (!this.visible && intersected) {
         this.visible = true
       }

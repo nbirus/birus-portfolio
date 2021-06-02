@@ -4,7 +4,7 @@
     <!-- <side-bar v-model="sideBar" /> -->
     <main class="nb-main">
       <transition name="page" mode="out-in">
-        <!-- <router-view :key="key" /> -->
+        <router-view />
       </transition>
       <share-dialog />
       <!-- <contact-dialog /> -->
@@ -27,7 +27,6 @@ export default {
   data() {
     return {
       sideBar: false,
-      key: 0,
     }
   },
   computed: {
