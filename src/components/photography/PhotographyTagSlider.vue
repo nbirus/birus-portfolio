@@ -63,9 +63,9 @@ export default {
       if (this.width < 768) {
         return tags.length
       } else if (this.width > 1600) {
-        return 6
+        return 8
       } else if (this.width > 1300) {
-        return 5
+        return 6
       } else if (this.width > 1200) {
         return 5
       } else if (this.width > 975) {
@@ -91,7 +91,7 @@ function clone(o) {
   display: flex;
   align-items: center;
   height: auto;
-  padding: 0 4rem;
+  padding: 0.25rem 0 0 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -110,10 +110,12 @@ function clone(o) {
   transition: all 0.25s ease-in-out;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0.25rem 0.25rem 0.5rem;
+  padding: 0.75rem 1rem 1rem;
 
   &::-webkit-scrollbar {
-    height: 0.5rem;
+    transition: height 0.25s ease-in-out;
+    height: 0;
+    display: none;
   }
   /* Track */
   &::-webkit-scrollbar-track {
@@ -128,6 +130,9 @@ function clone(o) {
   }
 
   &:hover {
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
     &::-webkit-scrollbar-thumb {
       background: var(--c-grey5);
     }
@@ -135,14 +140,13 @@ function clone(o) {
 
   &__item {
     flex: 1 0 auto;
-    padding: 0 1rem 0 0;
+    margin: 0 0.75rem 0 0;
     min-width: 150px;
-    padding: 0 1rem 0 0;
 
     &.active-true {
       .scrolling-wrapper__button {
-        box-shadow: 0 0 0 2px darken(#2296f3, 5);
-        background-color: fade-out(#2296f3, 0.85);
+        box-shadow: 0 0 0 3px darken(#2296f3, 5);
+        background-color: fade-out(#2296f3, 0.75);
       }
       .scrolling-wrapper__label {
         color: darken(#2296f3, 25);
@@ -187,14 +191,14 @@ function clone(o) {
   &__button {
     width: 100%;
     height: auto;
-    padding: 0.35rem;
+    padding: 0.5rem;
     display: flex;
     align-items: center;
     border: none;
     background-color: #fff;
     border: solid thin var(--c-grey3);
     padding-right: 1.5rem;
-    border-radius: 3px;
+    border-radius: 4px;
 
     &:hover {
       border-color: var(--c-blue);
@@ -216,7 +220,7 @@ function clone(o) {
     width: 3.5rem;
     height: 3.5rem;
     margin-right: 0.75rem;
-    border-radius: 3px;
+    border-radius: 4px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -254,7 +258,7 @@ function clone(o) {
     align-items: flex-start;
 
     .count {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
     }
     .label {
       font-size: 1rem;
@@ -289,7 +293,7 @@ function clone(o) {
 }
 @media only screen and (max-width: 768px) {
   .contain {
-    padding: 0 !important;
+    padding: 0.5rem 0.25rem 0 !important;
   }
   .scrolling-wrapper {
     &__img {

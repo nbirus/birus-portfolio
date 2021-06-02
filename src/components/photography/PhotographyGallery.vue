@@ -64,11 +64,10 @@ export default {
       let width = this.width$
       let spacing = 6
       let idealElementHeight = 400
-      let containerWidth = width - 16 * 8
+      let containerWidth = width - 16 * 10
 
       if (width > 1600) {
         spacing = 6
-        containerWidth = 1600 - 16 * 8
         idealElementHeight = 300
       } else if (width > 1200) {
         spacing = 6
@@ -78,6 +77,7 @@ export default {
         idealElementHeight = 275
       } else if (width < 768) {
         spacing = 6
+        containerWidth = width
         idealElementHeight = 300
       }
 
@@ -121,28 +121,6 @@ export default {
       deep: true,
     },
   },
-}
-
-const sort = [
-  '(Outer Banks, US)',
-  '(Japan)',
-  '(San Francisco, US)',
-  '(New York, US)',
-  '(Maine, US)',
-  '(Patagonia, Chile)',
-  '(Easter Island, Chile)',
-  '(Vina del Mar, Chile)',
-  '(Peru, Chile)',
-  '(Atacama, Chile)',
-  '(Jamaica)',
-  '(Chesapeake, US)',
-  '(Maryland, US)',
-]
-
-function sortPhotos(a, b) {
-  let aSort = sort.findIndex((s) => a.description.includes(s))
-  let bSort = sort.findIndex((s) => b.description.includes(s))
-  return aSort - bSort
 }
 function clone(obj) {
   return JSON.parse(JSON.stringify(obj))
@@ -298,41 +276,16 @@ function clone(obj) {
   // }
 }
 @media only screen and (max-width: 768px) {
-  // .photography-gallery {
-  //   grid-template-columns: unset;
-  //   grid-template-rows: unset;
-  //   grid-gap: unset;
-  //   grid-auto-flow: unset;
-  //   display: block;
-
-  //   overflow-x: hidden;
-  //   width: 100% !important;
-
-  //   .img {
-  //     grid-column: unset !important;
-  //     grid-row: unset !important;
-  //     max-height: unset !important;
-  //     max-width: unset !important;
-  //     width: 100% !important;
-  //     height: auto !important;
-  //     margin-bottom: 1rem;
-
-  //     .progressive-image-wrapper {
-  //       padding: 0 !important;
-  //     }
-  //     .progressive-image-main {
-  //       position: relative;
-  //     }
-  //   }
-  //   &__info {
-  //     display: none;
-  //   }
-  // }
+  .photo-gallery {
+    &__img {
+      margin-bottom: 0 !important;
+    }
+  }
 }
 
 @for $i from 0 through 25 {
   .delay-#{$i} {
-    animation: down 0.25s + 0.2s * $i ease-in !important;
+    animation: down 0.15s + 0.1s * $i ease-in !important;
   }
 }
 @keyframes down {

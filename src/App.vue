@@ -137,7 +137,6 @@ function enableScroll() {
   z-index: 300;
 }
 .nb-main {
-  // margin-top: var(--header-height);
   min-height: calc(100vh - var(--header-height));
 }
 
@@ -146,7 +145,6 @@ function enableScroll() {
     height: var(--header-height-sm);
   }
   .nb-main {
-    margin-top: var(--header-height-sm);
     min-height: calc(100vh - var(--header-height-sm));
   }
 }

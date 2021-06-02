@@ -36,17 +36,20 @@
       </transition>
     </div>-->
 
-    <!-- <div class="page__header">
-      <transition name="title" mode="out-in">
-        <h1 v-if="!tagActive">All Photos</h1>
-        <h1 v-else v-text="tag.label"></h1>
-      </transition>
-    </div> -->
-
     <!-- slider -->
     <div class="page__slider">
       <photography-tag-slider :width="width$" @tag="scrollToTop" />
     </div>
+
+    <!-- <div class="page__header">
+      <transition name="title" mode="out-in">
+        <h1 class="header" v-if="!tagActive">All Photos</h1>
+        <h1 class="header" v-else v-text="tag.label"></h1>
+      </transition>
+      <transition name="title" mode="out-in">
+        <span class="sub-header text-secondary">135 photos</span>
+      </transition>
+    </div> -->
 
     <!-- gallery -->
     <div class="page__gallery">
@@ -139,9 +142,8 @@ export default {
 <style lang="scss" scoped>
 .page {
   padding: 0;
-  max-width: var(--max-width);
-  margin: 0 auto;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   overflow-y: hidden;
 
@@ -171,14 +173,21 @@ export default {
     }
   }
   &__slider {
-    margin: 2rem 0 1rem;
+    border-bottom: solid thin var(--c-grey3);
   }
   &__header {
-    padding: 0 4rem;
     position: relative;
+    padding: 2rem 4rem 0;
+
+    .header {
+      margin-bottom: 0.5rem;
+    }
+    .sub-header {
+      font-size: 1.2rem;
+    }
   }
   &__gallery {
-    padding: 0 4rem;
+    padding: 2rem 4rem;
     position: relative;
   }
 }
@@ -204,20 +213,20 @@ export default {
     background-color: black;
     box-shadow: 0 2px 1rem fade-out(black, 0.7);
     padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+    border-radius: 4px;
     color: white;
     display: flex;
     align-items: center;
   }
   &__text {
-    margin-right: 3rem;
+    margin-right: 3.5rem;
   }
   .btn-clear {
     background-color: lighten(black, 5);
     color: white;
     border: none;
     font-size: 0.8rem;
-    border-radius: 0.4rem;
+    border-radius: 4px;
 
     padding: 0.75rem 1rem;
 
@@ -248,46 +257,9 @@ export default {
     &__banner {
       height: 0px;
     }
-    &__header {
-      padding: 2rem 1rem 1.5rem;
-      margin-bottom: 0;
-      flex-direction: column;
-      align-items: flex-start;
-
-      h1 {
-        font-size: 2.5rem;
-      }
-    }
-    &__title-container {
-      order: 2;
-    }
-    &__buttons-container {
-      justify-content: flex-end;
-      order: 1;
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-    &__slider {
-      // padding: 0;
-      margin: 1rem 0 1.5rem;
-    }
     &__gallery {
-      padding: 0;
+      padding: 0 !important;
       overflow-x: hidden;
-    }
-  }
-  .tag-active {
-    .page {
-      &__banner {
-        height: 150px;
-      }
-      &__header {
-        padding-bottom: 2rem;
-      }
-      &__buttons-container {
-        justify-content: flex-start;
-        margin-bottom: 2rem;
-      }
     }
   }
   .snackbar {
@@ -295,6 +267,7 @@ export default {
 
     &__container {
       border-radius: 0;
+      padding-left: 1.5rem;
       font-size: 0.9rem;
       width: 100%;
       display: flex;
@@ -306,14 +279,15 @@ export default {
       flex-direction: column;
       align-items: flex-start;
       margin: 0;
+      font-size: 1.1rem;
 
       .text-secondary {
-        margin-top: 0.5rem;
+        margin-top: 0.325rem;
         font-size: 0.8rem;
       }
     }
     .btn-clear {
-      flex: 0 1 auto;
+      flex: 0 0 auto;
       border-radius: 0.3rem;
       padding: 0.75rem 1.25rem;
     }
