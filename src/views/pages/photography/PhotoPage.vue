@@ -16,20 +16,10 @@
 					<i class="material-icons small">info</i>
         </button>-->
 
-        <button
-          id="download"
-          class="btn btn-icon-circle btn-action flat"
-          title="Download"
-          @click="download"
-        >
+        <button id="download" class="btn btn-icon-circle btn-action flat" title="Download" @click="download">
           <i class="material-icons small">open_in_new</i>
         </button>
-        <button
-          id="share"
-          class="btn btn-icon-circle btn-action flat"
-          title="Share Image"
-          @click="$shareDialog = true"
-        >
+        <button id="share" class="btn btn-icon-circle btn-action flat" title="Share Image" @click="$shareDialog = true">
           <i class="material-icons small">share</i>
         </button>
         <!-- <button
@@ -40,12 +30,7 @@
 				>
 					<i class="material-icons">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
         </button>-->
-        <button
-          id="close"
-          class="btn btn-icon-circle btn-action flat close"
-          title="Close Image"
-          @click="close"
-        >
+        <button id="close" class="btn btn-icon-circle btn-action flat close" title="Close Image" @click="close">
           <i class="material-icons">close</i>
         </button>
       </div>
@@ -114,8 +99,8 @@ export default {
       return {
         width: this.imgWidth,
         height: this.imgHeight,
-        maxWidth: `${this.photo.width}px`,
-        maxHeight: `${this.photo.height}px`,
+        maxWidth: `${this.photo.width * 1.5}px`,
+        maxHeight: `${this.photo.height * 1.5}px`,
       }
     },
     prevLink() {
@@ -140,7 +125,7 @@ export default {
   methods: {
     getImage() {
       let id = this.$route.params.id
-      this.photoIndex = photos.findIndex(p => p.id === id)
+      this.photoIndex = photos.findIndex((p) => p.id === id)
       if (this.photoIndex !== -1) {
         this.photo = photos[this.photoIndex]
       } else {
@@ -213,7 +198,7 @@ export default {
       let prev = this.$refs.prev.$el
       let next = this.$refs.next.$el
 
-      document.addEventListener('keyup', function(evt) {
+      document.addEventListener('keyup', function (evt) {
         if (evt.keyCode === 27) {
           that.close()
         } else if (evt.keyCode === 39) {
@@ -238,7 +223,7 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       vm.open(from)
     })
   },
@@ -246,10 +231,10 @@ export default {
 
 function debounce(func, wait, immediate) {
   var timeout
-  return function() {
+  return function () {
     var context = this,
       args = arguments
-    var later = function() {
+    var later = function () {
       timeout = null
       if (!immediate) func.apply(context, args)
     }
@@ -433,7 +418,7 @@ function getOffset(el) {
       pointer-events: auto;
     }
     .center {
-      flex: 2;
+      flex: 3;
     }
   }
 }

@@ -2,20 +2,20 @@
   <div class="contain">
     <transition :name="`slider-${direction}`" mode="out-in">
       <ul :key="page" class="scrolling-wrapper">
-        <!-- <li class="scrolling-wrapper__item" :class="`size-${size} active-${!activeTag}`">
+        <li class="scrolling-wrapper__item" :class="`size-${size} active-${!activeTag}`">
           <router-link tag="button" :to="{ path: 'photography' }" class="btn scrolling-wrapper__button" @click="$emit('tag')">
             <div class="scrolling-wrapper__img">
-              <img width="60" src="https://live.staticflickr.com/65535/51218833306_ace13ccfc4_m.jpg" alt="All Photos" />
+              <img width="60" src="https://live.staticflickr.com/65535/51219463341_12e0959d52_m.jpg" alt="All Photos" />
               <div class="icon" v-if="!activeTag">
                 <i class="material-icons">check</i>
               </div>
             </div>
             <div class="scrolling-wrapper__label text">
               <span class="label">All Photos</span>
-              <span class="count text-secondary">92 photos</span>
+              <span class="count text-secondary">165 photos</span>
             </div>
           </router-link>
-        </li> -->
+        </li>
         <li
           class="scrolling-wrapper__item"
           v-for="(tag, i) in tags"
@@ -110,7 +110,7 @@ function clone(o) {
   transition: all 0.25s ease-in-out;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0.75rem 1rem 1rem;
+  padding: 0.75rem 4rem 0.25rem;
 
   &::-webkit-scrollbar {
     transition: height 0.25s ease-in-out;
@@ -136,6 +136,9 @@ function clone(o) {
     &::-webkit-scrollbar-thumb {
       background: var(--c-grey5);
     }
+    img {
+      filter: grayscale(0%);
+    }
   }
 
   &__item {
@@ -150,6 +153,17 @@ function clone(o) {
       }
       .scrolling-wrapper__label {
         color: darken(#2296f3, 25);
+      }
+      .label {
+        color: darken(#2296f3, 15);
+        transform: translateY(1px);
+        font-weight: 700;
+      }
+      .count {
+        opacity: 1;
+      }
+      img {
+        filter: grayscale(0%);
       }
     }
 
@@ -207,6 +221,10 @@ function clone(o) {
 
       .label {
         color: darken(#2296f3, 15);
+        transform: translateY(1px);
+      }
+      .count {
+        opacity: 1;
       }
     }
     &:active,
@@ -217,8 +235,8 @@ function clone(o) {
   }
   &__img {
     background-color: var(--c-grey1);
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     margin-right: 0.75rem;
     border-radius: 4px;
     overflow: hidden;
@@ -229,15 +247,18 @@ function clone(o) {
 
     img {
       width: auto;
+      filter: grayscale(100%);
+      transition: filter 0.2s;
       height: 3.5rem;
     }
 
     .icon {
       position: absolute;
-      width: 3.5rem;
-      height: 3.5rem;
-      border-radius: 0.5rem;
-      background-color: fade-out(darken(#2296f3, 20), 0.75);
+      width: 3rem;
+      height: 3rem;
+      border-radius: 4px;
+      background-color: fade-out(darken(#2296f3, 30), 0.75);
+      background-color: fade-out(darken(#2296f3, 30), 0.75);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -245,9 +266,9 @@ function clone(o) {
 
       i {
         animation: icon 0.2s ease;
-        background-color: fade-out(black, 0.7);
+        // background-color: fade-out(black, 0.7);
         border-radius: 50%;
-        transform: scale(0.9);
+        transform: scale(1.2);
         padding: 0.75rem;
       }
     }
@@ -256,12 +277,17 @@ function clone(o) {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    transform: translateY(-1px);
 
     .count {
       font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.2s;
     }
     .label {
+      transition: transform 0.2s;
       font-size: 1rem;
+      transform: translateY(9px);
     }
   }
   .after {

@@ -47,7 +47,7 @@
         <h1 class="header" v-else v-text="tag.label"></h1>
       </transition>
       <transition name="title" mode="out-in">
-        <span class="sub-header text-secondary">135 photos</span>
+        <span class="sub-header text-secondary">{{ tag.count }} photos</span>
       </transition>
     </div> -->
 
@@ -61,6 +61,7 @@
       <router-view :key="$route.params.id !== undefined" />
     </div>
 
+    <!-- snackbar -->
     <transition name="snackbar" mode="out-in">
       <div class="snackbar" v-if="tag.label">
         <div class="snackbar__container">
@@ -173,11 +174,14 @@ export default {
     }
   }
   &__slider {
-    border-bottom: solid thin var(--c-grey3);
+    // border-bottom: solid thin var(--c-grey3);
   }
   &__header {
     position: relative;
     padding: 2rem 4rem 0;
+    // display: flex;
+    // align-items: center;
+    // flex-direction: column;
 
     .header {
       margin-bottom: 0.5rem;
