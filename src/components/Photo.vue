@@ -62,16 +62,8 @@ export default {
     },
     style() {
       let style = {}
-      // console.log(this.aspect)
-      // console.log(this.width, this.height)
-      // console.log('---')
       style.backgroundColor = this.backgroundColor
-      style.minHeight = `${this.height * (this.height / this.width)}px`
-
-      // if (this.aspect === 'v') {
-      //   style.minHeight = `${this.height}px`
-      // }
-
+      style.minHeight = `${this.height * (this.pageWidth / this.width)}px`
       return style
     },
   },
