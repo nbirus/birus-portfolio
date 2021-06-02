@@ -12,6 +12,7 @@
         <photo
           class="photo-gallery__img"
           :id="`photo-${photo.id}`"
+          :pageWidth="width"
           :height="photo.height"
           :width="photo.width"
           :src="photo.urls.Large.source"
@@ -31,7 +32,7 @@ import Photo from '@/components/Photo'
 export default {
   name: 'photography-mobile-gallery',
   components: { Photo },
-  props: ['loading', 'pageKey'],
+  props: ['loading', 'pageKey', 'width'],
   data() {
     return {
       activePhotos: [],

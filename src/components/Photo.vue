@@ -33,6 +33,10 @@ export default {
       type: Number,
       default: null,
     },
+    pageWidth: {
+      type: Number,
+      default: null,
+    },
     width: {
       type: Number,
       default: null,
@@ -58,9 +62,9 @@ export default {
     },
     style() {
       let style = {}
-      console.log(this.aspect)
-      console.log(this.width, this.height)
-      console.log('---')
+      // console.log(this.aspect)
+      // console.log(this.width, this.height)
+      // console.log('---')
       style.backgroundColor = this.backgroundColor
       style.minHeight = `${this.height * (this.height / this.width)}px`
 
@@ -85,19 +89,20 @@ export default {
 .root {
   height: 100%;
   position: relative;
+  border: solid thin red;
 
   .progressive-image {
-    // max-width: unset !important;
-    // width: 100%;
-    // height: 100%;
-    // object-fit: cover;
+    max-width: unset !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 
-    // .progressive-image-wrapper {
-    //   padding-bottom: 0% !important;
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: center;
-    // }
+    .progressive-image-wrapper {
+      padding-bottom: 0% !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   img {

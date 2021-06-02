@@ -53,8 +53,8 @@
 
     <!-- gallery -->
     <div class="page__gallery" v-if="waitToLoad">
-      <photography-gallery :key="pageKey" :pageKey="pageKey" v-if="width$ === 0 || width$ > 768" />
-      <photography-mobile-gallery :key="pageKey" :pageKey="pageKey" v-else />
+      <photography-gallery :key="pageKey" :pageKey="pageKey" :width="width$" v-if="width$ === 0 || width$ > 768" />
+      <photography-mobile-gallery :key="pageKey" :pageKey="pageKey" :width="width$" v-else />
     </div>
 
     <!-- photo -->
