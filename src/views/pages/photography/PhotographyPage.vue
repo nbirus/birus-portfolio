@@ -173,9 +173,6 @@ export default {
       margin-right: 0.75rem;
     }
   }
-  &__slider {
-    // border-bottom: solid thin var(--c-grey3);
-  }
   &__header {
     position: relative;
     padding: 2rem 4rem 0;
@@ -191,7 +188,7 @@ export default {
     }
   }
   &__gallery {
-    padding: 2rem 4rem;
+    padding: 1rem 4rem 2rem;
     position: relative;
   }
 }
@@ -272,6 +269,8 @@ export default {
     &__container {
       border-radius: 0;
       padding-left: 1.5rem;
+      padding-top: 1rem;
+      padding-bottom: 1.25rem;
       font-size: 0.9rem;
       width: 100%;
       display: flex;
@@ -280,10 +279,10 @@ export default {
     &__text {
       flex: 0 1 100%;
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       align-items: flex-start;
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
 
       .text-secondary {
         margin-top: 0.325rem;

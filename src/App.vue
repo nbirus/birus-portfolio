@@ -61,15 +61,19 @@ export default {
       handler(to, from) {
         this.sideBar = false
 
+        if (to === undefined || from === undefined) {
+          return
+        }
+
         if (to.name !== 'photo' && from.name !== 'photo' && to.name !== from.name) {
           this.key++
         }
 
-        if (to.name === 'photo') {
-          disableScroll()
-        } else {
-          enableScroll()
-        }
+        // if (to.name === 'photo') {
+        //   disableScroll()
+        // } else {
+        //   enableScroll()
+        // }
       },
       immediate: true,
     },

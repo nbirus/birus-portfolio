@@ -60,8 +60,10 @@ export default {
       // this.activePhotos = activePhotos.sort(sortPhotos)
       this.activePhotos = activePhotos
     },
-    fit() {
-      let width = this.width$
+    fit(width) {
+      if (width === 0) {
+        return
+      }
       let spacing = 6
       let idealElementHeight = 400
       let containerWidth = width - 16 * 10

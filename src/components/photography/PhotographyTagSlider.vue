@@ -1,7 +1,7 @@
 <template>
   <div class="contain">
     <transition :name="`slider-${direction}`" mode="out-in">
-      <ul :key="page" class="scrolling-wrapper">
+      <ul :key="page" class="scrolling-wrapper" ref="container" @mousedown="mouseDownHandler">
         <li class="scrolling-wrapper__item" :class="`size-${size} active-${!activeTag}`">
           <router-link tag="button" :to="{ path: 'photography' }" class="btn scrolling-wrapper__button" @click="$emit('tag')">
             <div class="scrolling-wrapper__img">
@@ -47,6 +47,9 @@
 
 <script>
 import tags from '@/assets/tags.json'
+
+let pos = { top: 0, left: 0, x: 0, y: 0 }
+
 export default {
   name: 'photography-tag-slider',
   props: ['width'],
@@ -76,6 +79,46 @@ export default {
     },
     activeTag() {
       return this.$route.query.tag
+    },
+  },
+  methods: {
+    mouseDownHandler(e) {
+      e.preventDefault()
+
+      if (this.width < 768) {
+        return
+      }
+
+      const ele = this.$refs.container
+      ele.style.cursor = 'grabbing'
+      ele.style.userSelect = 'none'
+      pos = {
+        // The current scroll
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+      }
+      document.addEventListener('mousemove', this.mouseMoveHandler)
+      document.addEventListener('mouseup', this.mouseUpHandler)
+    },
+    mouseMoveHandler(e) {
+      const ele = this.$refs.container
+      // How far the mouse has been moved
+      const dx = e.clientX - pos.x
+      const dy = e.clientY - pos.y
+
+      // Scroll the element
+      ele.scrollTop = pos.top - dy
+      ele.scrollLeft = pos.left - dx
+    },
+    mouseUpHandler(e) {
+      const ele = this.$refs.container
+      ele.style.cursor = 'grab'
+      ele.style.removeProperty('user-select')
+      document.removeEventListener('mousemove', this.mouseMoveHandler, false)
+      document.removeEventListener('mouseup', this.mouseUpHandler, false)
     },
   },
 }
@@ -110,7 +153,9 @@ function clone(o) {
   transition: all 0.25s ease-in-out;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0.75rem 4rem 0.25rem;
+  padding: 1rem 4rem 0.25rem;
+  cursor: grab;
+  overflow: auto;
 
   &::-webkit-scrollbar {
     transition: height 0.25s ease-in-out;
@@ -148,14 +193,14 @@ function clone(o) {
 
     &.active-true {
       .scrolling-wrapper__button {
-        box-shadow: 0 0 0 3px darken(#2296f3, 5);
-        background-color: fade-out(#2296f3, 0.75);
+        box-shadow: 0 0 0 1px darken(#2296f3, 5);
+        background-color: fade-out(#2296f3, 0.7);
       }
       .scrolling-wrapper__label {
-        color: darken(#2296f3, 25);
+        color: darken(#2296f3, 35);
       }
       .label {
-        color: darken(#2296f3, 15);
+        color: darken(#2296f3, 20);
         transform: translateY(1px);
         font-weight: 700;
       }
@@ -213,11 +258,12 @@ function clone(o) {
     border: solid thin var(--c-grey3);
     padding-right: 1.5rem;
     border-radius: 4px;
+    box-shadow: 0 5px 0.25rem -2px rgba(0, 0, 0, 0.075), 0 4px 4px -2px rgba(0, 0, 0, 0.05);
 
     &:hover {
-      border-color: var(--c-blue);
+      // border-color: var(--c-blue);
       background-color: fade-out(#2296f3, 0.975);
-      box-shadow: 0 5px 1rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 5px 0.5rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
 
       .label {
         color: darken(#2296f3, 15);
@@ -322,6 +368,8 @@ function clone(o) {
     padding: 0.5rem 0.25rem 0 !important;
   }
   .scrolling-wrapper {
+    padding: 0.25rem 0.5rem;
+
     &__img {
       width: 2.75rem;
       height: 2.75rem;
