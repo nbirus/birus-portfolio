@@ -19,6 +19,12 @@
     "src": "https://live.staticflickr.com/65535/50245859768_527eec9344_m.jpg"
   },
   {
+    "id": "japan",
+    "label": "Japan",
+    "count": 0,
+    "src": "https://live.staticflickr.com/65535/50248896583_9c9df3318e_m.jpg"
+  },
+  {
     "id": "new-york",
     "label": "New York",
     "vertical": true,
@@ -30,12 +36,6 @@
     "label": "San Francisco",
     "count": 0,
     "src": "https://live.staticflickr.com/65535/50246116931_103dfea6a7_m.jpg"
-  },
-  {
-    "id": "japan",
-    "label": "Japan",
-    "count": 0,
-    "src": "https://live.staticflickr.com/65535/50248896583_9c9df3318e_m.jpg"
   },
   {
     "id": "jamaica",

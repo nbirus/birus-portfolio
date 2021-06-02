@@ -3,7 +3,13 @@
     <transition :name="`slider-${direction}`" mode="out-in">
       <ul :key="page" class="scrolling-wrapper" ref="container" @mousedown="mouseDownHandler">
         <li class="scrolling-wrapper__item" :class="`size-${size} active-${!activeTag}`">
-          <router-link tag="button" :to="{ path: 'photography' }" class="btn scrolling-wrapper__button" @click="$emit('tag')">
+          <router-link
+            tag="button"
+            :to="{ path: 'photography' }"
+            class="btn scrolling-wrapper__button"
+            @click="$emit('tag')"
+            :class="{ disabled: dragging }"
+          >
             <div class="scrolling-wrapper__img">
               <img width="60" src="https://live.staticflickr.com/65535/51219463341_12e0959d52_m.jpg" alt="All Photos" />
               <div class="icon" v-if="!activeTag">
@@ -27,6 +33,7 @@
             :to="activeTag !== tag.id ? { path: 'photography', query: { tag: tag.id } } : { path: 'photography' }"
             class="btn scrolling-wrapper__button"
             @click="$emit('tag')"
+            :class="{ disabled: dragging }"
           >
             <div class="scrolling-wrapper__img">
               <img :src="tag.src" :alt="tag.label" />
@@ -59,6 +66,7 @@ export default {
       from: 0,
       tags,
       direction: 'right',
+      dragging: false,
     }
   },
   computed: {
@@ -66,11 +74,11 @@ export default {
       if (this.width < 768) {
         return tags.length
       } else if (this.width > 1600) {
-        return 8
+        return 9
       } else if (this.width > 1300) {
-        return 6
+        return 7
       } else if (this.width > 1200) {
-        return 5
+        return 6
       } else if (this.width > 975) {
         return 4
       } else {
@@ -83,13 +91,12 @@ export default {
   },
   methods: {
     mouseDownHandler(e) {
-      e.preventDefault()
+      const ele = this.$refs.container
 
-      if (this.width < 768) {
+      if (this.width < 768 || !ele) {
         return
       }
 
-      const ele = this.$refs.container
       ele.style.cursor = 'grabbing'
       ele.style.userSelect = 'none'
       pos = {
@@ -104,7 +111,11 @@ export default {
       document.addEventListener('mouseup', this.mouseUpHandler)
     },
     mouseMoveHandler(e) {
+      this.dragging = true
       const ele = this.$refs.container
+      if (this.width < 768 || !ele) {
+        return
+      }
       // How far the mouse has been moved
       const dx = e.clientX - pos.x
       const dy = e.clientY - pos.y
@@ -114,12 +125,17 @@ export default {
       ele.scrollLeft = pos.left - dx
     },
     mouseUpHandler(e) {
+      this.dragging = false
       const ele = this.$refs.container
       ele.style.cursor = 'grab'
       ele.style.removeProperty('user-select')
       document.removeEventListener('mousemove', this.mouseMoveHandler, false)
       document.removeEventListener('mouseup', this.mouseUpHandler, false)
     },
+  },
+  beforeDestroy() {
+    document.removeEventListener('mousemove', this.mouseMoveHandler, false)
+    document.removeEventListener('mouseup', this.mouseUpHandler, false)
   },
 }
 function clone(o) {
@@ -151,9 +167,10 @@ function clone(o) {
   backface-visibility: hidden;
   z-index: 1;
   transition: all 0.25s ease-in-out;
+  overflow-y: visible;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 1rem 4rem 0.25rem;
+  padding: 1rem 4rem 0.5rem;
   cursor: grab;
   overflow: auto;
 
@@ -189,7 +206,7 @@ function clone(o) {
   &__item {
     flex: 1 0 auto;
     margin: 0 0.75rem 0 0;
-    min-width: 150px;
+    min-width: 200px;
 
     &.active-true {
       .scrolling-wrapper__button {
@@ -258,12 +275,12 @@ function clone(o) {
     border: solid thin var(--c-grey3);
     padding-right: 1.5rem;
     border-radius: 4px;
-    box-shadow: 0 5px 0.25rem -2px rgba(0, 0, 0, 0.075), 0 4px 4px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 0.5rem -2px rgba(0, 0, 0, 0.025), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
 
     &:hover {
       // border-color: var(--c-blue);
       background-color: fade-out(#2296f3, 0.975);
-      box-shadow: 0 5px 0.5rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 5px 0.75rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
 
       .label {
         color: darken(#2296f3, 15);
