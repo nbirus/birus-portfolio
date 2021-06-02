@@ -63,7 +63,9 @@ export default {
     style() {
       let style = {}
       style.backgroundColor = this.backgroundColor
-      style.minHeight = `${this.height * (this.pageWidth / this.width)}px`
+      if (this.pageWidth < 786) {
+        style.minHeight = `${this.height * (this.pageWidth / this.width)}px`
+      }
       return style
     },
   },

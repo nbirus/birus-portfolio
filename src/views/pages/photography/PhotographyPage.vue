@@ -72,7 +72,7 @@
             </span>
             <span class="body-2 text-secondary">{{ tag.count }} photos</span>
           </div>
-          <router-link tag="button" :to="{ path: 'photography' }" class="btn btn-clear"><i class="material-icons">reply</i>All Photos</router-link>
+          <button @click="backToTop" class="btn btn-clear"><i class="material-icons">arrow-up</i></button>
         </div>
       </div>
     </transition>

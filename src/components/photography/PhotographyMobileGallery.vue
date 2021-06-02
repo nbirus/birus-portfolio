@@ -128,6 +128,7 @@ function clone(obj) {
     max-width: unset !important;
     width: 100% !important;
     height: auto !important;
+    margin-bottom: 0;
 
     .progressive-image-wrapper {
       padding: 0 !important;
