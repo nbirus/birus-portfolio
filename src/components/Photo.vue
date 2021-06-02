@@ -81,7 +81,6 @@ export default {
 .root {
   height: 100%;
   position: relative;
-  border: solid thin red;
 
   .progressive-image {
     max-width: unset !important;
