@@ -80,6 +80,9 @@ function clone(obj) {
 
 .photo-gallery {
   position: relative;
+  display: block;
+  display: flex;
+  flex-direction: column;
 
   &__thumbnail {
     position: relative;

@@ -58,7 +58,16 @@ export default {
     },
     style() {
       let style = {}
+      console.log(this.aspect)
+      console.log(this.width, this.height)
+      console.log('---')
       style.backgroundColor = this.backgroundColor
+      style.minHeight = `${this.height * (this.height / this.width)}px`
+
+      // if (this.aspect === 'v') {
+      //   style.minHeight = `${this.height}px`
+      // }
+
       return style
     },
   },
@@ -78,17 +87,17 @@ export default {
   position: relative;
 
   .progressive-image {
-    max-width: unset !important;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    // max-width: unset !important;
+    // width: 100%;
+    // height: 100%;
+    // object-fit: cover;
 
-    .progressive-image-wrapper {
-      padding-bottom: 0% !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    // .progressive-image-wrapper {
+    //   padding-bottom: 0% !important;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    // }
   }
 
   img {

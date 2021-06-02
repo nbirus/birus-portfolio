@@ -17,7 +17,9 @@ export default {
       }
     }, options)
 
-    this.observer.observe(this.$el)
+    setTimeout(() => {
+      this.observer.observe(this.$el)
+    }, 500)
   },
   destroyed() {
     this.observer.disconnect()
