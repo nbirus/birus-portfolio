@@ -23,7 +23,7 @@ import ShareDialog from '@/views/dialogs/ShareDialog'
 
 export default {
   name: 'app',
-  components: { ShareDialog, ContactDialog },
+  components: { ShareDialog },
   data() {
     return {
       sideBar: false,
