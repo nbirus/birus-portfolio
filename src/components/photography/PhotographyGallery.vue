@@ -1,6 +1,6 @@
 <template>
   <div class="photo-gallery" v-if="positions.length" :style="width$ > 768 ? pageStyle : ''" :class="{ loading }">
-    <div v-for="(photo, i) in activePhotos" :key="i" class="photo-gallery__thumbnail" :style="getStyle(i)">
+    <div v-for="(photo, i) in activePhotos" :key="i" class="photo-gallery__thumbnail" :style="getStyle(i)" ref="list">
       <router-link
         tag="a"
         :to="`/photography/${photo.id}`"

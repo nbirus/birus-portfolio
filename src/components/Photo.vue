@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      visible: false,
+      visible: true,
       loading: true,
     }
   },
@@ -56,18 +56,6 @@ export default {
       style.backgroundColor = this.backgroundColor
       return style
     },
-  },
-  mounted() {
-    const config = {
-      root: null, // avoiding 'root' or setting it to 'null' sets it to default value: viewport
-      rootMargin: '0px',
-    }
-    let observer = new IntersectionObserver((entries) => {
-      if (!this.visible) {
-        this.visible = entries[0].isIntersecting
-      }
-    }, config)
-    observer.observe(this.$el)
   },
 }
 </script>

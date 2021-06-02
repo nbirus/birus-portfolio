@@ -27,14 +27,10 @@
 <script>
 import photos from '@/assets/photos'
 import Photo from '@/components/Photo'
-import WidthMixin from '@/mixins/WidthMixin'
-
-import layout from './fixed-partition'
 
 export default {
-  name: 'photography-gallery',
+  name: 'photography-mobile-gallery',
   components: { Photo },
-  mixins: [WidthMixin],
   props: ['loading', 'pageKey'],
   data() {
     return {
@@ -86,7 +82,7 @@ function clone(obj) {
   position: relative;
 
   &__thumbnail {
-    position: absolute;
+    position: relative;
     display: inline-block;
     overflow: hidden;
     opacity: 1;
@@ -110,6 +106,7 @@ function clone(obj) {
     }
   }
   &__link {
+    position: relative;
     display: block;
     width: 100%;
     height: 100%;
@@ -120,56 +117,19 @@ function clone(obj) {
     height: 100%;
     transition: transform 0.35s ease, opacity 1s ease;
     opacity: 1;
-    margin-bottom: 0 !important;
-  }
-}
+    position: relative;
+    grid-column: unset !important;
+    grid-row: unset !important;
+    max-height: unset !important;
+    max-width: unset !important;
+    width: 100% !important;
+    height: auto !important;
 
-@media only screen and (max-width: 768px) {
-  .photo-gallery {
-    &__thumbnail {
+    .progressive-image-wrapper {
+      padding: 0 !important;
+    }
+    .progressive-image-main {
       position: relative;
-    }
-    &__link {
-      position: relative;
-    }
-    &__img {
-      transform: scale(1) !important;
-      position: relative;
-      grid-column: unset !important;
-      grid-row: unset !important;
-      max-height: unset !important;
-      max-width: unset !important;
-      width: 100% !important;
-      height: auto !important;
-      margin-bottom: 1rem;
-
-      .progressive-image-wrapper {
-        padding: 0 !important;
-      }
-      .progressive-image-main {
-        position: relative;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 2065px) {
-  .photography-gallery {
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(30, calc(3vw - 5px));
-    grid-gap: 0.25rem;
-
-    .h {
-      grid-column: span 4;
-      grid-row: span 5;
-    }
-    .v {
-      grid-column: span 2;
-      grid-row: span 7;
-    }
-    .s {
-      grid-column: span 2;
-      grid-row: span 5;
     }
   }
 }
