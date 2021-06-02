@@ -1,14 +1,24 @@
 <template>
-  <div class="contain" :class="{ showRight, showLeft }">
-    <button class="btn btn-icon-circle nb left flat mr-3" v-if="showLeft" @click="prevPage">
-      <i class="material-icons">chevron_left</i>
-    </button>
-
+  <div class="contain">
     <transition :name="`slider-${direction}`" mode="out-in">
       <ul :key="page" class="scrolling-wrapper">
+        <!-- <li class="scrolling-wrapper__item" :class="`size-${size} active-${!activeTag}`">
+          <router-link tag="button" :to="{ path: 'photography' }" class="btn scrolling-wrapper__button" @click="$emit('tag')">
+            <div class="scrolling-wrapper__img">
+              <img width="60" src="https://live.staticflickr.com/65535/51218833306_ace13ccfc4_m.jpg" alt="All Photos" />
+              <div class="icon" v-if="!activeTag">
+                <i class="material-icons">check</i>
+              </div>
+            </div>
+            <div class="scrolling-wrapper__label text">
+              <span class="label">All Photos</span>
+              <span class="count text-secondary">92 photos</span>
+            </div>
+          </router-link>
+        </li> -->
         <li
           class="scrolling-wrapper__item"
-          v-for="(tag, i) in visibleTags"
+          v-for="(tag, i) in tags"
           :key="`tag-${tag.id}`"
           :class="`size-${size} new-${tag.new} vertical-${tag.vertical} active-${activeTag === tag.id} delay-${i}`"
         >
@@ -32,17 +42,11 @@
         </li>
       </ul>
     </transition>
-
-    <button class="btn btn-icon-circle right nb flat" v-if="showRight" @click="nextPage">
-      <i class="material-icons">chevron_right</i>
-    </button>
   </div>
 </template>
 
 <script>
 import tags from '@/assets/tags.json'
-import photos from '@/assets/photos'
-
 export default {
   name: 'photography-tag-slider',
   props: ['width'],
@@ -70,32 +74,8 @@ export default {
         return 3
       }
     },
-    to() {
-      return this.from + this.size
-    },
-    visibleTags() {
-      return clone(tags).slice(this.from, this.to)
-    },
-    showLeft() {
-      return this.from > 0
-    },
-    showRight() {
-      return this.to < this.tags.length
-    },
     activeTag() {
       return this.$route.query.tag
-    },
-  },
-  methods: {
-    prevPage() {
-      this.direction = 'left'
-      this.page--
-      this.from = this.size * this.page
-    },
-    nextPage() {
-      this.direction = 'right'
-      this.page++
-      this.from = this.size * this.page
     },
   },
 }
@@ -112,17 +92,10 @@ function clone(o) {
   align-items: center;
   height: auto;
   padding: 0 4rem;
-  position: relative;
-
-  &.showLeft {
-    padding: 0 4rem 0 2rem;
-  }
-  &.showRight {
-    padding: 0 2rem 0 4rem;
-  }
-  &.showLeft.showRight {
-    padding: 0 2rem;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .scrolling-wrapper {
   display: flex;
@@ -135,8 +108,35 @@ function clone(o) {
   backface-visibility: hidden;
   z-index: 1;
   transition: all 0.25s ease-in-out;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.25rem 0.25rem 0.5rem;
+
+  &::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 8px fade-out(black, 0.9);
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--c-grey3);
+    border-radius: 10px;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: var(--c-grey5);
+    }
+  }
 
   &__item {
+    flex: 1 0 auto;
+    padding: 0 1rem 0 0;
+    min-width: 150px;
     padding: 0 1rem 0 0;
 
     &.active-true {
@@ -187,13 +187,14 @@ function clone(o) {
   &__button {
     width: 100%;
     height: auto;
-    padding: 0.5rem;
+    padding: 0.35rem;
     display: flex;
     align-items: center;
     border: none;
     background-color: #fff;
-    border-radius: 0.5rem;
-    border: solid thin var(--c-grey2);
+    border: solid thin var(--c-grey3);
+    padding-right: 1.5rem;
+    border-radius: 3px;
 
     &:hover {
       border-color: var(--c-blue);
@@ -215,7 +216,7 @@ function clone(o) {
     width: 3.5rem;
     height: 3.5rem;
     margin-right: 0.75rem;
-    border-radius: 0.35rem;
+    border-radius: 3px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -260,11 +261,11 @@ function clone(o) {
     }
   }
   .after {
-    display: none;
+    display: block;
+    min-width: 2.5rem;
+    height: 100px;
+    position: relative;
   }
-}
-.btn-icon-circle {
-  min-width: 40px;
 }
 .contain {
   position: relative;
@@ -286,41 +287,11 @@ function clone(o) {
     transform: scale(0.7);
   }
 }
-
 @media only screen and (max-width: 768px) {
   .contain {
     padding: 0 !important;
   }
   .scrolling-wrapper {
-    .btn-icon-circle {
-      display: none;
-    }
-
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 0.5rem 1rem;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    .after {
-      min-width: 2.5rem;
-      height: 100px;
-      position: relative;
-      display: block;
-    }
-
-    &__item {
-      flex: 1 0 auto;
-      padding: 0 1rem 0 0;
-      min-width: 150px;
-    }
-    &__button {
-      padding: 0.5rem;
-      padding-right: 1.5rem;
-    }
     &__img {
       width: 2.75rem;
       height: 2.75rem;

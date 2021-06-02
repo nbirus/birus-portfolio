@@ -44,7 +44,7 @@
     </div> -->
 
     <!-- slider -->
-    <div class="page__slider" v-if="!hideTags">
+    <div class="page__slider">
       <photography-tag-slider :width="width$" @tag="scrollToTop" />
     </div>
 
@@ -171,7 +171,7 @@ export default {
     }
   }
   &__slider {
-    margin: 2rem 0;
+    margin: 2rem 0 1rem;
   }
   &__header {
     padding: 0 4rem;

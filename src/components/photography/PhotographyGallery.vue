@@ -62,22 +62,22 @@ export default {
     },
     fit() {
       let width = this.width$
-      let spacing = 8
+      let spacing = 6
       let idealElementHeight = 400
       let containerWidth = width - 16 * 8
 
       if (width > 1600) {
-        spacing = 16
+        spacing = 6
         containerWidth = 1600 - 16 * 8
         idealElementHeight = 300
       } else if (width > 1200) {
-        spacing = 8
+        spacing = 6
         idealElementHeight = 275
       } else if (width > 900) {
-        spacing = 8
+        spacing = 6
         idealElementHeight = 275
       } else if (width < 768) {
-        spacing = 8
+        spacing = 6
         idealElementHeight = 300
       }
 
@@ -241,7 +241,7 @@ function clone(obj) {
   .photography-gallery {
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(30, calc(3vw - 5px));
-    grid-gap: 1rem;
+    grid-gap: 0.25rem;
 
     .h {
       grid-column: span 4;

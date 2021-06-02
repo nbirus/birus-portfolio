@@ -1,5 +1,17 @@
 [
   {
+    "id": "oregon",
+    "label": "Oregon",
+    "count": 0,
+    "src": ""
+  },
+  {
+    "id": "washington",
+    "label": "Washington",
+    "count": 0,
+    "src": ""
+  },
+  {
     "id": "outer-banks",
     "label": "Outer Banks",
     "new": true,
