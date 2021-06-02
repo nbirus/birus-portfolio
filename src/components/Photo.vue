@@ -84,7 +84,7 @@ export default {
     object-fit: cover;
 
     .progressive-image-wrapper {
-      padding-bottom: 100% !important;
+      padding-bottom: 0% !important;
       display: flex;
       align-items: center;
       justify-content: center;
