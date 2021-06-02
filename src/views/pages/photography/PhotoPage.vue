@@ -2,9 +2,9 @@
   <div class="page photo-page" @click.self.prevent.stop="close">
     <div class="photo-page__toolbar">
       <div class="photo-page__count">
-        <div class="name" v-text="`${photoIndex + 1}/${photoLength}`"></div>
+        <div class="location" v-text="photo.position"></div>
+        <div class="name" v-text="`${photoIndex + 1} / ${photoLength}`"></div>
         <!-- <div class="name" v-text="photo.name"></div> -->
-        <!-- <div class="location" v-text="photo.location"></div> -->
       </div>
       <div class="photo-page__actions">
         <!-- <button
@@ -296,11 +296,12 @@ function getOffset(el) {
     z-index: 99999;
 
     .name {
-      margin-bottom: 0.35rem;
-    }
-    .location {
       font-size: 0.9rem;
       opacity: 0.5;
+    }
+    .location {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
     }
   }
   &__actions {
