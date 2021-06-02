@@ -11,7 +11,7 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
 	{
 		path: '*',
-		redirect: '/photography',
+		redirect: '/',
 	},
 	// {
 	// 	path: '/',
@@ -19,7 +19,7 @@ const routes = [
 	// 	component: () => import(/* webpackChunkName: "home" */ '../views/pages/home/HomePage.vue'),
 	// },
 	{
-		path: '/photography',
+		path: '/',
 		name: 'photography',
 		component: () => import(/* webpackChunkName: "photography" */ '../views/pages/photography/PhotographyPage.vue'),
 		children: [
