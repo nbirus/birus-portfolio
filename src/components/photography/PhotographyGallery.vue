@@ -18,6 +18,7 @@
           :placeholder="photo.urls.Small.source"
           :alt="photo.name"
           :aspect="photo.aspect"
+          :style="{ minHeight: photo.height }"
         />
       </router-link>
     </div>

@@ -35,7 +35,7 @@ export default {
       return this.$route.params.id
     },
   },
-  mounted() {
+  created() {
     let obj = {}
     photos.forEach((photo) => {
       photo.tags.forEach((tag) => {
