@@ -61,9 +61,11 @@
     <div class="page__photo-overlay">
       <router-view :key="$route.params.id !== undefined" />
     </div>
-
+    <transition name="title" mode="out-in">
+      <button v-if="scroll$ > 700" @click="scrollToTop" class="btn btn-back"><i class="material-icons">north</i></button>
+    </transition>
     <!-- snackbar -->
-    <transition name="snackbar" mode="out-in">
+    <!-- <transition name="snackbar" mode="out-in">
       <div class="snackbar" v-if="tag.label">
         <div class="snackbar__container">
           <div class="snackbar__text">
@@ -72,15 +74,16 @@
             </span>
           </div>
           <span class="body-2 text-secondary">{{ tag.count }} photos</span>
-          <!-- <button @click="scrollToTop" class="btn btn-clear"><i class="material-icons">arrow-up</i></button> -->
+          <button @click="scrollToTop" class="btn btn-clear"><i class="material-icons">arrow-up</i></button>
         </div>
       </div>
-    </transition>
+    </transition> -->
   </div>
 </template>
 
 <script>
 import WidthMixin from '@/mixins/WidthMixin'
+import ScrollMixin from '@/mixins/ScrollMixin'
 import tags from '@/assets/tags.json'
 import Spinner from '@/components/Spinner'
 
@@ -88,7 +91,7 @@ let snackbarTimeout = null
 
 export default {
   name: 'photography-page',
-  mixins: [WidthMixin],
+  mixins: [WidthMixin, ScrollMixin],
   components: {
     Spinner,
     PhotographyTagSlider: () => import('@/components/photography/PhotographyTagSlider'),
@@ -195,9 +198,42 @@ export default {
       font-size: 1.2rem;
     }
   }
+  &__slider {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 99;
+    background-color: #fff;
+  }
   &__gallery {
-    padding: 1rem 4rem 2rem;
+    padding: 5rem 4rem 2rem;
     position: relative;
+  }
+
+  .btn-back {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    z-index: 99;
+    background-color: fade-out(black, 0.1);
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      line-height: 0;
+      font-size: 2rem;
+    }
+
+    &:hover {
+      background-color: fade-out(black, 0);
+    }
   }
 }
 .snackbar {
@@ -268,8 +304,12 @@ export default {
       height: 0px;
     }
     &__gallery {
-      padding: 0 !important;
+      padding: 5rem 0 0 !important;
       overflow-x: hidden;
+    }
+    .btn-back {
+      bottom: 1rem;
+      right: 1rem;
     }
   }
   .snackbar {

@@ -19,9 +19,9 @@
         <button id="download" class="btn btn-icon-circle btn-action flat" title="Download" @click="download">
           <i class="material-icons small">open_in_new</i>
         </button>
-        <button id="share" class="btn btn-icon-circle btn-action flat" title="Share Image" @click="$shareDialog = true">
+        <!-- <button id="share" class="btn btn-icon-circle btn-action flat" title="Share Image" @click="$shareDialog = true">
           <i class="material-icons small">share</i>
-        </button>
+        </button> -->
         <!-- <button
 					id="fullscreen"
 					class="btn btn-icon-circle btn-action flat"
@@ -47,7 +47,7 @@
           :alt="photo.name"
         />
       </div>
-      <div class="photo-page__main-controls">
+      <!-- <div class="photo-page__main-controls">
         <div class="left">
           <router-link class="link" :to="prevLink" ref="prev">
             <div class="i-c">
@@ -63,7 +63,7 @@
             </div>
           </router-link>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <information-dialog v-model="infoDialog" :photo="photo" />
@@ -116,11 +116,11 @@ export default {
     },
   },
   mounted() {
-    this.setEscKey()
     this.getImage()
     this.dOnResize = debounce(this.onResizeEvent, 100)
-    this.setEscKey()
     this.photosLength = photos.length
+    document.addEventListener('keyup', this.onKeydown)
+    document.addEventListener('scroll', this.onScroll)
   },
   methods: {
     getImage() {
@@ -193,20 +193,19 @@ export default {
         }
       }
     },
-    setEscKey() {
-      let that = this
-      let prev = this.$refs.prev.$el
-      let next = this.$refs.next.$el
-
-      document.addEventListener('keyup', function (evt) {
-        if (evt.keyCode === 27) {
-          that.close()
-        } else if (evt.keyCode === 39) {
-          prev.click()
-        } else if (evt.keyCode === 37) {
-          next.click()
-        }
-      })
+    onScroll(evt) {
+      this.close()
+    },
+    onKeydown(evt) {
+      if (evt.keyCode === 27) {
+        this.close()
+      }
+      if (evt.keyCode === 39) {
+        this.$router.push(this.nextLink)
+      }
+      if (evt.keyCode === 37) {
+        this.$router.push(this.prevLink)
+      }
     },
   },
   watch: {
@@ -226,6 +225,10 @@ export default {
     next((vm) => {
       vm.open(from)
     })
+  },
+  beforeDestroy() {
+    document.removeEventListener('keyup', this.onKeydown, false)
+    document.removeEventListener('scroll', this.onScroll, false)
   },
 }
 
@@ -269,6 +272,7 @@ function getOffset(el) {
   overflow-x: hidden;
   width: 100%;
   max-width: none;
+  cursor: pointer;
 
   &:before {
     content: '';
@@ -277,8 +281,8 @@ function getOffset(el) {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: fade-out(black, 0.15);
-    animation: fade-in 0.4s ease;
+    background-color: fade-out(black, 0);
+    animation: fade-in 0.2s ease;
   }
 
   // toolbar
@@ -323,19 +327,14 @@ function getOffset(el) {
       }
 
       &:hover {
-        background-color: fade-out(white, 0.9);
+        background-color: fade-out(white, 0.95);
       }
       &:focus,
       &:active {
-        background: fade-out(white, 0.8);
+        background: fade-out(white, 0.9);
       }
       .small {
         font-size: 1.25rem !important;
-      }
-      &.close {
-        i {
-          font-size: 2rem !important;
-        }
       }
     }
   }
@@ -345,7 +344,7 @@ function getOffset(el) {
     height: calc(100% - 80px);
     position: relative;
     pointer-events: none;
-    padding: 2rem 4rem;
+    padding: 0rem 4rem 2rem;
   }
   &__main-img {
     width: 100%;
@@ -360,8 +359,9 @@ function getOffset(el) {
   &__img {
     max-height: 100%;
     max-width: 100%;
-    animation: pop-in 0.75s ease;
+    animation: pop-in 0.25s ease;
     pointer-events: auto;
+    cursor: default;
   }
 
   // controls

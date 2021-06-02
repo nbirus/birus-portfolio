@@ -1,7 +1,7 @@
 <template>
   <div class="contain">
     <transition :name="`slider-${direction}`" mode="out-in">
-      <ul :key="page" class="scrolling-wrapper" ref="container" @mousedown="mouseDownHandler">
+      <ul :key="page" class="scrolling-wrapper" ref="container" @mousedown="mouseDownHandler" @mousewheel.stop.prevent="onScroll">
         <li class="scrolling-wrapper__item" :class="`size-${size} active-${!activeTag}`">
           <router-link
             tag="button"
@@ -90,6 +90,14 @@ export default {
     },
   },
   methods: {
+    onScroll(e) {
+      const ele = this.$refs.container
+      // ele.scrollLeft = ele.scrollLeft + e.deltaY
+      ele.scrollTo({
+        top: 0,
+        left: ele.scrollLeft + e.deltaY,
+      })
+    },
     mouseDownHandler(e) {
       const ele = this.$refs.container
 
@@ -111,11 +119,12 @@ export default {
       document.addEventListener('mouseup', this.mouseUpHandler)
     },
     mouseMoveHandler(e) {
-      this.dragging = true
       const ele = this.$refs.container
       if (this.width < 768 || !ele) {
         return
       }
+      this.dragging = true
+
       // How far the mouse has been moved
       const dx = e.clientX - pos.x
       const dy = e.clientY - pos.y
@@ -150,7 +159,7 @@ function clone(o) {
   display: flex;
   align-items: center;
   height: auto;
-  padding: 0.25rem 0 0 0;
+  padding: 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -162,7 +171,7 @@ function clone(o) {
   max-width: 100%;
   height: auto;
   flex: 0 1 100%;
-  min-height: 84px;
+  // min-height: 84px;
   position: relative;
   backface-visibility: hidden;
   z-index: 1;
@@ -170,33 +179,34 @@ function clone(o) {
   overflow-y: visible;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 1rem 4rem 0.5rem;
+  padding: 0.5rem 4rem;
   cursor: grab;
   overflow: auto;
 
   &::-webkit-scrollbar {
     transition: height 0.25s ease-in-out;
     height: 0;
-    display: none;
+    // display: none;
   }
   /* Track */
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 8px fade-out(black, 0.9);
+    // box-shadow: inset 0 0 8px fade-out(black, 0.9);
     border-radius: 10px;
+    background: transparent;
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: var(--c-grey3);
+    background: var(--c-grey1);
     border-radius: 10px;
   }
 
   &:hover {
     &::-webkit-scrollbar {
-      height: 0.5rem;
+      height: 0.35rem;
     }
     &::-webkit-scrollbar-thumb {
-      background: var(--c-grey5);
+      background: var(--c-grey3);
     }
     img {
       filter: grayscale(0%);
@@ -206,11 +216,11 @@ function clone(o) {
   &__item {
     flex: 1 0 auto;
     margin: 0 0.75rem 0 0;
-    min-width: 210px;
+    min-width: 100px;
 
     &.active-true {
       .scrolling-wrapper__button {
-        box-shadow: 0 0 0 1px darken(#2296f3, 5);
+        // box-shadow: 0 0 0 1px darken(#2296f3, 5);
         background-color: fade-out(#2296f3, 0.7);
       }
       .scrolling-wrapper__label {
@@ -267,20 +277,21 @@ function clone(o) {
   &__button {
     width: 100%;
     height: auto;
-    padding: 0.5rem;
+    padding: 0.35rem;
     display: flex;
     align-items: center;
     border: none;
     background-color: #fff;
     border: solid thin var(--c-grey3);
+    border: none;
     padding-right: 1.5rem;
     border-radius: 4px;
-    box-shadow: 0 5px 0.5rem -2px rgba(0, 0, 0, 0.025), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
 
     &:hover {
+      // box-shadow: 0 5px 0.5rem -2px rgba(0, 0, 0, 0.025), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
       // border-color: var(--c-blue);
       background-color: fade-out(#2296f3, 0.975);
-      box-shadow: 0 5px 0.75rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+      // box-shadow: 0 5px 0.75rem -2px rgba(0, 0, 0, 0.075), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
 
       .label {
         color: darken(#2296f3, 15);
@@ -385,11 +396,13 @@ function clone(o) {
 }
 @media only screen and (max-width: 768px) {
   .contain {
-    padding: 0.5rem 0.25rem 0 !important;
+    padding: 0.25rem 0rem !important;
   }
   .scrolling-wrapper {
     padding: 0.25rem 0.5rem;
-
+    &__item {
+      min-width: 100px;
+    }
     &__img {
       width: 2.75rem;
       height: 2.75rem;
@@ -405,7 +418,7 @@ function clone(o) {
       }
     }
     &__label {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
