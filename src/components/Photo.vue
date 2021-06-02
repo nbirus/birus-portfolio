@@ -70,14 +70,15 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .progressive-image-wrapper {
-    padding-bottom: 100% !important;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .progressive-image-wrapper {
+      padding-bottom: 100% !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
+
   img {
     height: 100%;
   }

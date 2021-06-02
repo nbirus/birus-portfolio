@@ -206,7 +206,7 @@ function clone(o) {
   &__item {
     flex: 1 0 auto;
     margin: 0 0.75rem 0 0;
-    min-width: 200px;
+    min-width: 210px;
 
     &.active-true {
       .scrolling-wrapper__button {

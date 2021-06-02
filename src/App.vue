@@ -1,29 +1,29 @@
 8<template>
   <div class="nb-app" id="app" ref="scroll" :class="$darkClass">
     <!-- <header-bar @side-bar="sideBar=true" /> -->
-    <side-bar v-model="sideBar" />
+    <!-- <side-bar v-model="sideBar" /> -->
     <main class="nb-main">
       <transition name="page" mode="out-in">
         <router-view :key="key" />
       </transition>
       <share-dialog />
-      <contact-dialog />
+      <!-- <contact-dialog /> -->
     </main>
   </div>
 </template>
 
 <script>
-import HeaderBar from '@/views/partials/Header'
-import SideBar from '@/views/partials/SideBar'
+// import HeaderBar from '@/views/partials/Header'
+// import SideBar from '@/views/partials/SideBar'
 import photos from '@/assets/photos'
 import tags from '@/assets/tags.json'
 
 import ShareDialog from '@/views/dialogs/ShareDialog'
-import ContactDialog from '@/views/dialogs/ContactDialog'
+// import ContactDialog from '@/views/dialogs/ContactDialog'
 
 export default {
   name: 'app',
-  components: { HeaderBar, SideBar, ShareDialog, ContactDialog },
+  components: { ShareDialog, ContactDialog },
   data() {
     return {
       sideBar: false,
