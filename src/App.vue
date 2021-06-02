@@ -65,9 +65,9 @@ export default {
           return
         }
 
-        if (to.name !== 'photo' && from.name !== 'photo' && to.name !== from.name) {
-          this.key++
-        }
+        // if (to.name !== 'photo' && from.name !== 'photo' && to.name !== from.name) {
+        //   this.key++
+        // }
 
         // if (to.name === 'photo') {
         //   disableScroll()
