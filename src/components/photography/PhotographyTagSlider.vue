@@ -295,6 +295,9 @@ function clone(o) {
       outline: none;
       box-shadow: none;
     }
+    &.disabled {
+      opacity: 1;
+    }
   }
   &__img {
     background-color: var(--c-grey1);
