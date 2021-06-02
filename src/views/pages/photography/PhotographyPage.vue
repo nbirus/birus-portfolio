@@ -304,7 +304,7 @@ export default {
       height: 0px;
     }
     &__gallery {
-      padding: 5rem 0 0 !important;
+      padding: 4.5rem 0 0 !important;
       overflow-x: hidden;
     }
     .btn-back {

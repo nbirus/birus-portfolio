@@ -292,7 +292,7 @@ function getOffset(el) {
     display: flex;
     align-items: center;
     padding: 0 2rem;
-    animation: slide-down 0.6s ease;
+    // animation: slide-down 0.6s ease;
   }
   &__count {
     flex: 0 1 100%;
