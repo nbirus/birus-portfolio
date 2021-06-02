@@ -9,10 +9,10 @@ VueRouter.prototype.push = function push(location) {
 }
 
 const routes = [
-	// {
-	// 	path: '*',
-	// 	redirect: '/',
-	// },
+	{
+		path: '*',
+		redirect: '/photography',
+	},
 	// {
 	// 	path: '/',
 	// 	name: 'home',
