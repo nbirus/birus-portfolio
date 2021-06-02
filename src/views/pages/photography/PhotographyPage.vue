@@ -52,8 +52,8 @@
     </div> -->
 
     <!-- gallery -->
-    <div class="page__gallery">
-      <photography-gallery :key="pageKey" :pageKey="pageKey" v-if="width$ > 768" />
+    <div class="page__gallery" v-if="waitToLoad">
+      <photography-gallery :key="pageKey" :pageKey="pageKey" v-if="width$ === 0 || width$ > 768" />
       <photography-mobile-gallery :key="pageKey" :pageKey="pageKey" v-else />
     </div>
 
@@ -106,6 +106,7 @@ export default {
         message: '',
       },
       loading: false,
+      waitToLoad: false,
     }
   },
   computed: {
@@ -118,6 +119,11 @@ export default {
     tagActive() {
       return !!this.tag.id && !this.hideTags
     },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.waitToLoad = true
+    }, 100)
   },
   methods: {
     setTag() {

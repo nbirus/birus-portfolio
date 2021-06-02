@@ -6,7 +6,7 @@
       <transition name="page" mode="out-in">
         <router-view />
       </transition>
-      <share-dialog />
+      <!-- <share-dialog /> -->
       <!-- <contact-dialog /> -->
     </main>
   </div>
@@ -18,12 +18,12 @@
 import photos from '@/assets/photos'
 import tags from '@/assets/tags.json'
 
-import ShareDialog from '@/views/dialogs/ShareDialog'
+// import ShareDialog from '@/views/dialogs/ShareDialog'
 // import ContactDialog from '@/views/dialogs/ContactDialog'
 
 export default {
   name: 'app',
-  components: { ShareDialog },
+  // components: { ShareDialog },
   data() {
     return {
       sideBar: false,
