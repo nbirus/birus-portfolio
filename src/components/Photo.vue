@@ -1,12 +1,17 @@
 <template>
   <div class="root" :style="style">
+    <Observer @intersect="intersected" />
     <progressive-img v-if="visible" :class="aspect" :src="src" :placeholder="placeholder" :alt="alt" :id="id" />
   </div>
 </template>
 
 <script>
+import Observer from './Observer'
 export default {
   name: 'photo',
+  components: {
+    Observer,
+  },
   props: {
     id: {
       type: String,
@@ -43,7 +48,7 @@ export default {
   },
   data() {
     return {
-      visible: true,
+      visible: false,
       loading: true,
     }
   },
@@ -55,6 +60,14 @@ export default {
       let style = {}
       style.backgroundColor = this.backgroundColor
       return style
+    },
+  },
+  methods: {
+    intersected(intersected) {
+      console.log('HERe', intersected)
+      if (!this.visible && intersected) {
+        this.visible = true
+      }
     },
   },
 }
