@@ -15,55 +15,38 @@
 				>
 					<i class="material-icons small">info</i>
         </button>-->
-
         <button id="download" class="btn btn-icon-circle btn-action flat" title="Download" @click="download">
           <i class="material-icons small">open_in_new</i>
         </button>
-        <!-- <button id="share" class="btn btn-icon-circle btn-action flat" title="Share Image" @click="$shareDialog = true">
-          <i class="material-icons small">share</i>
-        </button> -->
-        <!-- <button
-					id="fullscreen"
-					class="btn btn-icon-circle btn-action flat"
-					title="Go Fullscreen"
-					@click="isExpanded = !isExpanded"
-				>
-					<i class="material-icons">{{ isExpanded ? 'fullscreen_exit' : 'fullscreen' }}</i>
-        </button>-->
         <button id="close" class="btn btn-icon-circle btn-action flat close" title="Close Image" @click="close">
           <i class="material-icons">close</i>
         </button>
       </div>
     </div>
-    <div class="photo-page__main">
+    <div class="photo-page__main" :class="{ isZoomed, loading }">
       <div class="photo-page__main-img" ref="container">
+        <div v-if="isZoomed" class="zoom-message">
+          <div class="bar">Zoom is set to <b>300%</b> <button @click="isZoomed = false">Reset</button></div>
+        </div>
         <img
           v-if="photo.urls"
           ref="img"
           class="photo-page__img"
+          draggable="true"
           :class="photo.aspect"
           :style="imgStyle"
-          :src="photo.urls.Large.source"
+          :src="isZoomed ? photo.urls.Original.source : photo.urls.Large.source"
           :alt="photo.name"
+          @click="onZoom"
+          @dblclick="onMouseup"
+          @load="onImgLoad"
+          @mousedown="onMousedown"
+          @mousemove="onMouseover"
+          @mouseup="onMouseup"
+          @mouseleave="onMouseup"
+          tabindex="0"
         />
       </div>
-      <!-- <div class="photo-page__main-controls">
-        <div class="left">
-          <router-link class="link" :to="prevLink" ref="prev">
-            <div class="i-c">
-              <i class="material-icons">chevron_left</i>
-            </div>
-          </router-link>
-        </div>
-        <div class="center"></div>
-        <div class="right">
-          <router-link class="link" :to="nextLink" ref="next">
-            <div class="i-c">
-              <i class="material-icons">chevron_right</i>
-            </div>
-          </router-link>
-        </div>
-      </div> -->
     </div>
 
     <information-dialog v-model="infoDialog" :photo="photo" />
@@ -85,11 +68,16 @@ export default {
     return {
       isExpanded: false,
       infoDialog: false,
+      isZoomed: false,
+      isDragging: false,
+      loading: false,
       lastTag: '',
       photo: {},
       photoIndex: 0,
       photosLength: 0,
       width: 0,
+      movementX: 0,
+      movementY: 0,
       imgWidth: '100%',
       imgHeight: 'auto',
     }
@@ -101,6 +89,7 @@ export default {
         height: this.imgHeight,
         maxWidth: `${this.photo.width * 1.5}px`,
         maxHeight: `${this.photo.height * 1.5}px`,
+        transform: `translateX(${this.movementX}px) translateY(${this.movementY}px) scale(${this.isZoomed ? '2.75' : '1'})`,
       }
     },
     prevLink() {
@@ -150,7 +139,7 @@ export default {
     download() {
       var link = document.createElement('a')
       link.download = 'name.jpg'
-      link.href = this.photo.urls.Original.source
+      link.href = this.photo.urls.Large.source
       link.target = '_blank'
       document.body.appendChild(link)
       link.click()
@@ -194,11 +183,17 @@ export default {
       }
     },
     onScroll(evt) {
-      this.close()
+      if (!this.isZoomed) {
+        this.close()
+      }
     },
     onKeydown(evt) {
       if (evt.keyCode === 27) {
-        this.close()
+        if (this.isZoomed) {
+          this.isZoomed = false
+        } else {
+          this.close()
+        }
       }
       if (evt.keyCode === 39) {
         this.$router.push(this.nextLink)
@@ -207,9 +202,57 @@ export default {
         this.$router.push(this.prevLink)
       }
     },
+    onZoom(event) {
+      this.isZoomed = true
+    },
+    onImgLoad(event) {
+      if (this.isZoomed && !this.loading) {
+        this.loading = true
+      } else if (this.isZoomed && this.loading) {
+        this.loading = false
+      }
+    },
+    onMousedown() {
+      this.isDragging = this.isZoomed
+    },
+    onMouseup() {
+      this.isDragging = false
+    },
+    onMouseover(event) {
+      event.preventDefault()
+      if (this.isDragging) {
+        let top = this.photo.height
+        let bottom = this.photo.height * -1
+        let left = this.photo.width
+        let right = this.photo.width * -1
+
+        // moving up
+        if (event.movementY > 0 && this.movementY + event.movementY < top) {
+          this.movementY += event.movementY
+        }
+        // moving down
+        else if (event.movementY < 0 && this.movementY + event.movementX > bottom) {
+          this.movementY += event.movementY
+        }
+        // moving right
+        if (event.movementX < 0 && this.movementX + event.movementX > right) {
+          this.movementX += event.movementX
+        }
+        // moving left
+        else if (event.movementX > 0 && this.movementX + event.movementX < left) {
+          this.movementX += event.movementX
+        }
+      }
+    },
   },
   watch: {
     $route: 'getImage',
+    isZoomed(isZoomed) {
+      if (!isZoomed) {
+        this.movementX = 0
+        this.movementY = 0
+      }
+    },
     width$(width) {
       this.dOnResize(width)
     },
@@ -273,6 +316,7 @@ function getOffset(el) {
   width: 100%;
   max-width: none;
   cursor: pointer;
+  padding-right: 0 !important;
 
   &:before {
     content: '';
@@ -293,6 +337,18 @@ function getOffset(el) {
     align-items: center;
     padding: 0 2rem;
     // animation: slide-down 0.6s ease;
+
+    &:after {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      height: 110px;
+      left: 0px;
+      content: '';
+      background: rgb(0, 0, 0);
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+      z-index: 2;
+    }
   }
   &__count {
     flex: 0 1 100%;
@@ -359,9 +415,61 @@ function getOffset(el) {
   &__img {
     max-height: 100%;
     max-width: 100%;
-    animation: pop-in 0.25s ease;
+    animation: pop-in-sm 0.25s ease;
     pointer-events: auto;
-    cursor: default;
+    cursor: zoom-in;
+  }
+
+  .zoom-message {
+    position: fixed;
+    top: 1.5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 999999;
+
+    .bar {
+      padding: 0.5rem 1.25rem;
+      background-color: black;
+      border-radius: 25px;
+      color: white;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      cursor: default;
+
+      button {
+        margin-left: 1rem;
+        border: none;
+        background-color: fade-out(white, 0.85);
+        color: white;
+        padding: 0.35rem 0.65rem;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .isZoomed {
+    .photo-page__main-img {
+      position: absolute;
+      top: -80px;
+      right: -2rem;
+      height: 100vh;
+      left: 0px;
+      pointer-events: none;
+    }
+    .photo-page__img {
+      cursor: grab;
+      pointer-events: all;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+  .loading {
+    // border: solid thin blue;
   }
 
   // controls
@@ -484,6 +592,20 @@ function getOffset(el) {
   50% {
     opacity: 0;
     transform: scale(0.75);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes pop-in-sm {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(0.9);
   }
   100% {
     opacity: 1;
