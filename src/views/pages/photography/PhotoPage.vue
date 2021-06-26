@@ -221,10 +221,13 @@ export default {
     onMouseover(event) {
       event.preventDefault()
       if (this.isDragging) {
-        let top = this.photo.height
-        let bottom = this.photo.height * -1
-        let left = this.photo.width
-        let right = this.photo.width * -1
+        let margin = 0
+        let height = event?.srcElement.offsetHeight
+        let width = event?.srcElement.offsetWidth
+        let top = height + margin
+        let bottom = height * -1 - margin
+        let left = width + margin
+        let right = width * -1 - margin
 
         // moving up
         if (event.movementY > 0 && this.movementY + event.movementY < top) {
