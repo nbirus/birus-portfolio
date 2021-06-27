@@ -2,7 +2,7 @@
   <div class="page photo-page" @click.self.prevent.stop="close">
     <div class="photo-page__toolbar">
       <div class="photo-page__count">
-        <div class="location" v-text="photo.position"></div>
+        <!-- <div class="location" v-text="photo.position"></div> -->
         <div class="name" v-text="`${photoIndex + 1} / ${photoLength}`"></div>
         <!-- <div class="name" v-text="photo.name"></div> -->
       </div>
@@ -26,7 +26,11 @@
     <div class="photo-page__main" :class="{ isZoomed, loading }">
       <div class="photo-page__main-img" ref="container">
         <div v-if="isZoomed" class="zoom-message">
-          <div class="bar">Zoom is set to <b>300%</b> <button @click="isZoomed = false">Reset</button></div>
+          <div class="bar">
+            <span v-if="loading">Loading full image...</span>
+            <span v-else>Zoom is set to <b>300%</b></span>
+            <button @click="isZoomed = false">Reset</button>
+          </div>
         </div>
         <img
           v-if="photo.urls"
@@ -78,7 +82,7 @@ export default {
       width: 0,
       movementX: 0,
       movementY: 0,
-      imgWidth: '100%',
+      imgWidth: 'auto',
       imgHeight: 'auto',
     }
   },
@@ -149,37 +153,12 @@ export default {
       if (this.width$ <= 768) {
         return
       }
-      let maxWidth = this.photo.width
-      let maxHeight = this.photo.height
-      let cWidth = this.$refs.container.offsetWidth
-      let cHeight = this.$refs.container.offsetHeight
-      let isStretchingH = maxWidth < cWidth
-      let isStretchingV = maxHeight < cHeight
-
       if (this.photo.aspect === 'v') {
-        if (isStretchingV) {
-          this.imgWidth = '100%'
-          this.imgHeight = 'auto'
-        } else {
-          this.imgWidth = 'auto'
-          this.imgHeight = '100%'
-        }
+        this.imgHeight = '100%'
       } else if (this.photo.aspect === 's') {
-        if (isStretchingV) {
-          this.imgWidth = '100%'
-          this.imgHeight = 'auto'
-        } else {
-          this.imgWidth = 'auto'
-          this.imgHeight = '100%'
-        }
+        this.imgWidth = '100%'
       } else if (this.photo.aspect === 'h') {
-        if (isStretchingH) {
-          this.imgWidth = 'auto'
-          this.imgHeight = '100%'
-        } else {
-          this.imgWidth = '100%'
-          this.imgHeight = 'auto'
-        }
+        this.imgWidth = '100%'
       }
     },
     onScroll(evt) {
@@ -202,13 +181,16 @@ export default {
         this.$router.push(this.prevLink)
       }
     },
-    onZoom(event) {
-      this.isZoomed = true
+    onZoom() {
+      if (!this.isZoomed) {
+        this.isZoomed = true
+        this.loading = true
+      }
     },
-    onImgLoad(event) {
+    onImgLoad() {
       if (this.isZoomed && !this.loading) {
         this.loading = true
-      } else if (this.isZoomed && this.loading) {
+      } else if (this.loading) {
         this.loading = false
       }
     },
@@ -360,7 +342,7 @@ function getOffset(el) {
 
     .name {
       font-size: 0.9rem;
-      opacity: 0.5;
+      opacity: 0.75;
     }
     .location {
       margin-bottom: 0.5rem;
@@ -421,6 +403,7 @@ function getOffset(el) {
     animation: pop-in-sm 0.25s ease;
     pointer-events: auto;
     cursor: zoom-in;
+    outline: none !important;
   }
 
   .zoom-message {
