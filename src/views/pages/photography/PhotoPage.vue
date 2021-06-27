@@ -42,7 +42,7 @@
           :src="isZoomed ? photo.urls.Original.source : photo.urls.Large.source"
           :alt="photo.name"
           @click="onZoom"
-          @dblclick="onMouseup"
+          @dblclick="isZoomed = false"
           @load="onImgLoad"
           @mousedown="onMousedown"
           @mousemove="onMouseover"
@@ -156,8 +156,10 @@ export default {
       if (this.photo.aspect === 'v') {
         this.imgHeight = '100%'
       } else if (this.photo.aspect === 's') {
-        this.imgWidth = '100%'
+        this.imgHeight = '100%'
       } else if (this.photo.aspect === 'h') {
+        this.imgWidth = '100%'
+      } else if (this.photo.aspect === 'p') {
         this.imgWidth = '100%'
       }
     },
@@ -298,7 +300,7 @@ function getOffset(el) {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  width: 100%;
+  width: calc(100% + 1rem);
   max-width: none;
   cursor: pointer;
   padding-right: 0 !important;
@@ -423,6 +425,7 @@ function getOffset(el) {
       font-size: 0.9rem;
       pointer-events: auto;
       cursor: default;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
       button {
         margin-left: 1rem;
