@@ -30,6 +30,11 @@ const routes = [
 			},
 		],
 	},
+	{
+		path: '/todo',
+		name: 'todo',
+		component: () => import(/* webpackChunkName: "todo" */ '../views/pages/todo/TodoPage.vue'),
+	},
 	// {
 	// 	path: '/music',
 	// 	name: 'music',
