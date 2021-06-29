@@ -179,7 +179,6 @@ tbody {
   .info {
     min-width: 300px;
   }
-
   .link input {
     width: 100px;
   }

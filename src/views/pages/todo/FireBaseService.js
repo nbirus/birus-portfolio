@@ -31,10 +31,11 @@ export async function readData() {
 		});
 	}))
 }
-
-// [START rtdb_write_new_user]
 export function writeData(data) {
   firebase.database().ref().set(data);
+}
+export function updateData(data) {
+	firebase.database().ref().set(data);
 }
 
 
